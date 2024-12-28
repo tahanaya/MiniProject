@@ -1,0 +1,64 @@
+/* Header bar at the top with a gradient background */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #34495e, #2c3e50);
+    -fx-padding: 10;
+    -fx-alignment: center_left;
+}
+
+/* The title text in the header */
+.app-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 10; /* a bit of left padding */
+}
+
+/* Center container styles (the VBox) */
+.landing-container {
+    -fx-padding: 40 20 40 20; /* top, right, bottom, left */
+}
+
+/* Big headline label in the center */
+.landing-headline {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50; /* Dark blue/gray color */
+}
+
+/* Multi-line descriptive text */
+.landing-text {
+    -fx-text-fill: #555;
+    -fx-wrap-text: true;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 0 20 0 20;
+}
+
+/* "Go to Login" button */
+.login-btn {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.15) , 8, 0, 1, 1 );
+}
+
+/* Hover effect for the login button */
+.login-btn:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* Footer label at the bottom */
+.footer-label {
+    -fx-alignment: center;
+    -fx-font-size: 12px;
+    -fx-text-fill: #999;
+    -fx-padding: 10;
+    -fx-background-color: #f3f3f3;
+    -fx-pref-width: 100%; /* ensure it spans the bottom width */
+    -fx-text-alignment: center;
+}

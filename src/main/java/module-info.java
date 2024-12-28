@@ -10,4 +10,7 @@ module com.miniproject.miniproject {
     exports com.miniproject;
     exports com.miniproject.CONTROLLER;
     opens com.miniproject.CONTROLLER to javafx.fxml;
+
+    // Export the TEST package specifically to javafx.graphics
+    opens com.miniproject.TEST to javafx.graphics;
 }
