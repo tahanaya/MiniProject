@@ -13,4 +13,17 @@ module com.miniproject.miniproject {
 
     // Export the TEST package specifically to javafx.graphics
     opens com.miniproject.TEST to javafx.graphics;
+
+
+    // Export packages if other modules need to access them
+    exports com.miniproject.ENTITY;
+
+    // Open the ENTITY package to javafx.base for reflection
+    opens com.miniproject.ENTITY to javafx.base, javafx.fxml;
+    exports com.miniproject.CONTROLLER.ETUDIANT;
+    opens com.miniproject.CONTROLLER.ETUDIANT to javafx.fxml;
+    exports com.miniproject.CONTROLLER.DASHBOARD;
+    opens com.miniproject.CONTROLLER.DASHBOARD to javafx.fxml;
+
+
 }

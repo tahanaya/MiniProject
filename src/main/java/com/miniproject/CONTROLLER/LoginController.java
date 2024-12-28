@@ -46,14 +46,14 @@ public class LoginController {
         String fxmlFile = "";
         switch (role) {
             case "ADMINISTRATEUR":
-                fxmlFile = "/com/miniproject/view/AdminDashboardView.fxml";
+                fxmlFile = "/com/miniproject/view/Dashboard/AdminDashboardView.fxml";
                 break;
             case "SECRETAIRE":
-                 fxmlFile = "/com/miniproject/view/SecretaryDashboardView.fxml";
+                 fxmlFile = "/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml";
 
                 break;
             case "PROFESSEUR":
-                fxmlFile = "/com/miniproject/view/ProfessorDashboardView.fxml";
+                fxmlFile = "/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml";
 
                 break;
             default:
@@ -75,12 +75,7 @@ public class LoginController {
             stage.setTitle("Dashboard");
             stage.show();
 
-            // If you want to set a welcome message in the AdminDashboardController:
-            Object controller = loader.getController();
-            if (controller instanceof AdminDashboardController) {
-                ((AdminDashboardController) controller)
-                        .setWelcomeMessage(user.getUsername(), user.getRole());
-            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
