@@ -8,4 +8,6 @@ module com.miniproject.miniproject {
 
     opens com.miniproject to javafx.fxml;
     exports com.miniproject;
+    exports com.miniproject.CONTROLLER;
+    opens com.miniproject.CONTROLLER to javafx.fxml;
 }
