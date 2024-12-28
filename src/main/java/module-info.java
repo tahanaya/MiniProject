@@ -4,6 +4,6 @@ module com.miniproject.miniproject {
 
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.miniproject.miniproject to javafx.fxml;
-    exports com.miniproject.miniproject;
+    opens com.miniproject to javafx.fxml;
+    exports com.miniproject;
 }
