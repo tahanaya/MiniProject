@@ -3,10 +3,7 @@ package com.miniproject.DAO;
 import com.miniproject.ENTITY.Utilisateur;
 import com.miniproject.DATABASE.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDAOImpl implements UserDAO {
     private Connection connection;
@@ -38,12 +35,23 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void addUser(Utilisateur utilisateur) {
-        String query = "INSERT INTO utilisateurs (username, password, role) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        String sql = "INSERT INTO utilisateur (username, password, nom, prenom, role) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, utilisateur.getUsername());
             stmt.setString(2, utilisateur.getPassword());
-            stmt.setString(3, utilisateur.getRole());
-            stmt.executeUpdate();
+            stmt.setString(3, utilisateur.getNom());
+            stmt.setString(4, utilisateur.getPrenom());
+            stmt.setString(5, utilisateur.getRole()); // Set a role if needed, like "teacher" or null
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int utilisateurId = generatedKeys.getInt(1);
+                        utilisateur.setId(utilisateurId);  // Set the generated ID on the Utilisateur object
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
