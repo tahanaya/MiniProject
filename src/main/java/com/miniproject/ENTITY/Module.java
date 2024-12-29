@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class Module {
+
     private int id;
     private String nomModule;
     private String codeModule;
-    private int professeurId; // Foreign key to Professeur
+    private Professeur professeur; // Foreign key to Professeur (1:1 relationship)
 }

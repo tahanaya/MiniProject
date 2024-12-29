@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Utilisateur getUserByUsername(String username) {
-        String query = "SELECT * FROM utilisateurs WHERE username = ?";
+        String query = "SELECT * FROM utilisateur WHERE username = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {

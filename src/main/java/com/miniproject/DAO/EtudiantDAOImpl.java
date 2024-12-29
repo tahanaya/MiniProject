@@ -17,7 +17,7 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
 
     @Override
     public Etudiant findById(int id) {
-        String sql = "SELECT * FROM etudiants WHERE id = ?";
+        String sql = "SELECT * FROM etudiant WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -33,7 +33,7 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
     @Override
     public List<Etudiant> findAll() {
         List<Etudiant> list = new ArrayList<>();
-        String sql = "SELECT * FROM etudiants ORDER BY id ASC";
+        String sql = "SELECT * FROM etudiant ORDER BY id ASC";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -49,7 +49,7 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
     @Override
     public void save(Etudiant entity) {
         // If 'id' is auto-generated (SERIAL), we typically ignore it here
-        String sql = "INSERT INTO etudiants (matricule, nom, prenom, dateNaissance, email, promotion) "
+        String sql = "INSERT INTO etudiant (matricule, nom, prenom, dateNaissance, email, promotion) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, entity.getMatricule());
@@ -72,7 +72,7 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
 
     @Override
     public void update(Etudiant entity) {
-        String sql = "UPDATE etudiants SET "
+        String sql = "UPDATE etudiant SET "
                 + "matricule=?, nom=?, prenom=?, dateNaissance=?, email=?, promotion=? "
                 + "WHERE id=?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -91,8 +91,8 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
     }
 
     public void delete(int id) {
-        String deleteInscriptions = "DELETE FROM inscriptions WHERE etudiant_id = ?";
-        String deleteEtudiant = "DELETE FROM etudiants WHERE id = ?";
+        String deleteInscriptions = "DELETE FROM inscription WHERE etudiant_id = ?";
+        String deleteEtudiant = "DELETE FROM etudiant WHERE id = ?";
         try (PreparedStatement pstmtInscriptions = conn.prepareStatement(deleteInscriptions);
              PreparedStatement pstmtEtudiant = conn.prepareStatement(deleteEtudiant)) {
 

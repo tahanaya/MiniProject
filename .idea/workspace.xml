@@ -4,31 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="crud etud and prof">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/AddStudentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EditStudentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/ViewStudentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/navbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/EtudiantView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/add-student.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/edit-student.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/view-student.fxml" afterDir="false" />
+    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/HelloController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/AdminDashboardController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ManageStudentsController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ProfessorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/SecretaryDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/ProfessorViewStudentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Inscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Inscription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/AdminDashboardView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/SecretaryDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/professor-view-students.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +86,7 @@
     "Application.loginMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feature/auth",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -215,7 +208,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735382425628</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="FORCED TO COMMIT">
+      <option name="closed" value="true" />
+      <created>1735477789724</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1735477789724</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,6 +229,7 @@
     <MESSAGE value="etudiant and prof dao" />
     <MESSAGE value="project structure" />
     <MESSAGE value="crud etud and prof" />
-    <option name="LAST_COMMIT_MESSAGE" value="crud etud and prof" />
+    <MESSAGE value="FORCED TO COMMIT" />
+    <option name="LAST_COMMIT_MESSAGE" value="FORCED TO COMMIT" />
   </component>
 </project>

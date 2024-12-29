@@ -5,6 +5,7 @@ module com.miniproject.miniproject {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires static lombok;
+    requires jdk.jshell;
 
     opens com.miniproject to javafx.fxml;
     exports com.miniproject;
