@@ -14,7 +14,7 @@ public class DatabaseConnection {
 
     private final String url = "jdbc:postgresql://localhost:5432/MiniProject";
     private final String username = "postgres";
-    private final String password = "123";
+    private final String password = "Ayoub2003";
 
     private DatabaseConnection() {
         try {

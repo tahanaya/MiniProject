@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" afterDir="false" />
+    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="Crud professeur sans modifier">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/AddProfesseurController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/EditProfesseurController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ProfesseurController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ViewProfesseurController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/ProfesseurView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/add-professeur.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/edit-professeur.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/view-professeur.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +45,12 @@
     &quot;assignee&quot;: &quot;tahanaya&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/tahanaya/MiniProject.git&quot;,
-    &quot;accountId&quot;: &quot;8f60449d-4a58-4d57-8abf-5a6c630f3d0d&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/tahanaya/MiniProject.git",
+    "accountId": "c44cfb4f-0553-427b-aa09-f183d4b2202f"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -158,7 +161,7 @@
       <workItem from="1735485269001" duration="28000" />
       <workItem from="1735485361944" duration="11108000" />
       <workItem from="1735497288824" duration="4658000" />
-      <workItem from="1735506388425" duration="1731000" />
+      <workItem from="1735506388425" duration="2149000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -216,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735477789724</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Crud professeur sans modifier">
+      <option name="closed" value="true" />
+      <created>1735508469485</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1735508469485</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +241,8 @@
     <MESSAGE value="project structure" />
     <MESSAGE value="crud etud and prof" />
     <MESSAGE value="FORCED TO COMMIT" />
-    <option name="LAST_COMMIT_MESSAGE" value="FORCED TO COMMIT" />
+    <MESSAGE value="Crud professeur sans modifier" />
+    <option name="LAST_COMMIT_MESSAGE" value="Crud professeur sans modifier" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

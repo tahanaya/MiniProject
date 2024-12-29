@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="465.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.PROFESSEUR.AddProfesseurController">
+    <children>
+        <Text layoutX="50.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un nouveau professeur">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+
+        <VBox layoutX="50.0" layoutY="60.0" prefWidth="300.0" spacing="10.0">
+            <children>
+                <Label text="Nom:" />
+                <TextField fx:id="nomField" promptText="Entrer le nom" />
+
+                <Label text="Prénom:" />
+                <TextField fx:id="prenomField" promptText="Entrer le prénom" />
+
+                <Label text="Spécialité:" />
+                <TextField fx:id="specialiteField" promptText="Entrer la spécialité" />
+
+                <Label text="Nom d'utilisateur:" />
+                <TextField fx:id="usernameField" promptText="Entrer le nom d'utilisateur" />
+
+                <Label text="Mot de passe:" />
+                <PasswordField fx:id="passwordField" promptText="Entrer le mot de passe" />
+            </children>
+        </VBox>
+
+        <Button layoutX="15.0" layoutY="450.0" onAction="#handleAdd" prefWidth="140.0" text="Ajouter" />
+        <Button layoutX="288.0" layoutY="449.0" onAction="#handleCancel" prefWidth="140.0" text="Annuler" />
+    </children>
+</AnchorPane>
