@@ -1,0 +1,66 @@
+/* General styling */
+.root {
+    -fx-background-color: #f4f7f6;
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* VBox styling */
+.vbox {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 5);
+}
+
+/* Label styling */
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d2d2d;
+    -fx-padding: 0 0 20 0;
+}
+
+/* TextField and PasswordField styling */
+.text-field, .password-field {
+    -fx-pref-width: 250px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #f2f2f2;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #4CAF50;
+    -fx-background-color: #ffffff;
+}
+
+/* Button styling */
+.button {
+    -fx-pref-width: 250px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 1;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Margin and padding for VBox */
+.vbox {
+    -fx-padding: 30;
+    -fx-spacing: 20;
+}
+
+/* Align the username and password fields */
+.text-field, .password-field, .button {
+    -fx-alignment: center;
+}

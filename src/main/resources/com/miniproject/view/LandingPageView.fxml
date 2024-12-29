@@ -6,39 +6,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<!--
- Note:
-  - "stylesheets" attribute includes our CSS file (LandingPage.css) in the same folder.
-  - If you store CSS in a different folder (e.g., /com/miniproject/css/),
-    you can reference it like: stylesheets="@../css/LandingPage.css"
--->
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.miniproject.CONTROLLER.LandingPageController"
-            stylesheets="@../css/LandingPage.css">
-
-    <!-- TOP SECTION (Header Bar) -->
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.miniproject.CONTROLLER.LandingPageController" stylesheets="@../css/LandingPage.css">
     <top>
         <HBox styleClass="header-bar">
             <Label text="MiniProject" styleClass="app-title"/>
         </HBox>
     </top>
-
-    <!-- CENTER SECTION (Main Landing Content) -->
     <center>
         <VBox alignment="CENTER" spacing="20" styleClass="landing-container">
             <Label text="Welcome to Our MiniProject" styleClass="landing-headline"/>
-
-            <Label text="Manage students, professors, and modules with ease.&#10;
-Role-based security for Administrators, Secretaries, and Professors.&#10;
-Track enrollments and modules.&#10;
-Generate insightful statistics for your institution."
-                   styleClass="landing-text"/>
-
+            <Label text="Manage students, professors, and modules with ease.&#10; Role-based security for Administrators, Secretaries, and Professors.&#10; Track enrollments and modules.&#10; Generate insightful statistics for your institution." styleClass="landing-text"/>
             <Button text="Go to Login" onAction="#goToLogin" styleClass="login-btn"/>
         </VBox>
     </center>
-
-    <!-- BOTTOM SECTION (Footer) -->
     <bottom>
         <Label text="© 2024 My Company, All rights reserved." styleClass="footer-label"/>
     </bottom>
