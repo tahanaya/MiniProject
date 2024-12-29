@@ -45,7 +45,25 @@ public class AdminDashboardController {
     @FXML
     private void handleProfesseur() {
         System.out.println("Professeur button clicked!");
-        // TODO: Implement Professeur view loading
+
+        try {
+            // Load ProfesseurView.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Professeur/ProfesseurView.fxml"));
+            Parent professeurView = loader.load();
+
+            // Set the loaded view into the contentPane
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(professeurView);
+
+            // Optionally, anchor the loaded view to fit the contentPane
+            AnchorPane.setTopAnchor(professeurView, 0.0);
+            AnchorPane.setBottomAnchor(professeurView, 0.0);
+            AnchorPane.setLeftAnchor(professeurView, 0.0);
+            AnchorPane.setRightAnchor(professeurView, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
