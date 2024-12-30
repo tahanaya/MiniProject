@@ -1,8 +1,7 @@
 package com.miniproject.CONTROLLER.PROFESSEUR;
 
-
 import com.miniproject.DAO.GenericDAO;
-import com.miniproject.DAO.ProfesseurDAOImp;
+import com.miniproject.DAO.ProfesseurDAOImpl;
 import com.miniproject.ENTITY.Professeur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,13 +23,17 @@ import java.util.Optional;
 public class ProfesseurController {
     @FXML
     private TableView<Professeur> professeurTable;
-    @FXML private TableColumn<Professeur, Integer> colId;
-    @FXML private TableColumn<Professeur, String> colNom;
-    @FXML private TableColumn<Professeur, String> colPrenom;
-    @FXML private TableColumn<Professeur, String> colSpecialite;
+    @FXML
+    private TableColumn<Professeur, Integer> colId;
+    @FXML
+    private TableColumn<Professeur, String> colNom;
+    @FXML
+    private TableColumn<Professeur, String> colPrenom;
+    @FXML
+    private TableColumn<Professeur, String> colSpecialite;
 
     // DAO for Professeur
-    private final GenericDAO<Professeur> professeurDAO = new ProfesseurDAOImp();
+    private final GenericDAO<Professeur> professeurDAO = new ProfesseurDAOImpl();
 
     // ObservableList for TableView
     private final ObservableList<Professeur> professeurList = FXCollections.observableArrayList();
@@ -58,23 +61,24 @@ public class ProfesseurController {
      */
     private void setupTableColumns() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        // Since 'nom' and 'prenom' are nested within Utilisateur, use helper methods in Professeur
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         colSpecialite.setCellValueFactory(new PropertyValueFactory<>("specialite"));
     }
 
     /**
-     * Loads all students from the database into the TableView.
+     * Loads all professors from the database into the TableView.
      */
     void loadProfesseurs() {
         professeurList.clear();
         List<Professeur> list = professeurDAO.findAll();
-        System.out.println("Number of students fetched: " + list.size()); // Debugging
+        System.out.println("Number of professors fetched: " + list.size()); // Debugging
         professeurList.addAll(list);
     }
 
     /**
-     * Handles the addition of a new student.
+     * Handles the addition of a new professor.
      */
     @FXML
     private void handleAddProfesseur() {
@@ -109,7 +113,7 @@ public class ProfesseurController {
     }
 
     /**
-     * Handles updating an existing student.
+     * Handles updating an existing professor.
      */
     @FXML
     private void handleUpdateProfesseur() {
@@ -141,11 +145,7 @@ public class ProfesseurController {
             popupStage.setTitle("Modifier un professeur");
             popupStage.initOwner(professeurTable.getScene().getWindow());
 
-            if (popupStage != null) {
-                popupStage.showAndWait();  // Wait for popup to close
-            } else {
-                System.out.println("popupStage is null.");
-            }
+            popupStage.showAndWait();  // Wait for popup to close
 
             // Refresh data after updating a professeur
             loadProfesseurs();
@@ -157,7 +157,7 @@ public class ProfesseurController {
     }
 
     /**
-     * Handles deleting a selected student.
+     * Handles deleting a selected professor.
      */
     @FXML
     private void handleDeleteProfesseur() {
@@ -178,7 +178,7 @@ public class ProfesseurController {
                 // Refresh data
                 loadProfesseurs();
 
-                showAlert(Alert.AlertType.INFORMATION, "Succès", "Étudiant supprimé avec succès!");
+                showAlert(Alert.AlertType.INFORMATION, "Succès", "Professeur supprimé avec succès!");
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un professeur à supprimer.");
@@ -186,7 +186,7 @@ public class ProfesseurController {
     }
 
     /**
-     * Handles viewing the selected student's details.
+     * Handles viewing the selected professor's details.
      */
     @FXML
     private void handleViewProfesseur() {
@@ -199,7 +199,7 @@ public class ProfesseurController {
     }
 
     /**
-     * Opens the View Student popup window.
+     * Opens the View Professeur popup window.
      *
      * @param professeur The selected Professeur to view.
      */
@@ -208,7 +208,7 @@ public class ProfesseurController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Professeur/view-professeur.fxml"));
             Parent root = loader.load();
 
-            // Get the controller of the View Student popup and pass the selected student
+            // Get the controller of the View Professeur popup and pass the selected professor
             ViewProfesseurController viewProfesseurController = loader.getController();
             viewProfesseurController.setProfesseur(professeur);
 

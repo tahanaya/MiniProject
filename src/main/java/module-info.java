@@ -5,6 +5,10 @@ module com.miniproject.miniproject {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires static lombok;
+    requires org.apache.pdfbox;
+    requires kernel;
+    requires layout;
+    requires io;
 
     // General exports and opens
     opens com.miniproject to javafx.fxml;
@@ -28,6 +32,14 @@ module com.miniproject.miniproject {
     // Add these lines for the PROFESSEUR package
     exports com.miniproject.CONTROLLER.PROFESSEUR;
     opens com.miniproject.CONTROLLER.PROFESSEUR to javafx.fxml;
+    // Add these lines for the Module package
+    exports com.miniproject.CONTROLLER.MODULE;
+    opens com.miniproject.CONTROLLER.MODULE to javafx.fxml;
     exports com.miniproject.DAO;
     opens com.miniproject.DAO to javafx.fxml;
+
+
+
+
+
 }

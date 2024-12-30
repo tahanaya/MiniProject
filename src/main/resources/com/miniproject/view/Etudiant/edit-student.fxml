@@ -41,7 +41,7 @@
         <VBox layoutX="50.0" layoutY="300.0" prefWidth="300.0" spacing="10.0" />
 
 
-          <Button layoutX="15.0" layoutY="449.0" onAction="#handleUpdate" prefWidth="140.0" text="Modifier" />
-          <Button layoutX="333.0" layoutY="455.0" onAction="#handleCancel" prefWidth="140.0" text="Annuler" />
+          <Button layoutX="22.0" layoutY="437.0" onAction="#handleUpdate" prefWidth="140.0" text="Modifier" />
+          <Button layoutX="236.0" layoutY="437.0" onAction="#handleCancel" prefWidth="140.0" text="Annuler" />
     </children>
 </AnchorPane>

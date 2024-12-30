@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.miniproject.CONTROLLER.MODULE.ViewModuleController"
+            prefHeight="400" prefWidth="600">
+    <children>
+        <Label text="Détails du Module" layoutX="200" layoutY="20"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        <Label text="Nom du Module :" layoutX="50" layoutY="80" style="-fx-font-size: 14px;"/>
+        <Label fx:id="moduleNameLabel" layoutX="200" layoutY="80" style="-fx-font-size: 14px;"/>
+        <Label text="Code du Module :" layoutX="50" layoutY="120" style="-fx-font-size: 14px;"/>
+        <Label fx:id="moduleCodeLabel" layoutX="200" layoutY="120" style="-fx-font-size: 14px;"/>
+        <Label text="ID du Professeur :" layoutX="50" layoutY="160" style="-fx-font-size: 14px;"/>
+        <Label fx:id="professorIdLabel" layoutX="200" layoutY="160" style="-fx-font-size: 14px;"/>
+        <Button text="Retour" layoutX="250" layoutY="300" prefWidth="100" onAction="#handleBack"/>
+    </children>
+</AnchorPane>
+

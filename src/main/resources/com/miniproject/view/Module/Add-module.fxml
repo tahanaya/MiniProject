@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.MODULE.AddModuleController">
+    <children>
+        <Label layoutX="200" layoutY="30" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Ajouter un Module" />
+        <Label layoutX="150.0" layoutY="132.0" text="Nom du Module :" />
+        <TextField fx:id="nameField" layoutX="150.0" layoutY="94.0" prefWidth="300" promptText="exp: Analyse" />
+        <Label layoutX="151.0" layoutY="76.0" text="Code du Module:" />
+        <TextField fx:id="codeField" layoutX="150.0" layoutY="150.0" prefWidth="300" promptText="exp: Math1" />
+        <Label layoutX="150.0" layoutY="182.0" text="Professeur :" />
+        <ComboBox fx:id="professorComboBox" layoutX="150.0" layoutY="200.0" prefHeight="25.0" prefWidth="300.0" promptText="Choisir un Professeur" />
+        <Button layoutX="171.0" layoutY="250.0" onAction="#handleSave" prefWidth="100" text="Enregistrer" />
+        <Button layoutX="300.0" layoutY="250.0" onAction="#handleCancel" prefWidth="100" text="Annuler" />
+    </children>
+</AnchorPane>

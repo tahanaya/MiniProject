@@ -1,5 +1,11 @@
 package com.miniproject.CONTROLLER.ETUDIANT;
 
+import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.miniproject.DAO.EtudiantDAOImpl;
 import com.miniproject.DAO.GenericDAO;
 import com.miniproject.ENTITY.Etudiant;
@@ -11,27 +17,46 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import com.itextpdf.kernel.pdf.PdfWriter;
 
+
+/**
+ * Controller class for managing Etudiant (Student) records.
+ * Provides functionalities to view, add, edit, delete, and export student data.
+ */
 public class EtudiantController {
 
-    @FXML private TableView<Etudiant> etudiantTable;
-    @FXML private TableColumn<Etudiant, Integer> colId;
-    @FXML private TableColumn<Etudiant, String> colMatricule;
-    @FXML private TableColumn<Etudiant, String> colNom;
-    @FXML private TableColumn<Etudiant, String> colPrenom;
-    @FXML private TableColumn<Etudiant, String> colDateNaissance;
-    @FXML private TableColumn<Etudiant, String> colEmail;
-    @FXML private TableColumn<Etudiant, String> colPromotion;
+    // FXML-injected TableView and TableColumns
+    @FXML
+    private TableView<Etudiant> etudiantTable;
+    @FXML
+    private TableColumn<Etudiant, Integer> colId;
+    @FXML
+    private TableColumn<Etudiant, String> colMatricule;
+    @FXML
+    private TableColumn<Etudiant, String> colNom;
+    @FXML
+    private TableColumn<Etudiant, String> colPrenom;
+    @FXML
+    private TableColumn<Etudiant, String> colDateNaissance;
+    @FXML
+    private TableColumn<Etudiant, String> colEmail;
+    @FXML
+    private TableColumn<Etudiant, String> colPromotion;
 
-    // DAO for Etudiant
+    // DAO for Etudiant operations
     private final GenericDAO<Etudiant> etudiantDAO = new EtudiantDAOImpl();
 
-    // ObservableList for TableView
+    // ObservableList to hold Etudiant data for the TableView
     private final ObservableList<Etudiant> etudiantList = FXCollections.observableArrayList();
 
     /**
@@ -40,15 +65,15 @@ public class EtudiantController {
      */
     @FXML
     public void initialize() {
-        System.out.println("EtudiantController initialized."); // Debugging
+        System.out.println("EtudiantController initialized."); // Debugging statement
 
-        // Initialize table columns using PropertyValueFactory
+        // Initialize table columns with PropertyValueFactory
         setupTableColumns();
 
-        // Load data from DAO
+        // Load student data from the DAO
         loadEtudiants();
 
-        // Bind data to TableView
+        // Bind the data to the TableView
         etudiantTable.setItems(etudiantList);
     }
 
@@ -69,10 +94,10 @@ public class EtudiantController {
      * Loads all students from the database into the TableView.
      */
     void loadEtudiants() {
-        etudiantList.clear();
-        List<Etudiant> list = etudiantDAO.findAll();
-        System.out.println("Number of students fetched: " + list.size()); // Debugging
-        etudiantList.addAll(list);
+        etudiantList.clear(); // Clear existing data
+        List<Etudiant> list = etudiantDAO.findAll(); // Fetch data from DAO
+        System.out.println("Number of students fetched: " + list.size()); // Debugging statement
+        etudiantList.addAll(list); // Add data to ObservableList
     }
 
     /**
@@ -82,6 +107,197 @@ public class EtudiantController {
     private void handleAddStudent() {
         openAddStudentPopup();
     }
+
+    /**
+     * Handles updating an existing student.
+     */
+    @FXML
+    private void handleUpdateStudent() {
+        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            openEditStudentPopup(selected);
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à modifier.");
+        }
+    }
+
+    /**
+     * Handles deleting a selected student.
+     */
+    @FXML
+    private void handleDeleteStudent() {
+        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            // Confirm deletion
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Confirmation");
+            confirmation.setHeaderText("Supprimer Étudiant");
+            confirmation.setContentText("Êtes-vous sûr de vouloir supprimer cet étudiant?");
+
+            Optional<ButtonType> result = confirmation.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Delete from database
+                etudiantDAO.delete(selected.getId());
+                System.out.println("Deleted student with ID: " + selected.getId()); // Debugging statement
+
+                // Refresh data
+                loadEtudiants();
+
+                showAlert(Alert.AlertType.INFORMATION, "Succès", "Étudiant supprimé avec succès!");
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à supprimer.");
+        }
+    }
+
+    /**
+     * Handles viewing the selected student's details.
+     */
+    @FXML
+    private void handleViewStudent() {
+        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            openViewStudentPopup(selected);
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à visualiser.");
+        }
+    }
+
+    /**
+     * Handles exporting the list of students to a CSV file.
+     */
+    @FXML
+    private void handleExportStudents() {
+        // Open a FileChooser to select the destination file
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exporter les Étudiants en CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        // Show save dialog
+        File file = fileChooser.showSaveDialog(etudiantTable.getScene().getWindow());
+        if (file != null) {
+            exportToCSV(file);
+        }
+    }
+    @FXML
+    private void handleExportToPDF() {
+        // Open a FileChooser to select the destination file
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exporter les Étudiants en PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+        File file = fileChooser.showSaveDialog(etudiantTable.getScene().getWindow());
+        if (file != null) {
+            exportToPDF(file);
+        }
+    }
+
+    /**
+     * Exports the list of students to a CSV file using standard Java I/O.
+     *
+     * @param file The destination file.
+     */
+    private void exportToCSV(File file) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            // Write CSV header
+            writer.write("ID,Matricule,Nom,Prenom,DateNaissance,Email,Promotion");
+            writer.newLine();
+
+            // Write student data
+            for (Etudiant etudiant : etudiantList) {
+                // Escape commas, quotes, and newlines in data fields
+                String id = String.valueOf(etudiant.getId());
+                String matricule = escapeSpecialCharacters(etudiant.getMatricule());
+                String nom = escapeSpecialCharacters(etudiant.getNom());
+                String prenom = escapeSpecialCharacters(etudiant.getPrenom());
+                String dateNaissance = escapeSpecialCharacters(etudiant.getDateNaissance());
+                String email = escapeSpecialCharacters(etudiant.getEmail());
+                String promotion = escapeSpecialCharacters(etudiant.getPromotion());
+
+                String line = String.format("%s,%s,%s,%s,%s,%s,%s",
+                        id, matricule, nom, prenom, dateNaissance, email, promotion);
+                writer.write(line);
+                writer.newLine();
+            }
+
+            showAlert(Alert.AlertType.INFORMATION, "Succès", "Les étudiants ont été exportés en CSV avec succès!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de l'exportation en CSV.");
+        }
+    }
+
+    /**
+     * Escapes special characters in CSV fields.
+     * Encloses the field in quotes if it contains commas, quotes, or newlines.
+     * Doubles any existing quotes within the field.
+     *
+     * @param data The data string to escape.
+     * @return The escaped data string.
+     */
+    private String escapeSpecialCharacters(String data) {
+        String escapedData = data;
+        if (data.contains(",") || data.contains("\"") || data.contains("\n")) {
+            data = data.replace("\"", "\"\"");
+            escapedData = "\"" + data + "\"";
+        }
+        return escapedData;
+    }
+
+    private void exportToPDF(File file) {
+        try {
+            // Load custom font
+            String fontPath = "src/main/resources/com/miniproject/Fonts/Times New Roman.ttf"; // Update path as needed
+            PdfFont font = PdfFontFactory.createFont(fontPath, PdfEncodings.IDENTITY_H);
+
+            // Initialize PDF document and Writer
+            PdfWriter writer = new PdfWriter(file);
+            com.itextpdf.kernel.pdf.PdfDocument pdfDoc = new com.itextpdf.kernel.pdf.PdfDocument(writer);
+            Document document = new Document(pdfDoc);
+
+            // Add title
+            document.add(new Paragraph("Liste des Étudiants").setBold().setFontSize(16).setMarginLeft(50).setMarginBottom(10).setMarginTop(10).setFont(font));
+
+            // Create a table with appropriate column count
+            Table table = new Table(new float[]{1, 3, 3, 3, 3, 4, 2});
+            table.setWidth(com.itextpdf.layout.properties.UnitValue.createPercentValue(100));
+
+            // Add table headers
+            table.addHeaderCell("ID").setFont(font);
+            table.addHeaderCell("Matricule").setFont(font);
+            table.addHeaderCell("Nom").setFont(font);
+            table.addHeaderCell("Prénom").setFont(font);
+            table.addHeaderCell("Date de Naissance").setFont(font);
+            table.addHeaderCell("Email").setFont(font);
+            table.addHeaderCell("Promotion").setFont(font);
+
+            // Add student data to the table
+            for (Etudiant etudiant : etudiantList) {
+                table.addCell(String.valueOf(etudiant.getId())).setFont(font);
+                table.addCell(etudiant.getMatricule()).setFont(font);
+                table.addCell(etudiant.getNom()).setFont(font);
+                table.addCell(etudiant.getPrenom()).setFont(font);
+                table.addCell(etudiant.getDateNaissance()).setFont(font);
+                table.addCell(etudiant.getEmail()).setFont(font);
+                table.addCell(etudiant.getPromotion()).setFont(font);
+            }
+
+            // Add the table to the document
+            document.add(table);
+
+            // Close the document
+            document.close();
+
+            showAlert(Alert.AlertType.INFORMATION, "Succès", "Les étudiants ont été exportés en PDF avec succès!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de l'exportation en PDF.");
+        }
+    }
+
+
+
 
     /**
      * Opens the Add Student popup window.
@@ -111,20 +327,7 @@ public class EtudiantController {
     }
 
     /**
-     * Handles updating an existing student.
-     */
-    @FXML
-    private void handleUpdateStudent() {
-        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            openEditStudentPopup(selected);
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à modifier.");
-        }
-    }
-
-    /**
-     * Opens the Edit Student popup window.
+     * Opens the Edit Student popup window for the selected student.
      *
      * @param etudiant The selected Etudiant to edit.
      */
@@ -154,49 +357,7 @@ public class EtudiantController {
     }
 
     /**
-     * Handles deleting a selected student.
-     */
-    @FXML
-    private void handleDeleteStudent() {
-        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            // Confirm deletion
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmation.setTitle("Confirmation");
-            confirmation.setHeaderText("Supprimer Étudiant");
-            confirmation.setContentText("Êtes-vous sûr de vouloir supprimer cet étudiant?");
-
-            Optional<ButtonType> result = confirmation.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                // Delete from database
-                etudiantDAO.delete(selected.getId());
-                System.out.println("Deleted student with ID: " + selected.getId()); // Debugging
-
-                // Refresh data
-                loadEtudiants();
-
-                showAlert(Alert.AlertType.INFORMATION, "Succès", "Étudiant supprimé avec succès!");
-            }
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à supprimer.");
-        }
-    }
-
-    /**
-     * Handles viewing the selected student's details.
-     */
-    @FXML
-    private void handleViewStudent() {
-        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            openViewStudentPopup(selected);
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à visualiser.");
-        }
-    }
-
-    /**
-     * Opens the View Student popup window.
+     * Opens the View Student popup window for the selected student.
      *
      * @param etudiant The selected Etudiant to view.
      */

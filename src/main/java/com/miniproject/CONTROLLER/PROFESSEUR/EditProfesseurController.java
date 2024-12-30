@@ -1,27 +1,44 @@
 package com.miniproject.CONTROLLER.PROFESSEUR;
 
 import com.miniproject.DAO.GenericDAO;
-import com.miniproject.DAO.ProfesseurDAOImp;
+import com.miniproject.DAO.ProfesseurDAOImpl;
+import com.miniproject.DAO.UserDAO;
+import com.miniproject.DAO.UserDAOImpl;
 import com.miniproject.ENTITY.Professeur;
+import com.miniproject.ENTITY.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class EditProfesseurController {
-    @FXML private TextField idField;
-    @FXML private TextField nomField;
-    @FXML private TextField prenomField;
-    @FXML private TextField specialiteField;
+
+    @FXML
+    private TextField nomField;
+    @FXML
+    private TextField prenomField;
+    @FXML
+    private TextField specialiteField;
+    @FXML
+    private TextField usernameField; // For username input
+    @FXML
+    private PasswordField passwordField; // For password input
+
+    @FXML
+    private Button saveButton;    // Added fx:id="saveButton"
+    @FXML
+    private Button cancelButton;  // Added fx:id="cancelButton"
 
     // Reference to ProfesseurController to refresh data
     private ProfesseurController professeurController;
 
-    // The professor to edit
     private Professeur professeur;
 
-    // DAO for Professeur
-    private final GenericDAO<Professeur> professeurDAO = new ProfesseurDAOImp();
+    // DAOs
+    private final GenericDAO<Professeur> professeurDAO = new ProfesseurDAOImpl();
+    private final UserDAO utilisateurDAO = new UserDAOImpl();
 
     /**
      * Sets the ProfesseurController reference.
@@ -33,70 +50,82 @@ public class EditProfesseurController {
     }
 
     /**
-     * Sets the Professeur to edit and populates the form fields.
+     * Sets the Professeur to be edited.
      *
-     * @param professeur The Professeur object to edit.
+     * @param professeur The Professeur instance.
      */
     public void setProfesseur(Professeur professeur) {
         this.professeur = professeur;
-        if (professeur != null) {
-            idField.setText(String.valueOf(professeur.getId()));
+        populateFields();
+    }
+
+    /**
+     * Populates the input fields with the Professeur's current data.
+     */
+    private void populateFields() {
+        if (professeur != null && professeur.getUtilisateur() != null) {
+            usernameField.setText(professeur.getUtilisateur().getUsername());
+            passwordField.setText(professeur.getUtilisateur().getPassword());
             nomField.setText(professeur.getUtilisateur().getNom());
             prenomField.setText(professeur.getUtilisateur().getPrenom());
             specialiteField.setText(professeur.getSpecialite());
-            idField.setDisable(true);
         }
     }
 
     /**
-     * Populates the form fields with the professor's current details.
-     */
-    private void populateFields() {
-        if (professeur != null) {
-            nomField.setText(professeur.getNom());
-            prenomField.setText(professeur.getPrenom());
-            specialiteField.setText(professeur.getSpecialite());
-            idField.setText(String.valueOf(professeur.getId()));
-            idField.setDisable(true);  // Disable the ID field to prevent edits
-        }
-    }
-
-    /**
-     * Handles the action of updating the professor.
+     * Handles the save action to update the Professeur.
      */
     @FXML
-    private void handleUpdate() {
+    private void handleSave() {
         if (isInputValid()) {
             try {
-                professeur.getUtilisateur().setNom(nomField.getText());
-                professeur.getUtilisateur().setPrenom(prenomField.getText());
-                professeur.getUtilisateur().setRole("Professeur");
+                // Update Utilisateur object
+                Utilisateur utilisateur = professeur.getUtilisateur();
+                utilisateur.setUsername(usernameField.getText());
+                utilisateur.setPassword(passwordField.getText());
+                utilisateur.setNom(nomField.getText());
+                utilisateur.setPrenom(prenomField.getText());
+                utilisateur.setRole("PROFESSEUR");  // Ensure role remains "PROFESSEUR"
+
+                // Update Professeur object
                 professeur.setSpecialite(specialiteField.getText());
 
-                professeurDAO.update(professeur);
+                // Update Utilisateur in the database
+                utilisateurDAO.updateUser(utilisateur);
 
-                Stage stage = (Stage) nomField.getScene().getWindow();
-                stage.close();
+                // Update Professeur in the database
+                professeurDAO.update(professeur);
+                System.out.println("Updated Professeur: " + professeur); // Debugging
+
+                // Inform user
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Professeur mis à jour avec succès!");
 
+                // Close the popup
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                stage.close();
+
+                // Refresh the main table view
+                if (professeurController != null) {
+                    professeurController.loadProfesseurs();
+                }
             } catch (Exception e) {
+                // Check if the exception is due to role constraint violation
+                if (e.getMessage().contains("utilisateur_role_check")) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur", "Le rôle doit être ADMINISTRATEUR, SECRETAIRE ou PROFESSEUR.");
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue lors de la mise à jour du professeur.");
+                }
                 e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de la mise à jour.");
             }
         }
     }
 
-
-
-
-
-
     /**
-     * Handles the action of canceling the update operation.
+     * Handles the cancel action to close the popup without saving.
      */
     @FXML
     private void handleCancel() {
-        Stage stage = (Stage) nomField.getScene().getWindow();
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
@@ -106,23 +135,30 @@ public class EditProfesseurController {
      * @return true if the input is valid, false otherwise.
      */
     private boolean isInputValid() {
-        StringBuilder errorMessage = new StringBuilder();
+        String errorMessage = "";
 
         if (nomField.getText() == null || nomField.getText().trim().isEmpty()) {
-            errorMessage.append("Nom invalide!\n");
+            errorMessage += "Nom invalide!\n";
         }
         if (prenomField.getText() == null || prenomField.getText().trim().isEmpty()) {
-            errorMessage.append("Prénom invalide!\n");
+            errorMessage += "Prénom invalide!\n";
         }
         if (specialiteField.getText() == null || specialiteField.getText().trim().isEmpty()) {
-            errorMessage.append("Spécialité invalide!\n");
+            errorMessage += "Spécialité invalide!\n";
+        }
+        if (usernameField.getText() == null || usernameField.getText().trim().isEmpty()) {
+            errorMessage += "Nom d'utilisateur invalide!\n";
+        }
+        if (passwordField.getText() == null || passwordField.getText().trim().isEmpty()) {
+            errorMessage += "Mot de passe invalide!\n";
         }
 
-        if (errorMessage.length() > 0) {
-            showAlert(Alert.AlertType.ERROR, "Entrée invalide", errorMessage.toString());
+        if (errorMessage.isEmpty()) {
+            return true;
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Entrée invalide", errorMessage);
             return false;
         }
-        return true;
     }
 
     /**

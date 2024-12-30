@@ -38,6 +38,10 @@
                 <Button text="Modifier" onAction="#handleUpdateStudent" prefWidth="100.0" />
                 <Button text="Supprimer" onAction="#handleDeleteStudent" prefWidth="100.0" />
                 <Button text="Visualiser" onAction="#handleViewStudent" prefWidth="100.0" />
+                <!-- New Export Button -->
+                <Button text="Exporter CSV" onAction="#handleExportStudents" prefWidth="100.0" />
+                <Button text="Exporter PDF" onAction="#handleExportToPDF" />
+
             </HBox>
         </VBox>
     </children>
