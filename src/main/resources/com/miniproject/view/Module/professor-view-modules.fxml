@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.miniproject.CONTROLLER.MODULE.ProfessorViewModuleController"
+            prefHeight="600" prefWidth="800">
+    <children>
+        <Label text="Modules Enseignés" layoutX="300" layoutY="20"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        <TableView fx:id="professorModulesTable" layoutX="50" layoutY="60" prefHeight="400" prefWidth="700">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="100"/>
+                <TableColumn fx:id="nameColumn" text="Nom du Module" prefWidth="200"/>
+                <TableColumn fx:id="codeColumn" text="Code du Module" prefWidth="200"/>
+                <TableColumn fx:id="professorColumn" text="ID Professeur" prefWidth="200"/>
+            </columns>
+        </TableView>
+        <Button text="Retour" layoutX="350" layoutY="500" prefWidth="100" onAction="#handleBack"/>
+    </children>
+</AnchorPane>
+

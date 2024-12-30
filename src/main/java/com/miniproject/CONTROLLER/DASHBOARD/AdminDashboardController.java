@@ -2,6 +2,7 @@ package com.miniproject.CONTROLLER.DASHBOARD;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
@@ -81,9 +82,25 @@ public class AdminDashboardController {
     @FXML
     private void handleModules() {
         System.out.println("Modules button clicked!");
-        // TODO: Implement Modules view loading
-    }
+        try {
+            // Charger la vue des modules
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Module/ModuleView.fxml"));
+            Parent moduleView = loader.load();
 
+            // Remplacer le contenu du contentPane par la vue des modules
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(moduleView);
+
+            // Ajuster la vue pour remplir le contentPane
+            AnchorPane.setTopAnchor(moduleView, 0.0);
+            AnchorPane.setBottomAnchor(moduleView, 0.0);
+            AnchorPane.setLeftAnchor(moduleView, 0.0);
+            AnchorPane.setRightAnchor(moduleView, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Handles the "Inscription" button click.
      */

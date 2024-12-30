@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/17.0.1" fx:controller="com.miniproject.CONTROLLER.MODULE.AssocierEtudiantController">
+    <children>
+        <Label text="Associer un étudiant au module" layoutX="50" layoutY="20" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <ComboBox fx:id="studentComboBox" layoutX="50" layoutY="60" prefWidth="300" promptText="Choisir un étudiant" />
+        <Button text="Associer" layoutX="50" layoutY="100" onAction="#associateStudent" />
+        <Label fx:id="statusLabel" layoutX="50" layoutY="140" style="-fx-font-size: 14px;" />
+    </children>
+</AnchorPane>

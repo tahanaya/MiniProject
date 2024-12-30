@@ -5,23 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/HelloApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/AddModuleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/AssocierEtudiantController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/EditModuleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/EtudiantsAssociesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ModuleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ProfessorViewModuleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ViewModuleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Add-module.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/AssocierEtudiant.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Edit-module.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/EtudiantsAssocies.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/ModuleView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/professor-view-modules.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/view-module.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/ProfessorViewStudentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Inscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Inscription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/professor-view-students.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,8 +89,9 @@
     "Application.loginMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Dashboard-Module",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/user/OneDrive/Desktop/GINF2/MI-S1/JAVA/Projet/MiniProject/src/main/resources/com/miniproject/view",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -98,11 +102,18 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\OneDrive\Desktop\GINF2\MI-S1\JAVA\Projet\MiniProject\src\main\resources\com\miniproject\view" />
+      <recent name="C:\Users\user\OneDrive\Desktop\GINF2\MI-S1\JAVA\Projet\MiniProject\src\main\java\com\miniproject\CONTROLLER" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\utente\ProjetHadad\testRepo\MiniProject\src\main\resources\com\miniproject\view\Dashboard" />
       <recent name="C:\Users\utente\ProjetHadad\testRepo\MiniProject\src\main\resources\com\miniproject\view\Etudiant" />
       <recent name="C:\Users\utente\ProjetHadad\testRepo\MiniProject\src\main\resources\com\miniproject\css" />
       <recent name="C:\Users\utente\ProjetHadad\testRepo\MiniProject\src\main\resources\com\miniproject\view" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.miniproject.DAO" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -137,14 +148,16 @@
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.TestConnection" />
         <item itemvalue="Application.TestConnection" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
       </set>
     </attachedChunks>
   </component>
@@ -159,6 +172,7 @@
       <workItem from="1735374602580" duration="1830000" />
       <workItem from="1735376451753" duration="7916000" />
       <workItem from="1735388191395" duration="3893000" />
+      <workItem from="1735510728034" duration="10612000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
