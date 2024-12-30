@@ -1,5 +1,11 @@
 package com.miniproject.CONTROLLER.ETUDIANT;
 
+import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.miniproject.DAO.EtudiantDAOImpl;
 import com.miniproject.DAO.GenericDAO;
 import com.miniproject.ENTITY.Etudiant;
@@ -20,6 +26,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import com.itextpdf.kernel.pdf.PdfWriter;
+
 
 /**
  * Controller class for managing Etudiant (Student) records.
@@ -171,6 +179,18 @@ public class EtudiantController {
             exportToCSV(file);
         }
     }
+    @FXML
+    private void handleExportToPDF() {
+        // Open a FileChooser to select the destination file
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exporter les Étudiants en PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+        File file = fileChooser.showSaveDialog(etudiantTable.getScene().getWindow());
+        if (file != null) {
+            exportToPDF(file);
+        }
+    }
 
     /**
      * Exports the list of students to a CSV file using standard Java I/O.
@@ -224,6 +244,60 @@ public class EtudiantController {
         }
         return escapedData;
     }
+
+    private void exportToPDF(File file) {
+        try {
+            // Load custom font
+            String fontPath = "src/main/resources/com/miniproject/Fonts/Times New Roman.ttf"; // Update path as needed
+            PdfFont font = PdfFontFactory.createFont(fontPath, PdfEncodings.IDENTITY_H);
+
+            // Initialize PDF document and Writer
+            PdfWriter writer = new PdfWriter(file);
+            com.itextpdf.kernel.pdf.PdfDocument pdfDoc = new com.itextpdf.kernel.pdf.PdfDocument(writer);
+            Document document = new Document(pdfDoc);
+
+            // Add title
+            document.add(new Paragraph("Liste des Étudiants").setBold().setFontSize(16).setMarginLeft(50).setMarginBottom(10).setMarginTop(10).setFont(font));
+
+            // Create a table with appropriate column count
+            Table table = new Table(new float[]{1, 3, 3, 3, 3, 4, 2});
+            table.setWidth(com.itextpdf.layout.properties.UnitValue.createPercentValue(100));
+
+            // Add table headers
+            table.addHeaderCell("ID").setFont(font);
+            table.addHeaderCell("Matricule").setFont(font);
+            table.addHeaderCell("Nom").setFont(font);
+            table.addHeaderCell("Prénom").setFont(font);
+            table.addHeaderCell("Date de Naissance").setFont(font);
+            table.addHeaderCell("Email").setFont(font);
+            table.addHeaderCell("Promotion").setFont(font);
+
+            // Add student data to the table
+            for (Etudiant etudiant : etudiantList) {
+                table.addCell(String.valueOf(etudiant.getId())).setFont(font);
+                table.addCell(etudiant.getMatricule()).setFont(font);
+                table.addCell(etudiant.getNom()).setFont(font);
+                table.addCell(etudiant.getPrenom()).setFont(font);
+                table.addCell(etudiant.getDateNaissance()).setFont(font);
+                table.addCell(etudiant.getEmail()).setFont(font);
+                table.addCell(etudiant.getPromotion()).setFont(font);
+            }
+
+            // Add the table to the document
+            document.add(table);
+
+            // Close the document
+            document.close();
+
+            showAlert(Alert.AlertType.INFORMATION, "Succès", "Les étudiants ont été exportés en PDF avec succès!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de l'exportation en PDF.");
+        }
+    }
+
+
+
 
     /**
      * Opens the Add Student popup window.

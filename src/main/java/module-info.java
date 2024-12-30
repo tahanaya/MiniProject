@@ -6,6 +6,9 @@ module com.miniproject.miniproject {
     requires java.sql;
     requires static lombok;
     requires org.apache.pdfbox;
+    requires kernel;
+    requires layout;
+    requires io;
 
     // General exports and opens
     opens com.miniproject to javafx.fxml;

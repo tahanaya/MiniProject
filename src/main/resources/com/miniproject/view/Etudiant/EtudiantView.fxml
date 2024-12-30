@@ -40,6 +40,8 @@
                 <Button text="Visualiser" onAction="#handleViewStudent" prefWidth="100.0" />
                 <!-- New Export Button -->
                 <Button text="Exporter CSV" onAction="#handleExportStudents" prefWidth="100.0" />
+                <Button text="Exporter PDF" onAction="#handleExportToPDF" />
+
             </HBox>
         </VBox>
     </children>
