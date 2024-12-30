@@ -1,0 +1,1046 @@
+Index: src/main/java/com/miniproject/DAO/ProfesseurDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.miniproject.DAO;\r\n\r\nimport com.miniproject.ENTITY.Professeur;\r\nimport com.miniproject.DATABASE.DatabaseConnection;\r\n\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class ProfesseurDAO implements GenericDAO<Professeur> {\r\n\r\n    private Connection connection;\r\n\r\n    public ProfesseurDAO() {\r\n        this.connection = DatabaseConnection.getInstance().getConnection();\r\n    }\r\n\r\n    @Override\r\n    public Professeur findById(int id) {\r\n        Professeur professeur = null;\r\n        String query = \"SELECT * FROM professeurs WHERE id = ?\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, id);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                professeur = new Professeur();\r\n                professeur.setId(rs.getInt(\"id\"));\r\n                professeur.setNom(rs.getString(\"nom\"));\r\n                professeur.setPrenom(rs.getString(\"prenom\"));\r\n                professeur.setSpecialite(rs.getString(\"specialite\"));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return professeur;\r\n    }\r\n\r\n    @Override\r\n    public List<Professeur> findAll() {\r\n        List<Professeur> professeurs = new ArrayList<>();\r\n        String query = \"SELECT * FROM professeurs\";\r\n        try (Statement stmt = connection.createStatement()) {\r\n            ResultSet rs = stmt.executeQuery(query);\r\n            while (rs.next()) {\r\n                Professeur professeur = new Professeur();\r\n                professeur.setId(rs.getInt(\"id\"));\r\n                professeur.setNom(rs.getString(\"nom\"));\r\n                professeur.setPrenom(rs.getString(\"prenom\"));\r\n                professeur.setSpecialite(rs.getString(\"specialite\"));\r\n                professeurs.add(professeur);\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return professeurs;\r\n    }\r\n\r\n    @Override\r\n    public void save(Professeur professeur) {\r\n        String query = \"INSERT INTO professeurs (nom, prenom, specialite) VALUES (?, ?, ?)\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, professeur.getNom());\r\n            stmt.setString(2, professeur.getPrenom());\r\n            stmt.setString(3, professeur.getSpecialite());\r\n            stmt.executeUpdate();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void update(Professeur professeur) {\r\n        String query = \"UPDATE professeurs SET nom = ?, prenom = ?, specialite = ? WHERE id = ?\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, professeur.getNom());\r\n            stmt.setString(2, professeur.getPrenom());\r\n            stmt.setString(3, professeur.getSpecialite());\r\n            stmt.setInt(4, professeur.getId());\r\n            stmt.executeUpdate();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void delete(int id) {\r\n        String query = \"DELETE FROM professeurs WHERE id = ?\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, id);\r\n            stmt.executeUpdate();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/DAO/ProfesseurDAO.java b/src/main/java/com/miniproject/DAO/ProfesseurDAO.java
+--- a/src/main/java/com/miniproject/DAO/ProfesseurDAO.java	(revision bd9bed2f97c753da2645baa83365d2883690d384)
++++ b/src/main/java/com/miniproject/DAO/ProfesseurDAO.java	(date 1735392692211)
+@@ -1,95 +1,1 @@
+-package com.miniproject.DAO;
+-
+-import com.miniproject.ENTITY.Professeur;
+-import com.miniproject.DATABASE.DatabaseConnection;
+ 
+-import java.sql.*;
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-public class ProfesseurDAO implements GenericDAO<Professeur> {
+-
+-    private Connection connection;
+-
+-    public ProfesseurDAO() {
+-        this.connection = DatabaseConnection.getInstance().getConnection();
+-    }
+-
+-    @Override
+-    public Professeur findById(int id) {
+-        Professeur professeur = null;
+-        String query = "SELECT * FROM professeurs WHERE id = ?";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setInt(1, id);
+-            ResultSet rs = stmt.executeQuery();
+-            if (rs.next()) {
+-                professeur = new Professeur();
+-                professeur.setId(rs.getInt("id"));
+-                professeur.setNom(rs.getString("nom"));
+-                professeur.setPrenom(rs.getString("prenom"));
+-                professeur.setSpecialite(rs.getString("specialite"));
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return professeur;
+-    }
+-
+-    @Override
+-    public List<Professeur> findAll() {
+-        List<Professeur> professeurs = new ArrayList<>();
+-        String query = "SELECT * FROM professeurs";
+-        try (Statement stmt = connection.createStatement()) {
+-            ResultSet rs = stmt.executeQuery(query);
+-            while (rs.next()) {
+-                Professeur professeur = new Professeur();
+-                professeur.setId(rs.getInt("id"));
+-                professeur.setNom(rs.getString("nom"));
+-                professeur.setPrenom(rs.getString("prenom"));
+-                professeur.setSpecialite(rs.getString("specialite"));
+-                professeurs.add(professeur);
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return professeurs;
+-    }
+-
+-    @Override
+-    public void save(Professeur professeur) {
+-        String query = "INSERT INTO professeurs (nom, prenom, specialite) VALUES (?, ?, ?)";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, professeur.getNom());
+-            stmt.setString(2, professeur.getPrenom());
+-            stmt.setString(3, professeur.getSpecialite());
+-            stmt.executeUpdate();
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-    }
+-
+-    @Override
+-    public void update(Professeur professeur) {
+-        String query = "UPDATE professeurs SET nom = ?, prenom = ?, specialite = ? WHERE id = ?";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, professeur.getNom());
+-            stmt.setString(2, professeur.getPrenom());
+-            stmt.setString(3, professeur.getSpecialite());
+-            stmt.setInt(4, professeur.getId());
+-            stmt.executeUpdate();
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-    }
+-
+-    @Override
+-    public void delete(int id) {
+-        String query = "DELETE FROM professeurs WHERE id = ?";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setInt(1, id);
+-            stmt.executeUpdate();
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-    }
+-}
+Index: src/main/java/com/miniproject/DAO/EtudiantDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.miniproject.DAO;\r\n\r\nimport com.miniproject.ENTITY.Etudiant;\r\nimport com.miniproject.DATABASE.DatabaseConnection;\r\n\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class EtudiantDAO implements GenericDAO<Etudiant> {\r\n\r\n    private Connection connection;\r\n\r\n    public EtudiantDAO() {\r\n        this.connection = DatabaseConnection.getInstance().getConnection();\r\n    }\r\n\r\n    @Override\r\n    public Etudiant findById(int id) {\r\n        Etudiant etudiant = null;\r\n        String query = \"SELECT * FROM etudiants WHERE id = ?\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, id);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                etudiant = new Etudiant();\r\n                etudiant.setId(rs.getInt(\"id\"));\r\n                etudiant.setMatricule(rs.getString(\"matricule\"));\r\n                etudiant.setNom(rs.getString(\"nom\"));\r\n                etudiant.setPrenom(rs.getString(\"prenom\"));\r\n                etudiant.setDateNaissance(rs.getString(\"date_naissance\"));\r\n                etudiant.setEmail(rs.getString(\"email\"));\r\n                etudiant.setPromotion(rs.getString(\"promotion\"));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return etudiant;\r\n    }\r\n\r\n    @Override\r\n    public List<Etudiant> findAll() {\r\n        List<Etudiant> etudiants = new ArrayList<>();\r\n        String query = \"SELECT * FROM etudiants\";\r\n        try (Statement stmt = connection.createStatement()) {\r\n            ResultSet rs = stmt.executeQuery(query);\r\n            while (rs.next()) {\r\n                Etudiant etudiant = new Etudiant();\r\n                etudiant.setId(rs.getInt(\"id\"));\r\n                etudiant.setMatricule(rs.getString(\"matricule\"));\r\n                etudiant.setNom(rs.getString(\"nom\"));\r\n                etudiant.setPrenom(rs.getString(\"prenom\"));\r\n                etudiant.setDateNaissance(rs.getString(\"date_naissance\"));\r\n                etudiant.setEmail(rs.getString(\"email\"));\r\n                etudiant.setPromotion(rs.getString(\"promotion\"));\r\n                etudiants.add(etudiant);\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return etudiants;\r\n    }\r\n\r\n    @Override\r\n    public void save(Etudiant etudiant) {\r\n        String query = \"INSERT INTO etudiants (matricule, nom, prenom, date_naissance, email, promotion) VALUES (?, ?, ?, ?, ?, ?)\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, etudiant.getMatricule());\r\n            stmt.setString(2, etudiant.getNom());\r\n            stmt.setString(3, etudiant.getPrenom());\r\n            stmt.setString(4, etudiant.getDateNaissance());\r\n            stmt.setString(5, etudiant.getEmail());\r\n            stmt.setString(6, etudiant.getPromotion());\r\n            stmt.executeUpdate();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void update(Etudiant etudiant) {\r\n        String query = \"UPDATE etudiants SET matricule = ?, nom = ?, prenom = ?, date_naissance = ?, email = ?, promotion = ? WHERE id = ?\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, etudiant.getMatricule());\r\n            stmt.setString(2, etudiant.getNom());\r\n            stmt.setString(3, etudiant.getPrenom());\r\n            stmt.setString(4, etudiant.getDateNaissance());\r\n            stmt.setString(5, etudiant.getEmail());\r\n            stmt.setString(6, etudiant.getPromotion());\r\n            stmt.setInt(7, etudiant.getId());\r\n            stmt.executeUpdate();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void delete(int id) {\r\n        String query = \"DELETE FROM etudiants WHERE id = ?\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, id);\r\n            stmt.executeUpdate();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/DAO/EtudiantDAO.java b/src/main/java/com/miniproject/DAO/EtudiantDAO.java
+--- a/src/main/java/com/miniproject/DAO/EtudiantDAO.java	(revision bd9bed2f97c753da2645baa83365d2883690d384)
++++ b/src/main/java/com/miniproject/DAO/EtudiantDAO.java	(date 1735392692211)
+@@ -1,107 +1,1 @@
+-package com.miniproject.DAO;
+-
+-import com.miniproject.ENTITY.Etudiant;
+-import com.miniproject.DATABASE.DatabaseConnection;
+ 
+-import java.sql.*;
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-public class EtudiantDAO implements GenericDAO<Etudiant> {
+-
+-    private Connection connection;
+-
+-    public EtudiantDAO() {
+-        this.connection = DatabaseConnection.getInstance().getConnection();
+-    }
+-
+-    @Override
+-    public Etudiant findById(int id) {
+-        Etudiant etudiant = null;
+-        String query = "SELECT * FROM etudiants WHERE id = ?";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setInt(1, id);
+-            ResultSet rs = stmt.executeQuery();
+-            if (rs.next()) {
+-                etudiant = new Etudiant();
+-                etudiant.setId(rs.getInt("id"));
+-                etudiant.setMatricule(rs.getString("matricule"));
+-                etudiant.setNom(rs.getString("nom"));
+-                etudiant.setPrenom(rs.getString("prenom"));
+-                etudiant.setDateNaissance(rs.getString("date_naissance"));
+-                etudiant.setEmail(rs.getString("email"));
+-                etudiant.setPromotion(rs.getString("promotion"));
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return etudiant;
+-    }
+-
+-    @Override
+-    public List<Etudiant> findAll() {
+-        List<Etudiant> etudiants = new ArrayList<>();
+-        String query = "SELECT * FROM etudiants";
+-        try (Statement stmt = connection.createStatement()) {
+-            ResultSet rs = stmt.executeQuery(query);
+-            while (rs.next()) {
+-                Etudiant etudiant = new Etudiant();
+-                etudiant.setId(rs.getInt("id"));
+-                etudiant.setMatricule(rs.getString("matricule"));
+-                etudiant.setNom(rs.getString("nom"));
+-                etudiant.setPrenom(rs.getString("prenom"));
+-                etudiant.setDateNaissance(rs.getString("date_naissance"));
+-                etudiant.setEmail(rs.getString("email"));
+-                etudiant.setPromotion(rs.getString("promotion"));
+-                etudiants.add(etudiant);
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return etudiants;
+-    }
+-
+-    @Override
+-    public void save(Etudiant etudiant) {
+-        String query = "INSERT INTO etudiants (matricule, nom, prenom, date_naissance, email, promotion) VALUES (?, ?, ?, ?, ?, ?)";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, etudiant.getMatricule());
+-            stmt.setString(2, etudiant.getNom());
+-            stmt.setString(3, etudiant.getPrenom());
+-            stmt.setString(4, etudiant.getDateNaissance());
+-            stmt.setString(5, etudiant.getEmail());
+-            stmt.setString(6, etudiant.getPromotion());
+-            stmt.executeUpdate();
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-    }
+-
+-    @Override
+-    public void update(Etudiant etudiant) {
+-        String query = "UPDATE etudiants SET matricule = ?, nom = ?, prenom = ?, date_naissance = ?, email = ?, promotion = ? WHERE id = ?";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, etudiant.getMatricule());
+-            stmt.setString(2, etudiant.getNom());
+-            stmt.setString(3, etudiant.getPrenom());
+-            stmt.setString(4, etudiant.getDateNaissance());
+-            stmt.setString(5, etudiant.getEmail());
+-            stmt.setString(6, etudiant.getPromotion());
+-            stmt.setInt(7, etudiant.getId());
+-            stmt.executeUpdate();
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-    }
+-
+-    @Override
+-    public void delete(int id) {
+-        String query = "DELETE FROM etudiants WHERE id = ?";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setInt(1, id);
+-            stmt.executeUpdate();
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-    }
+-}
+Index: src/main/java/com/miniproject/CONTROLLER/SecretaryDashboardController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/CONTROLLER/SecretaryDashboardController.java b/src/main/java/com/miniproject/CONTROLLER/SecretaryDashboardController.java
+new file mode 100644
+--- /dev/null	(date 1735392692210)
++++ b/src/main/java/com/miniproject/CONTROLLER/SecretaryDashboardController.java	(date 1735392692210)
+@@ -0,0 +1,28 @@
++package com.miniproject.CONTROLLER;
++
++import javafx.fxml.FXML;
++import javafx.scene.control.Label;
++
++public class SecretaryDashboardController {
++
++    @FXML
++    private Label welcomeLabel;
++
++    /**
++     * Simple method to set a welcome message or other info.
++     * You can call this after loading the FXML, e.g., from the LoginController.
++     */
++    public void setWelcomeMessage(String username, String role) {
++        if (welcomeLabel != null) {
++            welcomeLabel.setText("Welcome " + username + "! Your role is: " + role + " (Secretary)");
++        }
++    }
++
++    // Add more methods to handle Secretary-specific functionalities.
++    // For instance:
++    // @FXML
++    // private void showStudents() { ... }
++    //
++    // @FXML
++    // private void manageEnrollments() { ... }
++}
+Index: src/main/java/com/miniproject/CONTROLLER/ProfessorDashboardController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/CONTROLLER/ProfessorDashboardController.java b/src/main/java/com/miniproject/CONTROLLER/ProfessorDashboardController.java
+new file mode 100644
+--- /dev/null	(date 1735392692210)
++++ b/src/main/java/com/miniproject/CONTROLLER/ProfessorDashboardController.java	(date 1735392692210)
+@@ -0,0 +1,22 @@
++package com.miniproject.CONTROLLER;
++
++import javafx.fxml.FXML;
++import javafx.scene.control.Label;
++
++public class ProfessorDashboardController {
++
++    @FXML
++    private Label welcomeLabel;
++
++    public void setWelcomeMessage(String username, String role) {
++        if (welcomeLabel != null) {
++            welcomeLabel.setText("Welcome " + username + "! Your role is: " + role + " (Professor)");
++        }
++    }
++
++    // Add Professor-specific methods, e.g.
++    // @FXML
++    // private void showTaughtModules() { ... }
++    // @FXML
++    // private void viewEnrolledStudents() { ... }
++}
+Index: src/main/java/com/miniproject/CONTROLLER/LandingPageController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/CONTROLLER/LandingPageController.java b/src/main/java/com/miniproject/CONTROLLER/LandingPageController.java
+new file mode 100644
+--- /dev/null	(date 1735392692208)
++++ b/src/main/java/com/miniproject/CONTROLLER/LandingPageController.java	(date 1735392692208)
+@@ -0,0 +1,35 @@
++package com.miniproject.CONTROLLER;
++
++import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
++import javafx.scene.Parent;
++import javafx.scene.Scene;
++import javafx.stage.Stage;
++
++import java.io.IOException;
++
++public class LandingPageController {
++
++    private Stage primaryStage;
++
++    // Called by main app to pass in the primary stage
++    public void setPrimaryStage(Stage stage) {
++        this.primaryStage = stage;
++    }
++
++    @FXML
++    private void goToLogin() {
++        try {
++            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/LoginView.fxml"));
++            Parent loginRoot = loader.load();
++
++            // Switch scene to the login page
++            primaryStage.setScene(new Scene(loginRoot));
++            primaryStage.setTitle("Login");
++            primaryStage.show();
++
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
++    }
++}
+Index: src/main/java/com/miniproject/CONTROLLER/LoginController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/CONTROLLER/LoginController.java b/src/main/java/com/miniproject/CONTROLLER/LoginController.java
+new file mode 100644
+--- /dev/null	(date 1735392692209)
++++ b/src/main/java/com/miniproject/CONTROLLER/LoginController.java	(date 1735392692209)
+@@ -0,0 +1,89 @@
++package com.miniproject.CONTROLLER;
++
++import com.miniproject.DAO.UserDAO;
++import com.miniproject.DAO.UserDAOImpl;
++import com.miniproject.ENTITY.Utilisateur;
++import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
++import javafx.scene.Scene;
++import javafx.scene.control.Alert;
++import javafx.scene.control.PasswordField;
++import javafx.scene.control.TextField;
++import javafx.stage.Stage;
++
++import java.io.IOException;
++
++public class LoginController {
++
++    @FXML
++    private TextField usernameField;
++    @FXML
++    private PasswordField passwordField;
++
++    private final UserDAO userDAO = new UserDAOImpl();
++
++    @FXML
++    private void handleLogin() {
++        String username = usernameField.getText();
++        String password = passwordField.getText();
++
++        Utilisateur user = userDAO.getUserByUsername(username);
++        if (user != null && user.getPassword().equals(password)) {
++            // Successful login
++            redirectToDashboard(user);
++        } else {
++            // Show error message
++            Alert alert = new Alert(Alert.AlertType.ERROR);
++            alert.setTitle("Login Error");
++            alert.setHeaderText(null);
++            alert.setContentText("Invalid username or password.");
++            alert.showAndWait();
++        }
++    }
++
++    private void redirectToDashboard(Utilisateur user) {
++        String role = user.getRole();
++        String fxmlFile = "";
++        switch (role) {
++            case "ADMINISTRATEUR":
++                fxmlFile = "/com/miniproject/view/AdminDashboardView.fxml";
++                break;
++            case "SECRETAIRE":
++                 fxmlFile = "/com/miniproject/view/SecretaryDashboardView.fxml";
++
++                break;
++            case "PROFESSEUR":
++                fxmlFile = "/com/miniproject/view/ProfessorDashboardView.fxml";
++
++                break;
++            default:
++                // If no role matches, do nothing or show error
++                Alert alert = new Alert(Alert.AlertType.WARNING);
++                alert.setTitle("Role Error");
++                alert.setContentText("Unknown role: " + role);
++                alert.showAndWait();
++                return;
++        }
++
++        try {
++            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
++            Scene scene = new Scene(loader.load());
++
++            // Use the current window from the username field
++            Stage stage = (Stage) usernameField.getScene().getWindow();
++            stage.setScene(scene);
++            stage.setTitle("Dashboard");
++            stage.show();
++
++            // If you want to set a welcome message in the AdminDashboardController:
++            Object controller = loader.getController();
++            if (controller instanceof AdminDashboardController) {
++                ((AdminDashboardController) controller)
++                        .setWelcomeMessage(user.getUsername(), user.getRole());
++            }
++
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
++    }
++}
+Index: src/main/java/module-info.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>module com.miniproject.miniproject {\r\n    requires javafx.controls;\r\n    requires javafx.fxml;\r\n\r\n    requires org.kordamp.bootstrapfx.core;\r\n    requires java.sql;\r\n    requires static lombok;\r\n\r\n    opens com.miniproject to javafx.fxml;\r\n    exports com.miniproject;\r\n    exports com.miniproject.CONTROLLER;\r\n    opens com.miniproject.CONTROLLER to javafx.fxml;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/module-info.java b/src/main/java/module-info.java
+--- a/src/main/java/module-info.java	(revision bd9bed2f97c753da2645baa83365d2883690d384)
++++ b/src/main/java/module-info.java	(date 1735392692214)
+@@ -10,4 +10,7 @@
+     exports com.miniproject;
+     exports com.miniproject.CONTROLLER;
+     opens com.miniproject.CONTROLLER to javafx.fxml;
++
++    // Export the TEST package specifically to javafx.graphics
++    opens com.miniproject.TEST to javafx.graphics;
+ }
+\ No newline at end of file
+Index: src/main/java/com/miniproject/CONTROLLER/ManageStudentsController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/CONTROLLER/ManageStudentsController.java b/src/main/java/com/miniproject/CONTROLLER/ManageStudentsController.java
+new file mode 100644
+--- /dev/null	(date 1735392692209)
++++ b/src/main/java/com/miniproject/CONTROLLER/ManageStudentsController.java	(date 1735392692209)
+@@ -0,0 +1,24 @@
++package com.miniproject.CONTROLLER;
++
++import javafx.fxml.FXML;
++import javafx.scene.control.TableView;
++
++public class ManageStudentsController {
++    @FXML
++    private TableView studentsTable;
++
++    @FXML
++    private void handleAddStudent() {
++        // Logic to add student
++    }
++
++    @FXML
++    private void handleEditStudent() {
++        // Logic to edit student
++    }
++
++    @FXML
++    private void handleDeleteStudent() {
++        // Logic to delete student
++    }
++}
+\ No newline at end of file
+Index: src/main/java/com/miniproject/CONTROLLER/AdminDashboardController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/CONTROLLER/AdminDashboardController.java b/src/main/java/com/miniproject/CONTROLLER/AdminDashboardController.java
+new file mode 100644
+--- /dev/null	(date 1735392692208)
++++ b/src/main/java/com/miniproject/CONTROLLER/AdminDashboardController.java	(date 1735392692208)
+@@ -0,0 +1,16 @@
++package com.miniproject.CONTROLLER;
++
++import javafx.fxml.FXML;
++import javafx.scene.control.Label;
++
++public class AdminDashboardController {
++
++    @FXML
++    private Label welcomeLabel;
++
++    public void setWelcomeMessage(String username, String role) {
++        if (welcomeLabel != null) {
++            welcomeLabel.setText("Welcome " + username + "! Your role is: " + role);
++        }
++    }
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"213767c5-69df-4639-b16d-8d32049d223c\" name=\"Changes\" comment=\"second commit\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/DAO/GenericDAO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Inscription.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/TEST/TestConnection.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/module-info.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/module-info.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;tahanaya&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/tahanaya/MiniProject.git&quot;,\r\n    &quot;accountId&quot;: &quot;8f60449d-4a58-4d57-8abf-5a6c630f3d0d&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2qq03KNYpjT40b8AK1w0f46vttn\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.TestConnection.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"TestConnection\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.miniproject.TEST.TestConnection\" />\r\n      <module name=\"MiniProject\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.miniproject.TEST.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.TestConnection\" />\r\n        <item itemvalue=\"Application.TestConnection\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"213767c5-69df-4639-b16d-8d32049d223c\" name=\"Changes\" comment=\"\" />\r\n      <created>1735374601310</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1735374601310</updated>\r\n      <workItem from=\"1735374602580\" duration=\"1830000\" />\r\n      <workItem from=\"1735376451753\" duration=\"1439000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735374822033</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735374822033</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"second commit\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735375453344</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735375453344</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"first commit\" />\r\n    <MESSAGE value=\"second commit\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"second commit\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision bd9bed2f97c753da2645baa83365d2883690d384)
++++ b/.idea/workspace.xml	(date 1735392779330)
+@@ -4,19 +4,25 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="second commit">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/GenericDAO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Inscription.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/TEST/TestConnection.java" afterDir="false" />
++    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="crud etud and prof">
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/AdminDashboardController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/LandingPageController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/LoginController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ManageStudentsController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ProfessorDashboardController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/SecretaryDashboardController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAO.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/Main.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/LandingPage.css" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/AdminDashboardView.fxml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/LandingPageView.fxml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/ProfessorDashboardView.fxml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/SecretaryDashboardView.fxml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/loginView.fxml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -28,11 +34,18 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Interface" />
++        <option value="CSS File" />
+         <option value="Class" />
++        <option value="FxmlFile" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="feature/crud_etud" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+@@ -53,6 +66,9 @@
+         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+       </MavenGeneralSettings>
+     </option>
++  </component>
++  <component name="ProblemsViewState">
++    <option name="selectedTabId" value="CurrentFile" />
+   </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 1
+@@ -63,21 +79,31 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.TestConnection.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Application.HelloApplication.executor": "Run",
++    "Application.Main.executor": "Run",
++    "Application.TestConnection.executor": "Run",
++    "Application.TestLogin.executor": "Run",
++    "Application.loginMain.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "git-widget-placeholder": "Merging main",
++    "kotlin-language-version-configured": "true",
++    "list.type.of.created.stylesheet": "CSS",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
++  <component name="RecentsManager">
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\Users\utente\ProjetHadad\testRepo\MiniProject\src\main\resources\com\miniproject\css" />
++      <recent name="C:\Users\utente\ProjetHadad\testRepo\MiniProject\src\main\resources\com\miniproject\view" />
++    </key>
++  </component>
+   <component name="RunManager">
+     <configuration name="TestConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.miniproject.TEST.TestConnection" />
+@@ -116,7 +142,8 @@
+       <option name="presentableId" value="Default" />
+       <updated>1735374601310</updated>
+       <workItem from="1735374602580" duration="1830000" />
+-      <workItem from="1735376451753" duration="1439000" />
++      <workItem from="1735376451753" duration="7916000" />
++      <workItem from="1735388191395" duration="3893000" />
+     </task>
+     <task id="LOCAL-00001" summary="first commit">
+       <option name="closed" value="true" />
+@@ -134,7 +161,39 @@
+       <option name="project" value="LOCAL" />
+       <updated>1735375453344</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="make connection to postgres database and entities">
++      <option name="closed" value="true" />
++      <created>1735381660142</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1735381660142</updated>
++    </task>
++    <task id="LOCAL-00004" summary="etudiant and prof dao">
++      <option name="closed" value="true" />
++      <created>1735381750959</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1735381750959</updated>
++    </task>
++    <task id="LOCAL-00005" summary="project structure">
++      <option name="closed" value="true" />
++      <created>1735381849326</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1735381849326</updated>
++    </task>
++    <task id="LOCAL-00006" summary="crud etud and prof">
++      <option name="closed" value="true" />
++      <created>1735382425628</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1735382425628</updated>
++    </task>
++    <option name="localTasksCounter" value="7" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -143,6 +202,10 @@
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="first commit" />
+     <MESSAGE value="second commit" />
+-    <option name="LAST_COMMIT_MESSAGE" value="second commit" />
++    <MESSAGE value="make connection to postgres database and entities" />
++    <MESSAGE value="etudiant and prof dao" />
++    <MESSAGE value="project structure" />
++    <MESSAGE value="crud etud and prof" />
++    <option name="LAST_COMMIT_MESSAGE" value="crud etud and prof" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/main/resources/com/miniproject/view/LandingPageView.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/miniproject/view/LandingPageView.fxml b/src/main/resources/com/miniproject/view/LandingPageView.fxml
+new file mode 100644
+--- /dev/null	(date 1735392692218)
++++ b/src/main/resources/com/miniproject/view/LandingPageView.fxml	(date 1735392692218)
+@@ -0,0 +1,45 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<?import javafx.geometry.Insets?>
++<?import javafx.scene.control.Button?>
++<?import javafx.scene.control.Label?>
++<?import javafx.scene.layout.BorderPane?>
++<?import javafx.scene.layout.HBox?>
++<?import javafx.scene.layout.VBox?>
++
++<!--
++ Note:
++  - "stylesheets" attribute includes our CSS file (LandingPage.css) in the same folder.
++  - If you store CSS in a different folder (e.g., /com/miniproject/css/),
++    you can reference it like: stylesheets="@../css/LandingPage.css"
++-->
++<BorderPane xmlns:fx="http://javafx.com/fxml"
++            fx:controller="com.miniproject.CONTROLLER.LandingPageController"
++            stylesheets="@../css/LandingPage.css">
++
++    <!-- TOP SECTION (Header Bar) -->
++    <top>
++        <HBox styleClass="header-bar">
++            <Label text="MiniProject" styleClass="app-title"/>
++        </HBox>
++    </top>
++
++    <!-- CENTER SECTION (Main Landing Content) -->
++    <center>
++        <VBox alignment="CENTER" spacing="20" styleClass="landing-container">
++            <Label text="Welcome to Our MiniProject" styleClass="landing-headline"/>
++
++            <Label text="Manage students, professors, and modules with ease.&#10;
++Role-based security for Administrators, Secretaries, and Professors.&#10;
++Track enrollments and modules.&#10;
++Generate insightful statistics for your institution."
++                   styleClass="landing-text"/>
++
++            <Button text="Go to Login" onAction="#goToLogin" styleClass="login-btn"/>
++        </VBox>
++    </center>
++
++    <!-- BOTTOM SECTION (Footer) -->
++    <bottom>
++        <Label text="© 2024 My Company, All rights reserved." styleClass="footer-label"/>
++    </bottom>
++</BorderPane>
+Index: src/main/resources/com/miniproject/view/loginView.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/miniproject/view/loginView.fxml b/src/main/resources/com/miniproject/view/loginView.fxml
+new file mode 100644
+--- /dev/null	(date 1735392692219)
++++ b/src/main/resources/com/miniproject/view/loginView.fxml	(date 1735392692219)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<?import javafx.scene.control.Button?>
++<?import javafx.scene.control.Label?>
++<?import javafx.scene.control.PasswordField?>
++<?import javafx.scene.control.TextField?>
++<?import javafx.scene.layout.VBox?>
++
++<VBox xmlns:fx="http://javafx.com/fxml"
++      fx:controller="com.miniproject.CONTROLLER.LoginController"
++      spacing="15" alignment="CENTER" style="-fx-padding: 40;">
++
++    <Label text="Login" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
++    <TextField fx:id="usernameField" promptText="Username" />
++    <PasswordField fx:id="passwordField" promptText="Password" />
++    <Button text="Login" onAction="#handleLogin" />
++
++</VBox>
+Index: src/main/resources/com/miniproject/view/ProfessorDashboardView.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/miniproject/view/ProfessorDashboardView.fxml b/src/main/resources/com/miniproject/view/ProfessorDashboardView.fxml
+new file mode 100644
+--- /dev/null	(date 1735392692218)
++++ b/src/main/resources/com/miniproject/view/ProfessorDashboardView.fxml	(date 1735392692218)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<?import javafx.scene.control.Label?>
++<?import javafx.scene.layout.BorderPane?>
++
++<BorderPane xmlns:fx="http://javafx.com/fxml"
++            fx:controller="com.miniproject.CONTROLLER.ProfessorDashboardController"
++            style="-fx-padding: 20;">
++
++    <center>
++        <Label fx:id="welcomeLabel" text="Professor Dashboard Placeholder" style="-fx-font-size: 16;" />
++    </center>
++</BorderPane>
+Index: src/main/resources/com/miniproject/view/SecretaryDashboardView.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/miniproject/view/SecretaryDashboardView.fxml b/src/main/resources/com/miniproject/view/SecretaryDashboardView.fxml
+new file mode 100644
+--- /dev/null	(date 1735392692219)
++++ b/src/main/resources/com/miniproject/view/SecretaryDashboardView.fxml	(date 1735392692219)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<?import javafx.scene.control.Label?>
++<?import javafx.scene.layout.BorderPane?>
++
++<BorderPane xmlns:fx="http://javafx.com/fxml"
++            fx:controller="com.miniproject.CONTROLLER.SecretaryDashboardController"
++            style="-fx-padding: 20;">
++
++    <!-- Center area with a welcome label -->
++    <center>
++        <Label fx:id="welcomeLabel" text="Secretary Dashboard Placeholder" style="-fx-font-size: 16;" />
++    </center>
++</BorderPane>
+Index: src/main/resources/com/miniproject/view/AdminDashboardView.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/miniproject/view/AdminDashboardView.fxml b/src/main/resources/com/miniproject/view/AdminDashboardView.fxml
+new file mode 100644
+--- /dev/null	(date 1735392692217)
++++ b/src/main/resources/com/miniproject/view/AdminDashboardView.fxml	(date 1735392692217)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<?import javafx.scene.control.Label?>
++<?import javafx.scene.layout.BorderPane?>
++
++<BorderPane xmlns:fx="http://javafx.com/fxml"
++            fx:controller="com.miniproject.CONTROLLER.AdminDashboardController"
++            style="-fx-padding: 20;">
++    <center>
++        <Label fx:id="welcomeLabel" text="Admin Dashboard Placeholder" style="-fx-font-size: 16;"/>
++    </center>
++</BorderPane>
+Index: src/main/java/com/miniproject/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/Main.java b/src/main/java/com/miniproject/Main.java
+new file mode 100644
+--- /dev/null	(date 1735392692212)
++++ b/src/main/java/com/miniproject/Main.java	(date 1735392692212)
+@@ -0,0 +1,29 @@
++package com.miniproject;
++
++import com.miniproject.CONTROLLER.LandingPageController;
++import javafx.application.Application;
++import javafx.fxml.FXMLLoader;
++import javafx.scene.Scene;
++import javafx.stage.Stage;
++
++public class Main extends Application {
++
++    @Override
++    public void start(Stage primaryStage) throws Exception {
++        // Load the landing page first
++        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/LandingPageView.fxml"));
++        Scene scene = new Scene(loader.load());
++
++        // Pass the primary stage to the landing page controller
++        LandingPageController controller = loader.getController();
++        controller.setPrimaryStage(primaryStage);
++
++        primaryStage.setScene(scene);
++        primaryStage.setTitle("Welcome to MiniProject");
++        primaryStage.show();
++    }
++
++    public static void main(String[] args) {
++        launch(args);
++    }
++}
+Index: src/main/java/com/miniproject/DAO/UserDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/DAO/UserDAO.java b/src/main/java/com/miniproject/DAO/UserDAO.java
+new file mode 100644
+--- /dev/null	(date 1735392692212)
++++ b/src/main/java/com/miniproject/DAO/UserDAO.java	(date 1735392692212)
+@@ -0,0 +1,8 @@
++package com.miniproject.DAO;
++
++import com.miniproject.ENTITY.Utilisateur;
++
++public interface UserDAO {
++    Utilisateur getUserByUsername(String username);
++    void addUser(Utilisateur user);
++}
+Index: src/main/java/com/miniproject/DAO/UserDAOImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/DAO/UserDAOImpl.java b/src/main/java/com/miniproject/DAO/UserDAOImpl.java
+new file mode 100644
+--- /dev/null	(date 1735392692212)
++++ b/src/main/java/com/miniproject/DAO/UserDAOImpl.java	(date 1735392692212)
+@@ -0,0 +1,51 @@
++package com.miniproject.DAO;
++
++import com.miniproject.ENTITY.Utilisateur;
++import com.miniproject.DATABASE.DatabaseConnection;
++
++import java.sql.Connection;
++import java.sql.PreparedStatement;
++import java.sql.ResultSet;
++import java.sql.SQLException;
++
++public class UserDAOImpl implements UserDAO {
++    private Connection connection;
++
++    public UserDAOImpl() {
++        this.connection = DatabaseConnection.getInstance().getConnection();
++    }
++
++    @Override
++    public Utilisateur getUserByUsername(String username) {
++        String query = "SELECT * FROM utilisateurs WHERE username = ?";
++        try (PreparedStatement stmt = connection.prepareStatement(query)) {
++            stmt.setString(1, username);
++            try (ResultSet rs = stmt.executeQuery()) {
++                if (rs.next()) {
++                    Utilisateur user = new Utilisateur();
++                    user.setId(rs.getInt("id"));
++                    user.setUsername(rs.getString("username"));
++                    user.setPassword(rs.getString("password"));
++                    user.setRole(rs.getString("role"));
++                    return user;
++                }
++            }
++        } catch (SQLException e) {
++            e.printStackTrace();
++        }
++        return null;
++    }
++
++    @Override
++    public void addUser(Utilisateur utilisateur) {
++        String query = "INSERT INTO utilisateurs (username, password, role) VALUES (?, ?, ?)";
++        try (PreparedStatement stmt = connection.prepareStatement(query)) {
++            stmt.setString(1, utilisateur.getUsername());
++            stmt.setString(2, utilisateur.getPassword());
++            stmt.setString(3, utilisateur.getRole());
++            stmt.executeUpdate();
++        } catch (SQLException e) {
++            e.printStackTrace();
++        }
++    }
++}
+\ No newline at end of file
+Index: src/main/resources/com/miniproject/css/LandingPage.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/miniproject/css/LandingPage.css b/src/main/resources/com/miniproject/css/LandingPage.css
+new file mode 100644
+--- /dev/null	(date 1735392692216)
++++ b/src/main/resources/com/miniproject/css/LandingPage.css	(date 1735392692216)
+@@ -0,0 +1,64 @@
++/* Header bar at the top with a gradient background */
++.header-bar {
++    -fx-background-color: linear-gradient(to right, #34495e, #2c3e50);
++    -fx-padding: 10;
++    -fx-alignment: center_left;
++}
++
++/* The title text in the header */
++.app-title {
++    -fx-text-fill: white;
++    -fx-font-size: 20px;
++    -fx-font-weight: bold;
++    -fx-padding: 0 0 0 10; /* a bit of left padding */
++}
++
++/* Center container styles (the VBox) */
++.landing-container {
++    -fx-padding: 40 20 40 20; /* top, right, bottom, left */
++}
++
++/* Big headline label in the center */
++.landing-headline {
++    -fx-font-size: 28px;
++    -fx-font-weight: bold;
++    -fx-text-fill: #2c3e50; /* Dark blue/gray color */
++}
++
++/* Multi-line descriptive text */
++.landing-text {
++    -fx-text-fill: #555;
++    -fx-wrap-text: true;
++    -fx-font-size: 16px;
++    -fx-alignment: center;
++    -fx-text-alignment: center;
++    -fx-padding: 0 20 0 20;
++}
++
++/* "Go to Login" button */
++.login-btn {
++    -fx-background-color: #3498db;
++    -fx-text-fill: white;
++    -fx-font-weight: bold;
++    -fx-font-size: 14px;
++    -fx-padding: 10 20;
++    -fx-cursor: hand;
++    -fx-background-radius: 5;
++    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.15) , 8, 0, 1, 1 );
++}
++
++/* Hover effect for the login button */
++.login-btn:hover {
++    -fx-background-color: #2980b9;
++}
++
++/* Footer label at the bottom */
++.footer-label {
++    -fx-alignment: center;
++    -fx-font-size: 12px;
++    -fx-text-fill: #999;
++    -fx-padding: 10;
++    -fx-background-color: #f3f3f3;
++    -fx-pref-width: 100%; /* ensure it spans the bottom width */
++    -fx-text-alignment: center;
++}

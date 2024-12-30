@@ -1,0 +1,360 @@
+Index: src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<?import javafx.scene.control.Label?>\r\n<?import javafx.scene.layout.BorderPane?>\r\n\r\n<BorderPane xmlns:fx=\"http://javafx.com/fxml\"\r\n            fx:controller=\"com.miniproject.CONTROLLER.DASHBOARD.ProfessorDashboardController\"\r\n            style=\"-fx-padding: 20;\">\r\n\r\n    <center>\r\n        <Label fx:id=\"welcomeLabel\" text=\"Professor Dashboard Placeholder\" style=\"-fx-font-size: 16;\" />\r\n    </center>\r\n</BorderPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml b/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml
+--- a/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml	(revision 16616b9b30b5962c3b562c6ede8d1415309530a5)
++++ b/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml	(date 1735555380815)
+@@ -1,12 +1,41 @@
+ <?xml version="1.0" encoding="UTF-8"?>
++
++<?import javafx.geometry.Insets?>
++<?import javafx.scene.control.Button?>
+ <?import javafx.scene.control.Label?>
+-<?import javafx.scene.layout.BorderPane?>
++<?import javafx.scene.layout.AnchorPane?>
++<?import javafx.scene.layout.VBox?>
++<?import javafx.scene.text.Font?>
++
++<AnchorPane prefHeight="628.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.DASHBOARD.ProfessorDashboardController">
+ 
+-<BorderPane xmlns:fx="http://javafx.com/fxml"
+-            fx:controller="com.miniproject.CONTROLLER.DASHBOARD.ProfessorDashboardController"
+-            style="-fx-padding: 20;">
++    <children>
++        <!-- Sidebar -->
++        <AnchorPane layoutY="-28.0" prefHeight="656.0" prefWidth="261.0" styleClass="sidebar" stylesheets="@../../css/navbar.css">
++            <children>
++                <Label alignment="CENTER" layoutY="75.0" text="Professor Dashboard" textAlignment="CENTER">
++                    <padding>
++                        <Insets left="35.0" />
++                    </padding>
++                    <font>
++                        <Font name="Arial Bold" size="27.0" />
++                    </font>
++                </Label>
+ 
+-    <center>
+-        <Label fx:id="welcomeLabel" text="Professor Dashboard Placeholder" style="-fx-font-size: 16;" />
+-    </center>
+-</BorderPane>
++                <!-- Sidebar Buttons -->
++                <VBox alignment="TOP_CENTER" fillWidth="false" layoutY="202.0" prefHeight="319.0" prefWidth="181.0" spacing="15.0" AnchorPane.topAnchor="187.0">
++                    <children>
++                        <!-- Buttons -->
++                        <Button fx:id="viewCoursesButton" minWidth="162.0" mnemonicParsing="false" onAction="#handleViewCourses" prefHeight="40.0" prefWidth="162.0" text="View Courses" />
++                        <Button fx:id="manageAssignmentsButton" minWidth="162.0" mnemonicParsing="false" onAction="#handleViewStudents" prefHeight="40.0" prefWidth="162.0" text="View Students" />
++                    </children>
++                </VBox>
++            </children>
++        </AnchorPane>
++
++        <!-- Content Pane -->
++        <AnchorPane fx:id="contentPane" layoutX="261.0" layoutY="0.0" prefHeight="628.0" prefWidth="544.0" style="-fx-background-color: #ecf0f1;">
++            <!-- Dynamic content will be loaded here -->
++        </AnchorPane>
++    </children>
++</AnchorPane>
+\ No newline at end of file
+Index: src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.miniproject.DAO;\r\n\r\nimport com.miniproject.DATABASE.DatabaseConnection;\r\nimport com.miniproject.ENTITY.Professeur;\r\nimport com.miniproject.ENTITY.Utilisateur;\r\n\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class ProfesseurDAOImp implements GenericDAO<Professeur> {\r\n\r\n    private Connection conn;\r\n\r\n    public ProfesseurDAOImp() {\r\n        this.conn = DatabaseConnection.getInstance().getConnection();\r\n    }\r\n\r\n    @Override\r\n    public Professeur findById(int id) {\r\n        Professeur professeur = null;\r\n        try {\r\n            String query = \"SELECT * FROM Professeur WHERE id = ?\";\r\n            PreparedStatement statement = conn.prepareStatement(query);\r\n            statement.setInt(1, id);\r\n            ResultSet resultSet = statement.executeQuery();\r\n\r\n            if (resultSet.next()) {\r\n                professeur = new Professeur();\r\n                professeur.setId(resultSet.getInt(\"id\"));\r\n                professeur.setNom(resultSet.getString(\"nom\"));\r\n                professeur.setPrenom(resultSet.getString(\"prenom\"));\r\n                professeur.setSpecialite(resultSet.getString(\"specialite\"));\r\n\r\n                // Assuming Utilisateur is tied to Professeur by \"utilisateur_id\"\r\n                Utilisateur utilisateur = new Utilisateur();\r\n                utilisateur.setId(resultSet.getInt(\"utilisateur_id\"));\r\n                professeur.setUtilisateur(utilisateur);\r\n            } else {\r\n                System.out.println(\"No Professeur found with ID: \" + id);  // Debug log\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return professeur;\r\n    }\r\n\r\n\r\n    @Override\r\n    public List<Professeur> findAll() {\r\n        List<Professeur> list = new ArrayList<>();\r\n        String sql = \"SELECT p.id, u.nom, u.prenom, p.specialite FROM Professeur p JOIN Utilisateur u ON p.utilisateur_id = u.id\";\r\n\r\n        try (Statement stmt = conn.createStatement();\r\n             ResultSet rs = stmt.executeQuery(sql)) {\r\n            while (rs.next()) {\r\n                Professeur prof = mapToProfesseur(rs);\r\n                list.add(prof);\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return list;\r\n    }\r\n\r\n    @Override\r\n    public void save(Professeur entity) {\r\n        String sqlUtilisateur = \"INSERT INTO utilisateur (username, password, nom, prenom, role) VALUES (?, ?, ?, ?, ?)\";\r\n        String sqlProfesseur = \"INSERT INTO professeur (utilisateur_id, specialite) VALUES (?, ?)\";\r\n\r\n        try {\r\n            // First insert the Utilisateur and get the generated ID\r\n            try (PreparedStatement stmt = conn.prepareStatement(sqlUtilisateur, Statement.RETURN_GENERATED_KEYS)) {\r\n                stmt.setString(1, entity.getUtilisateur().getUsername());\r\n                stmt.setString(2, entity.getUtilisateur().getPassword());\r\n                stmt.setString(3, entity.getUtilisateur().getNom());\r\n                stmt.setString(4, entity.getUtilisateur().getPrenom());\r\n                stmt.setString(5, entity.getUtilisateur().getRole());\r\n\r\n                int affectedRows = stmt.executeUpdate();\r\n                if (affectedRows > 0) {\r\n                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {\r\n                        if (generatedKeys.next()) {\r\n                            int utilisateurId = generatedKeys.getInt(1);  // Get the generated utilisateur ID\r\n                            entity.getUtilisateur().setId(utilisateurId);  // Set the ID for the Utilisateur\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n\r\n            // Now insert the Professeur with the newly generated utilisateur_id\r\n            try (PreparedStatement stmt = conn.prepareStatement(sqlProfesseur)) {\r\n                stmt.setInt(1, entity.getUtilisateur().getId());  // Set the utilisateur's ID\r\n                stmt.setString(2, entity.getSpecialite());\r\n\r\n                stmt.executeUpdate();\r\n            }\r\n\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public void update(Professeur entity) {\r\n        String updateUtilisateurSQL = \"UPDATE utilisateur SET nom = ?, prenom = ?, username = ?, password = ?, role = ? WHERE id = ?\";\r\n        String updateProfesseurSQL = \"UPDATE professeur SET specialite = ? WHERE utilisateur_id = ?\";\r\n\r\n        try {\r\n            // Start transaction\r\n            conn.setAutoCommit(false);\r\n\r\n            // 1. Update the 'utilisateur' table first\r\n            try (PreparedStatement stmt = conn.prepareStatement(updateUtilisateurSQL)) {\r\n                stmt.setString(1, entity.getNom());\r\n                stmt.setString(2, entity.getPrenom());\r\n                stmt.setString(3, entity.getUtilisateur().getUsername());  // Username (if editable)\r\n                stmt.setString(4, entity.getUtilisateur().getPassword());  // Password (if editable)\r\n                stmt.setString(5, entity.getUtilisateur().getRole());\r\n                stmt.setInt(6, entity.getUtilisateur().getId());  // 'Utilisateur' ID\r\n\r\n                int utilisateurRowsAffected = stmt.executeUpdate();\r\n                if (utilisateurRowsAffected > 0) {\r\n                    System.out.println(\"Successfully updated 'utilisateur' with ID: \" + entity.getUtilisateur().getId());\r\n                } else {\r\n                    System.out.println(\"No 'utilisateur' found with ID: \" + entity.getUtilisateur().getId());\r\n                }\r\n            }\r\n\r\n            // 2. Update the 'professeur' table next\r\n            try (PreparedStatement stmt = conn.prepareStatement(updateProfesseurSQL)) {\r\n                stmt.setString(1, entity.getSpecialite());  // Speciality\r\n                stmt.setInt(2, entity.getUtilisateur().getId());  // Linking with 'utilisateur_id'\r\n\r\n                int professeurRowsAffected = stmt.executeUpdate();\r\n                if (professeurRowsAffected > 0) {\r\n                    System.out.println(\"Successfully updated 'professeur' with utilisateur_id: \" + entity.getUtilisateur().getId());\r\n                } else {\r\n                    System.out.println(\"No 'professeur' found with utilisateur_id: \" + entity.getUtilisateur().getId());\r\n                }\r\n            }\r\n\r\n            // Commit the transaction if both updates are successful\r\n            conn.commit();\r\n\r\n        } catch (SQLException e) {\r\n            // Handle exception and rollback transaction if something goes wrong\r\n            System.err.println(\"Error during update operation: \" + e.getMessage());\r\n            try {\r\n                if (conn != null) {\r\n                    conn.rollback();\r\n                    System.out.println(\"Transaction rolled back successfully.\");\r\n                }\r\n            } catch (SQLException rollbackEx) {\r\n                System.err.println(\"Error during rollback: \" + rollbackEx.getMessage());\r\n            }\r\n        } finally {\r\n            // Reset auto-commit to true to avoid issues later\r\n            try {\r\n                if (conn != null) {\r\n                    conn.setAutoCommit(true);\r\n                }\r\n            } catch (SQLException ex) {\r\n                System.err.println(\"Error resetting auto-commit: \" + ex.getMessage());\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n    @Override\r\n    public void delete(int id) {\r\n        String deleteProfesseurQuery = \"DELETE FROM professeur WHERE id = ?\";\r\n        try {\r\n            // Start transaction\r\n            conn.setAutoCommit(false);\r\n\r\n            try (PreparedStatement pstmtProfesseur = conn.prepareStatement(deleteProfesseurQuery)) {\r\n                // Delete the professeur\r\n                pstmtProfesseur.setInt(1, id);\r\n                pstmtProfesseur.executeUpdate();\r\n            }\r\n\r\n            // Commit transaction\r\n            conn.commit();\r\n        } catch (SQLException e) {\r\n            // Handle exception and rollback transaction\r\n            System.err.println(\"Error during delete operation: \" + e.getMessage());\r\n            try {\r\n                if (conn != null) {\r\n                    conn.rollback();\r\n                    System.out.println(\"Transaction rolled back successfully.\");\r\n                }\r\n            } catch (SQLException rollbackEx) {\r\n                System.err.println(\"Error during rollback: \" + rollbackEx.getMessage());\r\n            }\r\n        } finally {\r\n            // Reset auto-commit to true\r\n            try {\r\n                if (conn != null) {\r\n                    conn.setAutoCommit(true);\r\n                }\r\n            } catch (SQLException ex) {\r\n                System.err.println(\"Error resetting auto-commit: \" + ex.getMessage());\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Helper method to map a ResultSet row to an Professeur object\r\n     */\r\n    private Professeur mapToProfesseur(ResultSet rs) throws SQLException {\r\n        // Log the column names in the result set\r\n        ResultSetMetaData metaData = rs.getMetaData();\r\n        int columnCount = metaData.getColumnCount();\r\n        for (int i = 1; i <= columnCount; i++) {\r\n            System.out.println(\"Column \" + i + \": \" + metaData.getColumnName(i));\r\n        }\r\n\r\n        Professeur p = new Professeur();\r\n        p.setId(rs.getInt(\"id\"));\r\n\r\n        // Assuming 'nom' and 'prenom' are in the Utilisateur table\r\n        Utilisateur utilisateur = new Utilisateur();\r\n        utilisateur.setNom(rs.getString(\"nom\"));\r\n        utilisateur.setPrenom(rs.getString(\"prenom\"));\r\n        p.setUtilisateur(utilisateur);\r\n\r\n        p.setSpecialite(rs.getString(\"specialite\"));\r\n\r\n        return p;\r\n    }\r\n\r\n\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java b/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java
+--- a/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java	(revision 16616b9b30b5962c3b562c6ede8d1415309530a5)
++++ b/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java	(date 1735555954595)
+@@ -12,6 +12,7 @@
+ 
+     private Connection conn;
+ 
++
+     public ProfesseurDAOImp() {
+         this.conn = DatabaseConnection.getInstance().getConnection();
+     }
+Index: src/main/java/com/miniproject/DAO/ModuleDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/DAO/ModuleDAO.java b/src/main/java/com/miniproject/DAO/ModuleDAO.java
+new file mode 100644
+--- /dev/null	(date 1735556200569)
++++ b/src/main/java/com/miniproject/DAO/ModuleDAO.java	(date 1735556200569)
+@@ -0,0 +1,14 @@
++package com.miniproject.DAO;
++
++import com.miniproject.ENTITY.Module;
++import java.util.List;
++
++public interface ModuleDAO extends GenericDAO<Module> {
++    /**
++     * Retrieves all modules taught by a specific professor.
++     *
++     * @param professeurId The ID of the professor.
++     * @return A list of modules.
++     */
++    List<Module> findModulesByProfesseurId(int professeurId);
++}
+Index: src/main/java/com/miniproject/DAO/ModuleDAOImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/miniproject/DAO/ModuleDAOImpl.java b/src/main/java/com/miniproject/DAO/ModuleDAOImpl.java
+new file mode 100644
+--- /dev/null	(date 1735556220221)
++++ b/src/main/java/com/miniproject/DAO/ModuleDAOImpl.java	(date 1735556220221)
+@@ -0,0 +1,137 @@
++package com.miniproject.DAO;
++
++import com.miniproject.DATABASE.DatabaseConnection;
++import com.miniproject.ENTITY.Module;
++import com.miniproject.ENTITY.Professeur;
++
++import java.sql.*;
++import java.util.ArrayList;
++import java.util.List;
++
++public class ModuleDAOImpl implements ModuleDAO {
++
++    private final Connection connection;
++
++    public ModuleDAOImpl() {
++        this.connection = DatabaseConnection.getInstance().getConnection();
++    }
++
++    @Override
++    public List<Module> findAll() {
++        List<Module> modules = new ArrayList<>();
++        String query = "SELECT m.id, m.nom_module, m.code_module, p.id AS p_id, p.nom AS p_nom, p.prenom AS p_prenom, p.specialite " +
++                "FROM modules m " +
++                "JOIN professeurs p ON m.professeur_id = p.id";
++
++        try (Statement stmt = connection.createStatement();
++             ResultSet rs = stmt.executeQuery(query)) {
++
++            while (rs.next()) {
++                Professeur professeur = new Professeur();
++                professeur.setId(rs.getInt("p_id"));
++                professeur.setNom(rs.getString("p_nom"));
++                professeur.setPrenom(rs.getString("p_prenom"));
++                professeur.setSpecialite(rs.getString("specialite"));
++
++                Module module = new Module();
++                module.setId(rs.getInt("id"));
++                module.setNomModule(rs.getString("nom_module"));
++                module.setCodeModule(rs.getString("code_module"));
++                module.setProfesseur(professeur);
++
++                modules.add(module);
++            }
++
++        } catch (SQLException e) {
++            e.printStackTrace();
++            // Optionally, log the error or rethrow as a custom exception
++        }
++
++        return modules;
++    }
++
++    @Override
++    public void save(Module module) {
++        // Implement save logic if needed
++    }
++
++    @Override
++    public void update(Module module) {
++        // Implement update logic if needed
++    }
++
++    @Override
++    public void delete(int id) {
++        // Implement delete logic if needed
++    }
++
++    @Override
++    public Module findById(int id) {
++        Module module = null;
++        String query = "SELECT m.id, m.nom_module, m.code_module, p.id AS p_id, p.nom AS p_nom, p.prenom AS p_prenom, p.specialite " +
++                "FROM modules m " +
++                "JOIN professeurs p ON m.professeur_id = p.id " +
++                "WHERE m.id = ?";
++
++        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
++            pstmt.setInt(1, id);
++            ResultSet rs = pstmt.executeQuery();
++
++            if (rs.next()) {
++                Professeur professeur = new Professeur();
++                professeur.setId(rs.getInt("p_id"));
++                professeur.setNom(rs.getString("p_nom"));
++                professeur.setPrenom(rs.getString("p_prenom"));
++                professeur.setSpecialite(rs.getString("specialite"));
++
++                module = new Module();
++                module.setId(rs.getInt("id"));
++                module.setNomModule(rs.getString("nom_module"));
++                module.setCodeModule(rs.getString("code_module"));
++                module.setProfesseur(professeur);
++            }
++
++        } catch (SQLException e) {
++            e.printStackTrace();
++            // Optionally, log the error or rethrow as a custom exception
++        }
++
++        return module;
++    }
++
++    @Override
++    public List<Module> findModulesByProfesseurId(int professeurId) {
++        List<Module> modules = new ArrayList<>();
++        String query = "SELECT m.id, m.nom_module, m.code_module, p.id AS p_id, p.nom AS p_nom, p.prenom AS p_prenom, p.specialite " +
++                "FROM modules m " +
++                "JOIN professeurs p ON m.professeur_id = p.id " +
++                "WHERE p.id = ?";
++
++        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
++            pstmt.setInt(1, professeurId);
++            ResultSet rs = pstmt.executeQuery();
++
++            while (rs.next()) {
++                Professeur professeur = new Professeur();
++                professeur.setId(rs.getInt("p_id"));
++                professeur.setNom(rs.getString("p_nom"));
++                professeur.setPrenom(rs.getString("p_prenom"));
++                professeur.setSpecialite(rs.getString("specialite"));
++
++                Module module = new Module();
++                module.setId(rs.getInt("id"));
++                module.setNomModule(rs.getString("nom_module"));
++                module.setCodeModule(rs.getString("code_module"));
++                module.setProfesseur(professeur);
++
++                modules.add(module);
++            }
++
++        } catch (SQLException e) {
++            e.printStackTrace();
++            // Optionally, log the error or rethrow as a custom exception
++        }
++
++        return modules;
++    }
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"213767c5-69df-4639-b16d-8d32049d223c\" name=\"Changes\" comment=\"FORCED TO COMMIT\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/module-info.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/module-info.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/EtudiantView.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/EtudiantView.fxml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"CSS File\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"FxmlFile\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;tahanaya&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/tahanaya/MiniProject.git&quot;,\r\n    &quot;accountId&quot;: &quot;8f60449d-4a58-4d57-8abf-5a6c630f3d0d&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2qq03KNYpjT40b8AK1w0f46vttn\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.TestConnection.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.TestLogin.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.loginMain.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\utente\\ProjetHadad\\testRepo\\MiniProject\\src\\main\\resources\\com\\miniproject\\view\\Dashboard\" />\r\n      <recent name=\"C:\\Users\\utente\\ProjetHadad\\testRepo\\MiniProject\\src\\main\\resources\\com\\miniproject\\view\\Etudiant\" />\r\n      <recent name=\"C:\\Users\\utente\\ProjetHadad\\testRepo\\MiniProject\\src\\main\\resources\\com\\miniproject\\css\" />\r\n      <recent name=\"C:\\Users\\utente\\ProjetHadad\\testRepo\\MiniProject\\src\\main\\resources\\com\\miniproject\\view\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Main\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.miniproject.Main\" />\r\n      <module name=\"MiniProject\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.miniproject.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"TestConnection\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.miniproject.TEST.TestConnection\" />\r\n      <module name=\"MiniProject\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.miniproject.TEST.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.TestConnection\" />\r\n        <item itemvalue=\"Application.TestConnection\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"213767c5-69df-4639-b16d-8d32049d223c\" name=\"Changes\" comment=\"\" />\r\n      <created>1735374601310</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1735374601310</updated>\r\n      <workItem from=\"1735374602580\" duration=\"1830000\" />\r\n      <workItem from=\"1735376451753\" duration=\"7916000\" />\r\n      <workItem from=\"1735388191395\" duration=\"3893000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735374822033</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735374822033</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"second commit\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735375453344</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735375453344</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"make connection to postgres database and entities\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735381660142</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735381660142</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"etudiant and prof dao\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735381750959</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735381750959</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"project structure\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735381849326</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735381849326</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"crud etud and prof\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735382425628</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735382425628</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"FORCED TO COMMIT\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735477789724</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735477789724</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"first commit\" />\r\n    <MESSAGE value=\"second commit\" />\r\n    <MESSAGE value=\"make connection to postgres database and entities\" />\r\n    <MESSAGE value=\"etudiant and prof dao\" />\r\n    <MESSAGE value=\"project structure\" />\r\n    <MESSAGE value=\"crud etud and prof\" />\r\n    <MESSAGE value=\"FORCED TO COMMIT\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"FORCED TO COMMIT\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 16616b9b30b5962c3b562c6ede8d1415309530a5)
++++ b/.idea/workspace.xml	(date 1735556189559)
+@@ -4,13 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
++    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="making the export csv function to export student list">
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ModuleDAOImpl.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/EtudiantView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/EtudiantView.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -22,8 +20,8 @@
+       <list>
+         <option value="Interface" />
+         <option value="CSS File" />
+-        <option value="Class" />
+         <option value="FxmlFile" />
++        <option value="Class" />
+       </list>
+     </option>
+   </component>
+@@ -66,26 +64,25 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.TestConnection.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.TestLogin.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.loginMain.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Application.HelloApplication.executor": "Run",
++    "Application.Main.executor": "Run",
++    "Application.TestConnection.executor": "Run",
++    "Application.TestLogin.executor": "Run",
++    "Application.loginMain.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "git-widget-placeholder": "main",
++    "kotlin-language-version-configured": "true",
++    "list.type.of.created.stylesheet": "CSS",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="C:\Users\utente\ProjetHadad\testRepo\MiniProject\src\main\resources\com\miniproject\view\Dashboard" />
+@@ -205,7 +202,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1735477789724</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <task id="LOCAL-00008" summary="making the export csv function to export student list">
++      <option name="closed" value="true" />
++      <created>1735554288857</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1735554288857</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -230,6 +235,7 @@
+     <MESSAGE value="project structure" />
+     <MESSAGE value="crud etud and prof" />
+     <MESSAGE value="FORCED TO COMMIT" />
+-    <option name="LAST_COMMIT_MESSAGE" value="FORCED TO COMMIT" />
++    <MESSAGE value="making the export csv function to export student list" />
++    <option name="LAST_COMMIT_MESSAGE" value="making the export csv function to export student list" />
+   </component>
+ </project>
+\ No newline at end of file
