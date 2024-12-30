@@ -56,4 +56,23 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void updateUser(Utilisateur utilisateur) throws SQLException {
+        String sql = "UPDATE utilisateur SET username = ?, password = ?, role = ?, nom = ?, prenom = ? WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, utilisateur.getUsername());
+            stmt.setString(2, utilisateur.getPassword());
+            stmt.setString(3, utilisateur.getRole());
+            stmt.setString(4, utilisateur.getNom());
+            stmt.setString(5, utilisateur.getPrenom());
+            stmt.setInt(6, utilisateur.getId());
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating user failed, no rows affected.");
+            }
+        }
+    }
 }

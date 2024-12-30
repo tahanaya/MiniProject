@@ -1,13 +1,14 @@
 package com.miniproject.CONTROLLER.PROFESSEUR;
 
 import com.miniproject.DAO.GenericDAO;
-import com.miniproject.DAO.ProfesseurDAOImp;
+import com.miniproject.DAO.ProfesseurDAOImpl;
 import com.miniproject.DAO.UserDAO;
 import com.miniproject.DAO.UserDAOImpl;
 import com.miniproject.ENTITY.Professeur;
 import com.miniproject.ENTITY.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -21,15 +22,21 @@ public class AddProfesseurController {
     @FXML
     private TextField specialiteField;
     @FXML
-    private TextField usernameField; // Added for username input
+    private TextField usernameField; // For username input
     @FXML
-    private PasswordField passwordField; // Updated to PasswordField
+    private PasswordField passwordField; // For password input
+
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button cancelButton;
 
     // Reference to ProfesseurController to refresh data
     private ProfesseurController professeurController;
 
-    // DAO for Professeur
-    private final GenericDAO<Professeur> professeurDAO = new ProfesseurDAOImp();
+    // DAOs
+    private final GenericDAO<Professeur> professeurDAO = new ProfesseurDAOImpl();
+    private final UserDAO utilisateurDAO = new UserDAOImpl();
 
     /**
      * Sets the ProfesseurController reference.
@@ -47,7 +54,7 @@ public class AddProfesseurController {
     public void handleAdd() {
         if (isInputValid()) {
             try {
-                // Create a new Utilisateur first
+                // Create a new Utilisateur
                 Utilisateur utilisateur = new Utilisateur();
                 utilisateur.setUsername(usernameField.getText());
                 utilisateur.setPassword(passwordField.getText());
@@ -56,22 +63,19 @@ public class AddProfesseurController {
                 utilisateur.setRole("PROFESSEUR");  // Set role as "PROFESSEUR"
 
                 // Save the Utilisateur to the database
-                UserDAO utilisateurDAO = new UserDAOImpl();
                 utilisateurDAO.addUser(utilisateur);
 
                 // Log Utilisateur ID after insertion
                 System.out.println("Utilisateur ID after saving: " + utilisateur.getId());
 
-                // Create the Professeur object
+                // Create the Professeur object and associate Utilisateur
                 Professeur newProf = new Professeur();
-                newProf.setNom(nomField.getText());
-                newProf.setPrenom(prenomField.getText());
                 newProf.setSpecialite(specialiteField.getText());
-                newProf.setUtilisateur(utilisateur);  // Set the saved Utilisateur object
+                newProf.setUtilisateur(utilisateur);  // Associate Utilisateur
 
                 // Save the Professeur to the database
                 professeurDAO.save(newProf);
-                System.out.println("Added Teacher: " + newProf); // Debugging
+                System.out.println("Added Professeur: " + newProf); // Debugging
 
                 // Log the ID of the Professeur after saving
                 System.out.println("Professeur ID after saving: " + newProf.getId());
@@ -91,7 +95,12 @@ public class AddProfesseurController {
                 // Clear form after successful addition
                 clearForm();
             } catch (Exception e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue lors de l'ajout du professeur.");
+                // Check if the exception is due to role constraint violation
+                if (e.getMessage().contains("utilisateur_role_check")) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur", "Le rôle doit être ADMINISTRATEUR, SECRETAIRE ou PROFESSEUR.");
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue lors de l'ajout du professeur.");
+                }
                 e.printStackTrace();
             }
         }
@@ -121,13 +130,13 @@ public class AddProfesseurController {
             errorMessage += "Prénom invalide!\n";
         }
         if (specialiteField.getText() == null || specialiteField.getText().trim().isEmpty()) {
-            errorMessage += "Specialite invalide!\n";
+            errorMessage += "Spécialité invalide!\n";
         }
         if (usernameField.getText() == null || usernameField.getText().trim().isEmpty()) {
-            errorMessage += "Username invalide!\n";
+            errorMessage += "Nom d'utilisateur invalide!\n";
         }
         if (passwordField.getText() == null || passwordField.getText().trim().isEmpty()) {
-            errorMessage += "Password invalide!\n";
+            errorMessage += "Mot de passe invalide!\n";
         }
 
         if (errorMessage.isEmpty()) {

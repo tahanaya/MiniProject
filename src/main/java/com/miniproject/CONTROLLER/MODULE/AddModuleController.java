@@ -10,7 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import com.miniproject.DAO.ProfesseurDAOImp;
+import com.miniproject.DAO.ProfesseurDAOImpl;
 
 public class AddModuleController {
 
@@ -23,7 +23,7 @@ public class AddModuleController {
     private ComboBox<Professeur> professorComboBox; // Updated to ComboBox
 
     private final ModuleDAOImpl moduleDAO = new ModuleDAOImpl();
-    private final ProfesseurDAOImp professeurDAO = new ProfesseurDAOImp(); // DAO for fetching Professeur
+    private final ProfesseurDAOImpl professeurDAO = new ProfesseurDAOImpl(); // DAO for fetching Professeur
 
     private ObservableList<Professeur> professorsList = FXCollections.observableArrayList();
 

@@ -5,25 +5,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!--
   Root AnchorPane with fx:controller linked to AdminDashboardController
 -->
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.miniproject.CONTROLLER.DASHBOARD.AdminDashboardController"
-            prefHeight="628.0" prefWidth="805.0">
+
+<AnchorPane prefHeight="628.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.DASHBOARD.AdminDashboardController">
 
     <!-- Sidebar AnchorPane -->
     <children>
-        <AnchorPane layoutY="-28.0" prefHeight="656.0" prefWidth="261.0"
-                    styleClass="sidebar"
-                    stylesheets="@../../css/navbar.css">
+        <AnchorPane layoutY="-28.0" prefHeight="656.0" prefWidth="261.0" styleClass="sidebar" stylesheets="@../../css/navbar.css">
             <children>
                 <!-- Dashboard Label -->
-                <Label alignment="CENTER" layoutX="54.0" layoutY="78.0"
-                       text="Dashboard" textAlignment="CENTER">
+                <Label alignment="CENTER" layoutX="54.0" layoutY="78.0" text="Dashboard" textAlignment="CENTER">
                     <padding>
                         <Insets left="35.0" />
                     </padding>
@@ -33,36 +28,19 @@
                 </Label>
 
                 <!-- VBox for Sidebar Buttons -->
-                <VBox alignment="TOP_CENTER" fillWidth="false"
-                      layoutY="202.0" prefHeight="319.0" prefWidth="181.0"
-                      spacing="15.0" AnchorPane.topAnchor="187.0">
+                <VBox alignment="TOP_CENTER" fillWidth="false" layoutY="202.0" prefHeight="319.0" prefWidth="181.0" spacing="15.0" AnchorPane.topAnchor="187.0">
                     <children>
                         <!-- Buttons with onAction linked to controller methods -->
-                        <Button minWidth="162.0" mnemonicParsing="false"
-                                prefHeight="40.0" prefWidth="162.0"
-                                text="Etudiant" onAction="#handleEtudiant" />
-                        <Button minWidth="141.0" mnemonicParsing="false"
-                                prefHeight="40.0" prefWidth="141.0"
-                                text="Professeur" onAction="#handleProfesseur" />
-                        <Button minHeight="6.0" minWidth="206.0"
-                                mnemonicParsing="false" prefHeight="43.0"
-                                prefWidth="220.0" text="Associer Etudiant"
-                                onAction="#handleAssocierEtudiant" />
-                        <Button mnemonicParsing="false" text="Modules"
-                                onAction="#handleModules" />
-                        <Button mnemonicParsing="false" text="Inscription"
-                                onAction="#handleInscription" />
-                        <Button mnemonicParsing="false" text="Associer Prof"
-                                onAction="#handleAssocierProf" />
+                        <Button minWidth="162.0" mnemonicParsing="false" onAction="#handleEtudiant" prefHeight="40.0" prefWidth="162.0" text="Etudiant" />
+                        <Button minWidth="141.0" mnemonicParsing="false" onAction="#handleProfesseur" prefHeight="40.0" prefWidth="141.0" text="Professeur" />
+                        <Button mnemonicParsing="false" onAction="#handleModules" text="Modules" />
                     </children>
                 </VBox>
             </children>
         </AnchorPane>
 
         <!-- Content Area AnchorPane -->
-        <AnchorPane fx:id="contentPane"
-                    layoutX="270.0" layoutY="20.0"
-                    prefHeight="600.0" prefWidth="500.0">
+        <AnchorPane fx:id="contentPane" layoutX="270.0" layoutY="20.0" prefHeight="600.0" prefWidth="500.0">
             <!-- Initial content can be added here or left empty -->
         </AnchorPane>
     </children>
