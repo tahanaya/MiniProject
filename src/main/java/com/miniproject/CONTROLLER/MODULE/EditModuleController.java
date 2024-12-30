@@ -1,7 +1,7 @@
 package com.miniproject.CONTROLLER.MODULE;
 
 import com.miniproject.DAO.ModuleDAOImpl;
-import com.miniproject.DAO.ProfesseurDAOImp;
+import com.miniproject.DAO.ProfesseurDAOImpl;
 import com.miniproject.ENTITY.Module;
 import com.miniproject.ENTITY.Professeur;
 import javafx.collections.FXCollections;
@@ -20,7 +20,7 @@ public class EditModuleController {
 
     private Module module;
     private final ModuleDAOImpl moduleDAO = new ModuleDAOImpl();
-    private final ProfesseurDAOImp professeurDAO = new ProfesseurDAOImp();
+    private final ProfesseurDAOImpl professeurDAO = new ProfesseurDAOImpl();
 
     @FXML
     public void initialize() {

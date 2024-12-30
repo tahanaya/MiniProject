@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class EditStudentController {
 
     @FXML private TextField matriculeField;
@@ -63,7 +65,7 @@ public class EditStudentController {
      * Handles the action of updating the student.
      */
     @FXML
-    private void handleUpdate() {
+    private void handleUpdate() throws SQLException {
         if (isInputValid()) {
             etudiant.setMatricule(matriculeField.getText());
             etudiant.setNom(nomField.getText());

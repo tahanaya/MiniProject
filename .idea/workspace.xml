@@ -4,9 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" afterDir="false" />
+    <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="remove unnecessary buttons from admin dashboard">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EditStudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EditStudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/AddModuleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/AddModuleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/EditModuleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/EditModuleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/AddProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/AddProfesseurController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/EditProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/EditProfesseurController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ProfesseurController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/GenericDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/GenericDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/add-student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/add-student.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/edit-student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/edit-student.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/add-professeur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/add-professeur.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/edit-professeur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/edit-professeur.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,10 +32,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="CSS File" />
         <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -144,7 +160,7 @@
       <workItem from="1735374602580" duration="1830000" />
       <workItem from="1735376451753" duration="7916000" />
       <workItem from="1735388191395" duration="3893000" />
-      <workItem from="1735556508058" duration="412000" />
+      <workItem from="1735556508058" duration="4934000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -210,7 +226,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735556684518</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="remove unnecessary buttons from admin dashboard">
+      <option name="closed" value="true" />
+      <created>1735557076897</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1735557076897</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,6 +248,7 @@
     <MESSAGE value="project structure" />
     <MESSAGE value="crud etud and prof" />
     <MESSAGE value="FORCED TO COMMIT" />
-    <option name="LAST_COMMIT_MESSAGE" value="FORCED TO COMMIT" />
+    <MESSAGE value="remove unnecessary buttons from admin dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove unnecessary buttons from admin dashboard" />
   </component>
 </project>
