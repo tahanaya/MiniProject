@@ -21,7 +21,7 @@ public class AdminDashboardController {
         System.out.println("Etudiant button clicked!");
 
         try {
-            // Load EtudiantView.fxml
+            // Load EtudiantProfesseurView.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Etudiant/EtudiantView.fxml"));
             Parent etudiantView = loader.load();
 

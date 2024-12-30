@@ -5,70 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa.corrupted.20241230-042853.reason.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa.corrupted.20241230-042853.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/MiniProject.oiZ1nA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/MiniProject.oiZ1nA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/MiniProject.oiZ1nA/schema/information_schema.FNRwLQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/MiniProject.oiZ1nA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/MiniProject.oiZ1nA/schema/pg_catalog.0S1ZNQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/MiniProject.oiZ1nA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c22deffa-eea8-4a74-87f1-5143ccffe0fa/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-12-29_14_06_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-12-29_14_06__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-12-28_14_33_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-12-29_14_07_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-12-29_14_07__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-12-30_11_57_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-12-30_11_57__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-12-30_12_02_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-12-30_12_02__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/AddModuleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/AssocierEtudiantController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/EditModuleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/EtudiantsAssociesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ModuleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ProfessorViewModuleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ViewModuleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/InscriptionDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ModuleDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/Fonts/Times New Roman.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Add-module.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/AssocierEtudiant.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Edit-module.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/EtudiantsAssocies.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/ModuleView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/professor-view-modules.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/view-module.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/EtudiantProfesseurView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EditStudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EditStudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/AddProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/AddProfesseurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/EditProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/EditProfesseurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ProfesseurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/GenericDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/GenericDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ProfesseurDAOImp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/EtudiantProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/EtudiantProfesseurController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/ViewEtudiantProfesseurController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Professeur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/EtudiantView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/EtudiantView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/add-student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/add-student.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/edit-student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/edit-student.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/add-professeur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/add-professeur.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/edit-professeur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/edit-professeur.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/EtudiantView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +29,8 @@
       <list>
         <option value="Interface" />
         <option value="CSS File" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -135,7 +84,7 @@
     "Application.loginMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",

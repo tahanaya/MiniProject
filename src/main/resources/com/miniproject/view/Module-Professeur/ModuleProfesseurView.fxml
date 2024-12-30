@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600" prefWidth="788.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.ModuleProfesseur.ModuleProfesseurController">
+    <children>
+        <!-- Header Label -->
+        <Label layoutX="274.0" layoutY="44.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des Modules" />
+
+        <!-- Status Label -->
+        <Label fx:id="statusLabel" layoutX="62.0" layoutY="72.0" prefHeight="31.0" prefWidth="576.0" style="-fx-font-size: 14px; -fx-padding: 5px;" text="" />
+
+        <!-- TableView -->
+        <TableView fx:id="moduleTable" layoutX="62.0" layoutY="101.0" prefHeight="358.0" prefWidth="576.0">
+            <columns>
+                <!-- ID Column -->
+                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+
+                <!-- Module Name Column -->
+                <TableColumn fx:id="colName" prefWidth="150.0" text="Nom du Module" />
+
+                <!-- Module Code Column -->
+                <TableColumn fx:id="colCode" prefWidth="100.0" text="Code du Module" />
+
+                <!-- Professor Full Name Column -->
+                <TableColumn fx:id="colProfessorFullName" prefWidth="150.0" text="Nom du Professeur" />
+            </columns>
+        </TableView>
+
+        <!-- Action Buttons -->
+        <Button layoutX="130.0" layoutY="500.0" onAction="#handleViewModule" prefWidth="100" text="Visualiser" />
+    </children>
+</AnchorPane>

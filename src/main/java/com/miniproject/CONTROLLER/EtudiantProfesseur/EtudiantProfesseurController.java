@@ -1,5 +1,7 @@
 package com.miniproject.CONTROLLER.EtudiantProfesseur;
 
+import com.miniproject.DAO.EtudiantDAOImpl;
+import com.miniproject.DAO.GenericDAO;
 import com.miniproject.ENTITY.Etudiant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,20 +9,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
+import java.util.List;
 
 public class EtudiantProfesseurController {
 
+    // FXML-injected TableView and TableColumns
     @FXML
     private TableView<Etudiant> etudiantTable;
     @FXML
@@ -32,22 +32,40 @@ public class EtudiantProfesseurController {
     @FXML
     private TableColumn<Etudiant, String> colPrenom;
     @FXML
-    private TableColumn<Etudiant, LocalDate> colDateNaissance;
+    private TableColumn<Etudiant, String> colDateNaissance;
     @FXML
     private TableColumn<Etudiant, String> colEmail;
     @FXML
     private TableColumn<Etudiant, String> colPromotion;
 
-    private Connection connection; // Connection déjà configurée
+    // DAO for Etudiant operations
+    private final GenericDAO<Etudiant> etudiantDAO = new EtudiantDAOImpl();
 
-    // Constructeur ou initialisation de la connexion
-    public EtudiantProfesseurController(Connection connection) {
-        this.connection = connection; // Injectez votre connexion ici
+    // ObservableList to hold Etudiant data for the TableView
+    private final ObservableList<Etudiant> etudiantList = FXCollections.observableArrayList();
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the FXML file has been loaded.
+     */
+    @FXML
+    public void initialize() {
+        System.out.println("EtudiantController initialized."); // Debugging statement
+
+        // Initialize table columns with PropertyValueFactory
+        setupTableColumns();
+
+        // Load student data from the DAO
+        loadEtudiants();
+
+        // Bind the data to the TableView
+        etudiantTable.setItems(etudiantList);
     }
 
-    @FXML
-    private void initialize() {
-        // Lier les colonnes aux propriétés de l'objet Etudiant
+    /**
+     * Sets up the table columns with appropriate cell value factories.
+     */
+    private void setupTableColumns() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colMatricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -55,60 +73,62 @@ public class EtudiantProfesseurController {
         colDateNaissance.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPromotion.setCellValueFactory(new PropertyValueFactory<>("promotion"));
-
-        // Charger les données dans la TableView
-        etudiantTable.setItems(getEtudiants());
     }
 
-    private ObservableList<Etudiant> getEtudiants() {
-        ObservableList<Etudiant> etudiantList = FXCollections.observableArrayList();
-        String query = "SELECT id, matricule, nom, prenom, dateNaissance, email, promotion FROM etudiants";
-
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-
-            while (rs.next()) {
-                // Ajouter les données dans la liste
-                Etudiant etudiant = new Etudiant(
-                        rs.getInt("id"),
-                        rs.getString("matricule"),
-                        rs.getString("nom"),
-                        rs.getString("prenom"),
-                        rs.getString("dateNaissance"),
-                        rs.getString("email"),
-                        rs.getString("promotion")
-                );
-                etudiantList.add(etudiant);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Vous pouvez afficher une alerte à l'utilisateur en cas d'erreur
-        }
-
-        return etudiantList;
+    /**
+     * Loads all students from the database into the TableView.
+     */
+    void loadEtudiants() {
+        etudiantList.clear(); // Clear existing data
+        List<Etudiant> list = etudiantDAO.findAll(); // Fetch data from DAO
+        System.out.println("Number of students fetched: " + list.size()); // Debugging statement
+        etudiantList.addAll(list); // Add data to ObservableList
     }
 
-
+    /**
+     * Handles viewing the selected student's details.
+     */
     @FXML
     private void handleViewStudent() {
-        Etudiant selectedEtudiant = etudiantTable.getSelectionModel().getSelectedItem();
-        if (selectedEtudiant != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/VIEW/ViewEtudiantProfesseur.fxml"));
-                Parent root = loader.load();
-
-                ViewEtudiantProfesseurController controller = loader.getController();
-                controller.setEtudiant(selectedEtudiant);
-
-                Stage stage = new Stage();
-                stage.setTitle("Détails de l'Étudiant");
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            openViewStudentPopup(selected);
         } else {
-            System.out.println("Aucun étudiant sélectionné");
+            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à visualiser.");
         }
+    }
+
+    /**
+     * Opens the View Student popup window for the selected student.
+     *
+     * @param etudiant The selected Etudiant to view.
+     */
+    private void openViewStudentPopup(Etudiant etudiant) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller of the View Student popup and pass the selected student
+            viewEtudiantProfesseurController viewStudentController = loader.getController();
+            viewStudentController.setEtudiant(etudiant);
+
+            Stage popupStage = new Stage();
+            popupStage.setScene(new Scene(root, 400, 300));
+            popupStage.setTitle("Détails de l'étudiant");
+            popupStage.initOwner(etudiantTable.getScene().getWindow());
+            popupStage.showAndWait();  // Wait for popup to close
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la fenêtre de visualisation.");
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
