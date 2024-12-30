@@ -14,6 +14,7 @@ public class ViewStudentController {
     @FXML private Label emailLabel;
     @FXML private Label promotionLabel;
 
+
     private Etudiant etudiant;
 
     /**

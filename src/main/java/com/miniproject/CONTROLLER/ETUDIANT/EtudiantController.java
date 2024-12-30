@@ -11,6 +11,7 @@ import com.miniproject.DAO.GenericDAO;
 import com.miniproject.ENTITY.Etudiant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,22 +37,16 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 public class EtudiantController {
 
     // FXML-injected TableView and TableColumns
-    @FXML
-    private TableView<Etudiant> etudiantTable;
-    @FXML
-    private TableColumn<Etudiant, Integer> colId;
-    @FXML
-    private TableColumn<Etudiant, String> colMatricule;
-    @FXML
-    private TableColumn<Etudiant, String> colNom;
-    @FXML
-    private TableColumn<Etudiant, String> colPrenom;
-    @FXML
-    private TableColumn<Etudiant, String> colDateNaissance;
-    @FXML
-    private TableColumn<Etudiant, String> colEmail;
-    @FXML
-    private TableColumn<Etudiant, String> colPromotion;
+    @FXML private TableView<Etudiant> etudiantTable;
+    @FXML private TableColumn<Etudiant, Integer> colId;
+    @FXML private TableColumn<Etudiant, String> colMatricule;
+    @FXML private TableColumn<Etudiant, String> colNom;
+    @FXML private TableColumn<Etudiant, String> colPrenom;
+    @FXML private TableColumn<Etudiant, String> colDateNaissance;
+    @FXML private TableColumn<Etudiant, String> colEmail;
+    @FXML private TableColumn<Etudiant, String> colPromotion;
+    @FXML private TextField searchBar;
+
 
     // DAO for Etudiant operations
     private final GenericDAO<Etudiant> etudiantDAO = new EtudiantDAOImpl();
@@ -73,9 +68,63 @@ public class EtudiantController {
         // Load student data from the DAO
         loadEtudiants();
 
-        // Bind the data to the TableView
-        etudiantTable.setItems(etudiantList);
+        // Création d'une liste filtrée basée sur la liste observable d'étudiants
+        FilteredList<Etudiant> filteredList = new FilteredList<>(etudiantList, p -> true);
+
+        // Ajout d'un listener sur le champ de recherche
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(etudiant -> {
+                        // Si le champ de recherche est vide, afficher tous les étudiants
+                        if (newValue == null || newValue.isEmpty()) {
+                            return true;
+                        }
+
+                        String lowerCaseFilter = newValue.toLowerCase();
+
+                // Comparer chaque attribut de l'étudiant avec la valeur de recherche
+                return (etudiant.getMatricule() != null && etudiant.getMatricule().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getNom() != null && etudiant.getNom().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getPrenom() != null && etudiant.getPrenom().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getDateNaissance() != null && etudiant.getDateNaissance().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getEmail() != null && etudiant.getEmail().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getPromotion() != null && etudiant.getPromotion().toLowerCase().contains(lowerCaseFilter));
+            });
+        });
+
+                    // Bind the data to the TableView
+        etudiantTable.setItems(filteredList);
     }
+    //Pour le bouton de Recherche
+    @FXML
+    private void handleSearch() {
+        String searchText = searchBar.getText().toLowerCase();
+
+
+        // Si la barre de recherche est vide, afficher tous les étudiants
+        if (searchText.isEmpty()) {
+            etudiantTable.setItems(etudiantList);
+            return;
+        }
+
+        // Filtrer la liste des étudiants
+        FilteredList<Etudiant> filteredList = new FilteredList<>(etudiantList, etudiant -> {
+//            if (searchText == null || searchText.isEmpty()) {
+//                return true;
+//            }
+
+            // Vérifier si n'importe quel attribut correspond au texte recherché
+            return (etudiant.getMatricule() != null && etudiant.getMatricule().toLowerCase().contains(searchText)) ||
+                    (etudiant.getNom() != null && etudiant.getNom().toLowerCase().contains(searchText)) ||
+                    (etudiant.getPrenom() != null && etudiant.getPrenom().toLowerCase().contains(searchText)) ||
+                    (etudiant.getDateNaissance() != null && etudiant.getDateNaissance().toLowerCase().contains(searchText)) ||
+                    (etudiant.getEmail() != null && etudiant.getEmail().toLowerCase().contains(searchText)) ||
+                    (etudiant.getPromotion() != null && etudiant.getPromotion().toLowerCase().contains(searchText));
+        });
+
+        // Appliquer la liste filtrée à la TableView
+        etudiantTable.setItems(filteredList);
+    }
+
 
     /**
      * Sets up the table columns with appropriate cell value factories.
