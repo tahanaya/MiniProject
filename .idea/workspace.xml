@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/EtudiantProfesseurView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/EtudiantProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/EtudiantProfesseurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/ViewEtudiantProfesseurController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Etudiant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/EtudiantView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +39,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/tahanaya/MiniProject.git&quot;,
-    &quot;accountId&quot;: &quot;8f60449d-4a58-4d57-8abf-5a6c630f3d0d&quot;
+    &quot;accountId&quot;: &quot;c44cfb4f-0553-427b-aa09-f183d4b2202f&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -83,9 +71,11 @@
     "Application.TestLogin.executor": "Run",
     "Application.loginMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/PC/Documents/Future_Engineers/Backend",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -141,8 +131,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
       </set>
     </attachedChunks>
   </component>
@@ -157,6 +147,8 @@
       <workItem from="1735374602580" duration="1830000" />
       <workItem from="1735376451753" duration="7916000" />
       <workItem from="1735388191395" duration="3893000" />
+      <workItem from="1735592774123" duration="74000" />
+      <workItem from="1735814542128" duration="31000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
