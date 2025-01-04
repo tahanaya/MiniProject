@@ -8,3 +8,4 @@ public interface ProfesseurDAO extends GenericDAO<Professeur> {
     // Additional methods can be defined here if needed
     Professeur findByUsername(String username);
 }
+

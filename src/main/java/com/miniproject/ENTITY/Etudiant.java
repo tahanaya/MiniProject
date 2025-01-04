@@ -1,11 +1,9 @@
 package com.miniproject.ENTITY;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+import java.time.LocalDate;
+
 @Data
 public class Etudiant {
 

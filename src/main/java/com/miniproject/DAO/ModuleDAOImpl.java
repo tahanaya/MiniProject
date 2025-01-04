@@ -7,7 +7,9 @@ import com.miniproject.ENTITY.Utilisateur;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModuleDAOImpl implements GenericDAO<Module> {
 
@@ -172,5 +174,43 @@ public class ModuleDAOImpl implements GenericDAO<Module> {
             System.err.println("Erreur lors de la réorganisation des IDs : " + e.getMessage());
         }
     }
+
+    public int countModules() throws SQLException {
+        String sql = "SELECT COUNT(*) AS total FROM module";
+        try (Statement statement = conn.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+
+    //the most followed modules
+    public Map<String, Integer> getMostFollowedModules() {
+        Map<String, Integer> result = new HashMap<>();
+        String sql = """
+        SELECT m.nomModule, COUNT(i.module_id) AS count
+        FROM module m
+        JOIN inscription i ON m.id = i.module_id
+        GROUP BY m.id, m.nomModule
+        ORDER BY count DESC
+        LIMIT 5;  
+    """;
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                result.put(rs.getString("nomModule"), rs.getInt("count"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }

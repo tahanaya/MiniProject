@@ -1,62 +1,63 @@
-/* Custom Sidebar Styling for Scene Builder */
-.sidebar {
-    -fx-background-color: #3e8aca; /* Blue background for the sidebar */
-    -fx-padding: 10; /* Add more padding for a cleaner look */
-    -fx-spacing: 10; /* Ensure proper spacing between elements */
-    -fx-border-color: #2d6ba0; /* Slightly darker border */
-    -fx-border-width: 0 1 0 0; /* Add a right border for separation */
+/* Navbar Styling */
+#navbar {
+    -fx-background-color: #83A8F4; /* Sets the background color of the navbar to a light blue. */
+    -fx-padding: 10;/* Adds padding of 10px inside the navbar to ensure the content is not flush against the edges. */
+    -fx-spacing: 5;
+
+    /*-fx-pref-width: 60px; /* Sets the preferred (default) width of the navbar to 60px, making it initially collapsed. */
+    -fx-transition: -fx-pref-width 0.3s ease; /* Animates the width of the navbar when it changes (over 0.3 seconds). */
 }
 
-.sidebar .label {
-    -fx-text-fill: white; /* Text color */
-    -fx-font-size: 20px; /* Keep it readable */
+#navbar:hover {
+    /*-fx-pref-width: 200px; /* Expands the width of the navbar to 200px when hovered. */
+    -fx-border-radius: 10; /* Rounded corners */
+    -fx-background-radius: 10; /* Matches the border radius for consistency */
 }
-
-.sidebar .header {
-    -fx-padding: 0 0 15 0; /* More padding at the bottom */
-    -fx-border-color: #2d6ba0; /* Match border with sidebar */
-    -fx-border-width: 0 0 2 0; /* Thicker border for header */
-    -fx-margin: 0 0 10 0;
-}
-
-.sidebar .title {
-    -fx-font-size: 22px; /* Larger title for emphasis */
+/* Logo Styling */
+.logo-text {
+    -fx-text-fill: #3f527a;
+    -fx-font-family: Dancing Script;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: white; /* Keep title text white for contrast */
-    -fx-padding: 5 0 10 0; /* Add spacing around the title */
+    -fx-padding: 40; /* Add space below the text */
+    -fx-alignment: center;
 }
 
-.sidebar .button {
-    -fx-background-color: transparent; /* Transparent button background */
-    -fx-text-fill: white; /* Text color for buttons */
-    -fx-font-size: 14px; /* Slightly larger text for better readability */
-    -fx-alignment: CENTER_LEFT; /* Align text to the left */
-    -fx-padding: 10 15; /* Add padding for a more comfortable button size */
-    -fx-min-width: 220; /* Slightly wider button width */
-    -fx-border-radius: 5; /* Rounded corners for buttons */
+.navbar-item {
+    -fx-padding: 5px 10px;
+    -fx-border-width: 1px;
+    -fx-background-color: transparent; /* Default transparent background */
+    -fx-transition: all 0.3s ease; /* Smooth transition for hover effect */
+    /*    -fx-border-width: 1px;*/
+}
+.navbar-item:hover {
+    -fx-background-color: #a7c2f9;
+    -fx-text-fill: #3f527a;
+    -fx-border-color: #83A8F4; /* Blue border on hover */
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-background-radius: 10px; /* Matches the border radius for consistency */
+
 }
 
-.sidebar .button:hover {
-    -fx-background-color: #2d6ba0; /* Lighter hover color */
-    -fx-cursor: hand; /* Change cursor to pointer for better UX */
+.navbar-item ImageView {
+    -fx-opacity: 1; /* Makes the icon fully visible. */
+    -fx-transition: all 0.3s ease; /* Smoothly animates any changes to the icon’s properties (like opacity or size) over 0.3 seconds. */
 }
 
-.sidebar .button:pressed {
-    -fx-background-color: #1e4e6e; /* Darker color when pressed */
-    -fx-text-fill: #d9d9d9; /* Slightly lighter text when pressed */
+.navbar-item Label {
+    -fx-text-fill: #121a2b; /* Sets the color of the label text to a dark blue shade (#121a2b). */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-opacity: 0; /* Makes the text completely invisible initially (collapsed state). */
+    -fx-padding: 0 10px; /* Adds horizontal padding (10px) on both sides of the text but no vertical padding. */
+    -fx-transition: all 0.3s ease-in-out; /* Smoothly animates any changes to the label's properties (like opacity or padding) over 0.3 seconds. */
 }
 
-.sidebar VBox {
-    -fx-spacing: 10; /* Consistent spacing between elements */
-    -fx-padding: 10;
-    -fx-border-width: 0 0 2 0;
+#navbar:hover .navbar-item Label {
+    -fx-opacity: 1; /* Makes the label fully visible when the navbar is hovered. */
+    -fx-padding: 0 10px; /* Keeps 10px horizontal padding around the label for better spacing. */
+
 }
 
-.sidebar-footer {
-    -fx-border-color: #2d6ba0; /* Match footer border with sidebar */
-    -fx-border-width: 2 0 0 0; /* Make the border more noticeable */
-    -fx-padding: 15; /* Add padding inside the footer */
-    -fx-text-fill: white; /* Footer text color */
-    -fx-font-size: 12px; /* Slightly smaller text for footer */
-    -fx-alignment: CENTER; /* Align footer content to the center */
-}
+
+

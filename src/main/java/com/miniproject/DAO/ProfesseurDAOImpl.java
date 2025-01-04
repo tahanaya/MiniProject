@@ -6,7 +6,9 @@ import com.miniproject.ENTITY.Utilisateur;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProfesseurDAOImpl implements ProfesseurDAO {
     private final Connection conn;
@@ -278,4 +280,41 @@ public class ProfesseurDAOImpl implements ProfesseurDAO {
 
         return professeur;
     }
+
+
+    //Count Number of professors
+    public int countProfessors() throws SQLException {
+        String sql = "SELECT COUNT(*) AS total FROM professeur";
+        try (Statement statement = conn.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+            return 0;
+        }
+    }
+    // Find professors with the most modules taught
+    public Map<String, Integer> getProfessorsWithMostModules() {
+        Map<String, Integer> result = new HashMap<>();
+        String sql = """
+        SELECT u.nom, COUNT(m.professeur_id) AS module_count
+        FROM professeur p
+        JOIN utilisateur u ON p.utilisateur_id = u.id
+        JOIN module m ON p.id = m.professeur_id
+        GROUP BY p.id, u.nom
+        ORDER BY module_count DESC
+        LIMIT 5;  
+    """;
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                result.put(rs.getString("nom"), rs.getInt("module_count"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }
+

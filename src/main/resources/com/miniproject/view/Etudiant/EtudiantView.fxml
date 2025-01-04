@@ -4,43 +4,58 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.miniproject.CONTROLLER.ETUDIANT.EtudiantController"
-            prefHeight="600.0" prefWidth="800.0">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.ETUDIANT.EtudiantController">
     <children>
-        <VBox spacing="20" layoutX="20.0" layoutY="20.0" prefWidth="760.0">
+        <VBox layoutX="20.0" layoutY="20.0" spacing="20">
 
             <!-- Title -->
-            <Label text="Gestion des Étudiants"
-                   style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+            <HBox alignment="CENTER">
+                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Gestion des Étudiants" />
+            </HBox>
+
+            <!-- Barre de Recherche -->
+            <HBox alignment="CENTER" spacing="10">
+                <TextField fx:id="searchBar" prefWidth="500.0" promptText="Rechercher un étudiant..." />
+                <Button fx:id="searchButton" onAction="#handleSearch" prefWidth="100.0" text="Rechercher" />
+            </HBox>
+
 
             <!-- TableView for displaying students -->
-            <TableView fx:id="etudiantTable" prefHeight="400.0" prefWidth="760.0">
+            <TableView fx:id="etudiantTable" prefHeight="400.0" prefWidth="853.0" >
                 <columns>
-                    <TableColumn fx:id="colId" text="ID" prefWidth="50.0" />
-                    <TableColumn fx:id="colMatricule" text="Matricule" prefWidth="100.0" />
-                    <TableColumn fx:id="colNom" text="Nom" prefWidth="100.0" />
-                    <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="100.0" />
-                    <TableColumn fx:id="colDateNaissance" text="Date Naissance" prefWidth="100.0" />
-                    <TableColumn fx:id="colEmail" text="Email" prefWidth="150.0" />
-                    <TableColumn fx:id="colPromotion" text="Promotion" prefWidth="100.0" />
+                    <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                    <TableColumn fx:id="colMatricule" prefWidth="100.0" text="Matricule" />
+                    <TableColumn fx:id="colNom" prefWidth="100.0" text="Nom" />
+                    <TableColumn fx:id="colPrenom" prefWidth="100.0" text="Prénom" />
+                    <TableColumn fx:id="colDateNaissance" prefWidth="100.0" text="Date Naissance" />
+                    <TableColumn fx:id="colEmail" prefWidth="150.0" text="Email" />
+                    <TableColumn fx:id="colPromotion" prefWidth="100.0" text="Promotion" />
+                    <!-- New column for View Modules button -->
+<!--                    <TableColumn fx:id="colActions"  text="Modules associées" />-->
+                    <TableColumn fx:id="colModulesAssocies" text="Modules Associés" prefWidth="150.0" />
+                    <TableColumn fx:id="colVisualiser" text="Visualiser" prefWidth="150.0" />
+                    <TableColumn fx:id="colModifier" text="Modifier" prefWidth="150.0" />
+                    <TableColumn fx:id="colSupprimer" text="Supprimer" prefWidth="150.0" />
+
+
+
                 </columns>
             </TableView>
 
             <!-- Action Buttons -->
             <HBox spacing="20">
-                <Button text="Ajouter" onAction="#handleAddStudent" prefWidth="100.0" />
-                <Button text="Modifier" onAction="#handleUpdateStudent" prefWidth="100.0" />
-                <Button text="Supprimer" onAction="#handleDeleteStudent" prefWidth="100.0" />
-                <Button text="Visualiser" onAction="#handleViewStudent" prefWidth="100.0" />
+                <Button onAction="#handleAddStudent" prefWidth="100.0" text="Ajouter" />
+<!--                <Button onAction="#handleUpdateStudent" prefWidth="100.0" text="Modifier" />-->
+<!--                <Button onAction="#handleDeleteStudent" prefWidth="100.0" text="Supprimer" />-->
+<!--                <Button onAction="#handleViewStudent" prefWidth="100.0" text="Visualiser" />-->
                 <!-- New Export Button -->
-                <Button text="Exporter CSV" onAction="#handleExportStudents" prefWidth="100.0" />
-                <Button text="Exporter PDF" onAction="#handleExportToPDF" />
+                <Button onAction="#handleExportStudents" prefWidth="100.0" text="Exporter CSV" />
+                <Button onAction="#handleExportToPDF" text="Exporter PDF" />
 
             </HBox>
         </VBox>

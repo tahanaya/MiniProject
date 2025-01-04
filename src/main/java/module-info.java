@@ -38,6 +38,11 @@ module com.miniproject.miniproject {
     // Add these lines for the PROFESSEUR package
     exports com.miniproject.CONTROLLER.PROFESSEUR;
     opens com.miniproject.CONTROLLER.PROFESSEUR to javafx.fxml;
+
+    // Add these lines for the TableauDEBord package
+    exports com.miniproject.CONTROLLER.TableauDeBord;
+    opens com.miniproject.CONTROLLER.TableauDeBord to javafx.fxml;
+
     // Add these lines for the Module package
     exports com.miniproject.CONTROLLER.MODULE;
     opens com.miniproject.CONTROLLER.MODULE to javafx.fxml;

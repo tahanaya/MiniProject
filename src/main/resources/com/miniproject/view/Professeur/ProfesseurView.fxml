@@ -9,6 +9,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.2"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.miniproject.CONTROLLER.PROFESSEUR.ProfesseurController"
+            stylesheets="@../../css/styles.css"
             prefHeight="600.0" prefWidth="800.0">
     <children>
         <VBox spacing="20" layoutX="20.0" layoutY="20.0" prefWidth="760.0">

@@ -1,0 +1,70 @@
+/* Global Styles */
+.root {
+    -fx-font-family: "Ubuntu";
+    -fx-background-color: #f4f4f4; /* Light background for the entire app */
+}
+/* Titles */
+.label.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #121a2b; /* Dark text color */
+}
+
+/* Table Styles */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-width: 0.5px; /* Thickness of the border */
+    -fx-border-color: #8295ba;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+.table-view .column-header {
+    -fx-background-color: #e5eefe; /* Header background color */
+    -fx-text-fill: #121a2b; /* Header text color */
+    -fx-font-weight: bold;
+}
+.table-row-cell:hover {
+    -fx-background-color: #f2f6ff; /* Light gray when hovering */
+}
+
+/* Center-align cell content */
+.table-view .table-cell {
+    -fx-alignment: center; /* Centers content horizontally and vertically */
+}
+
+/* Center-align header content */
+.table-view .column-header .label {
+    -fx-alignment: center; /* Centers header labels */
+}
+
+
+
+/* Buttons */
+.button {
+    -fx-background-color: #83A8F4;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5 10;
+}
+.button:hover {
+    -fx-background-color: #a7c2f9;
+    -fx-text-fill: #3f527a;
+}
+.button:pressed {
+    -fx-background-color: #9bbaf7; /* Even darker shade when pressed */
+    -fx-text-fill: #060a14;
+
+}
+
+
+/* Search Bar */
+.text-field {
+    -fx-border-color: #8295ba;
+    -fx-background-color: #c0d4fb;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+}

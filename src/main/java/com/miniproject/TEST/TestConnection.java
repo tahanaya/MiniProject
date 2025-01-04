@@ -9,6 +9,7 @@ public class TestConnection {
     public static void main(String[] args) {
         DatabaseConnection db = DatabaseConnection.getInstance();
 
+
         try (Connection connection = db.getConnection()) {
 
             System.out.println("mr7ba bik rak t connectiti.");

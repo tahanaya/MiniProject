@@ -7,7 +7,10 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600" prefWidth="788.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.MODULE.ModuleController">
+<AnchorPane prefHeight="600" prefWidth="788.0" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../../css/styles.css"
+            fx:controller="com.miniproject.CONTROLLER.MODULE.ModuleController">
     <children>
         <!-- Header Label -->
         <Label layoutX="274.0" layoutY="44.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des Modules" />

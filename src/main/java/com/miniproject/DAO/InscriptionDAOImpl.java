@@ -3,6 +3,10 @@ package com.miniproject.DAO;
 import com.miniproject.DATABASE.DatabaseConnection;
 import com.miniproject.ENTITY.Etudiant;
 import com.miniproject.ENTITY.Inscription;
+import com.miniproject.ENTITY.Professeur;
+import com.miniproject.ENTITY.Utilisateur;
+import com.miniproject.ENTITY.Module;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -87,6 +91,43 @@ public class InscriptionDAOImpl implements GenericDAO<Inscription> {
         }
         return students;
     }
+    public List<Module> getModulesByStudentId(int studentId) {
+        List<Module> modules = new ArrayList<>();
+        String sql = """
+            SELECT m.id, m.nomModule, m.codeModule, 
+                   p.id AS prof_id, u.nom AS prof_nom, u.prenom AS prof_prenom
+            FROM module m
+            JOIN inscription i ON m.id = i.module_id
+            JOIN professeur p ON m.professeur_id = p.id
+            JOIN utilisateur u ON p.utilisateur_id = u.id
+            WHERE i.etudiant_id = ?""";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, studentId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Module module = new Module();
+                    module.setId(rs.getInt("id"));
+                    module.setNomModule(rs.getString("nomModule"));
+                    module.setCodeModule(rs.getString("codeModule"));
+
+                    Professeur prof = new Professeur();
+                    prof.setId(rs.getInt("prof_id"));
+                    Utilisateur utilisateur = new Utilisateur();
+                    utilisateur.setNom(rs.getString("prof_nom"));
+                    utilisateur.setPrenom(rs.getString("prof_prenom"));
+                    prof.setUtilisateur(utilisateur);
+                    module.setProfesseur(prof);
+
+                    modules.add(module);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving modules by student ID: " + e.getMessage());
+        }
+        return modules;
+    }
+
     private Etudiant mapToEtudiant(ResultSet rs) throws SQLException {
         Etudiant student = new Etudiant();
         student.setId(rs.getInt("id")); // This is the primary key from the "etudiant" table
