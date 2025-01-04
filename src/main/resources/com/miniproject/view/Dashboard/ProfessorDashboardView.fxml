@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.miniproject.CONTROLLER.DASHBOARD.ProfessorDashboardController
+<AnchorPane prefHeight="628.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.DASHBOARD.ProfessorDashboardController">
+    <children>
+        <!-- Sidebar AnchorPane -->
+        <AnchorPane layoutY="-28.0" prefHeight="656.0" prefWidth="261.0" id="navbar" stylesheets="@../../css/navbar.css">
+            <children>
+                <!-- Logo or Dashboard Title -->
+                <Label alignment="CENTER" layoutX="54.0" layoutY="78.0" text="Dashboard" textAlignment="CENTER" styleClass="logo-text">
+                    <padding>
+                        <Insets left="35.0" />
+                    </padding>
+                    <font>
+                        <Font name="Dancing Script" size="27.0" />
+                    </font>
+                </Label>
 
-            style="-fx-padding: 20;">
+                <!-- VBox for Sidebar Items -->
+                <VBox alignment="TOP_CENTER" fillWidth="false" layoutY="202.0" prefHeight="319.0" prefWidth="181.0" spacing="15.0" AnchorPane.topAnchor="187.0">
+                    <children>
+                        <!-- Buttons styled as navbar items -->
+                        <Button minWidth="162.0" mnemonicParsing="false" onAction="#handleEtudiant" prefHeight="40.0" prefWidth="162.0" text="Etudiant" styleClass="navbar-item" />
+                        <Button mnemonicParsing="false" onAction="#handleModules" text="Modules" styleClass="navbar-item" />
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
 
-    <center>
-        <Label fx:id="welcomeLabel" text="Professor Dashboard Placeholder" style="-fx-font-size: 16;" />
-    </center>
-</BorderPane>
+        <!-- Content Area -->
+        <AnchorPane fx:id="contentPane" layoutX="270.0" layoutY="20.0" prefHeight="600.0" prefWidth="500.0">
+            <!-- Initial content can be added here or dynamically loaded -->
+        </AnchorPane>
+    </children>
+</AnchorPane>
