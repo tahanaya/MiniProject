@@ -8,17 +8,26 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.miniproject.DAO.EtudiantDAOImpl;
 import com.miniproject.DAO.GenericDAO;
+import com.miniproject.DAO.InscriptionDAOImpl;
+import com.miniproject.DAO.ModuleDAOImpl;
 import com.miniproject.ENTITY.Etudiant;
+import com.miniproject.ENTITY.Module;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,6 +35,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
+
 import com.itextpdf.kernel.pdf.PdfWriter;
 
 
@@ -36,28 +47,29 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 public class EtudiantController {
 
     // FXML-injected TableView and TableColumns
-    @FXML
-    private TableView<Etudiant> etudiantTable;
-    @FXML
-    private TableColumn<Etudiant, Integer> colId;
-    @FXML
-    private TableColumn<Etudiant, String> colMatricule;
-    @FXML
-    private TableColumn<Etudiant, String> colNom;
-    @FXML
-    private TableColumn<Etudiant, String> colPrenom;
-    @FXML
-    private TableColumn<Etudiant, String> colDateNaissance;
-    @FXML
-    private TableColumn<Etudiant, String> colEmail;
-    @FXML
-    private TableColumn<Etudiant, String> colPromotion;
+    @FXML private TableView<Etudiant> etudiantTable;
+    @FXML private TableColumn<Etudiant, Integer> colId;
+    @FXML private TableColumn<Etudiant, String> colMatricule;
+    @FXML private TableColumn<Etudiant, String> colNom;
+    @FXML private TableColumn<Etudiant, String> colPrenom;
+    @FXML private TableColumn<Etudiant, String> colDateNaissance;
+    @FXML private TableColumn<Etudiant, String> colEmail;
+    @FXML private TableColumn<Etudiant, String> colPromotion;
+    @FXML private TextField searchBar;
+    @FXML private TableColumn<Etudiant, Void> colModulesAssocies;
+    @FXML private TableColumn<Etudiant, Void> colVisualiser;
+    @FXML private TableColumn<Etudiant, Void> colModifier;
+    @FXML private TableColumn<Etudiant, Void> colSupprimer;
+
 
     // DAO for Etudiant operations
     private final GenericDAO<Etudiant> etudiantDAO = new EtudiantDAOImpl();
 
     // ObservableList to hold Etudiant data for the TableView
     private final ObservableList<Etudiant> etudiantList = FXCollections.observableArrayList();
+
+    private final InscriptionDAOImpl inscriptionDAO = new InscriptionDAOImpl();
+    private final ModuleDAOImpl moduleDAO = new ModuleDAOImpl();
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -73,9 +85,182 @@ public class EtudiantController {
         // Load student data from the DAO
         loadEtudiants();
 
+        // Add buttons to specific columns
+        addButtonToColumn(colModulesAssocies, "/com/miniproject/images/modules-enrolled.png", "Modules Associés", this::handleViewEnrolledModules);
+        addButtonToColumn(colVisualiser, "/com/miniproject/images/visualize-icon.png", "Visualiser", this::handleViewStudent);
+        addButtonToColumn(colModifier, "/com/miniproject/images/modify-icon.png", "Modifier", this::handleUpdateStudent);
+        addButtonToColumn(colSupprimer, "/com/miniproject/images/delete-icon.png", "Supprimer", this::handleDeleteStudent);
+
+        // Création d'une liste filtrée basée sur la liste observable d'étudiants
+        FilteredList<Etudiant> filteredList = new FilteredList<>(etudiantList, p -> true);
+
+        // Ajout d'un listener sur le champ de recherche
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(etudiant -> {
+                // Si le champ de recherche est vide, afficher tous les étudiants
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Comparer chaque attribut de l'étudiant avec la valeur de recherche
+                return (etudiant.getMatricule() != null && etudiant.getMatricule().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getNom() != null && etudiant.getNom().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getPrenom() != null && etudiant.getPrenom().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getDateNaissance() != null && etudiant.getDateNaissance().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getEmail() != null && etudiant.getEmail().toLowerCase().contains(lowerCaseFilter)) ||
+                        (etudiant.getPromotion() != null && etudiant.getPromotion().toLowerCase().contains(lowerCaseFilter));
+            });
+        });
+
         // Bind the data to the TableView
-        etudiantTable.setItems(etudiantList);
+        etudiantTable.setItems(filteredList);
     }
+
+    //Pour afficher pour chaque étudiant les bouton d'afficages de ses modules
+    private void addButtonToColumn(TableColumn<Etudiant, Void> column, String iconPath, String tooltipText, Consumer<Etudiant> action) {
+        column.setCellFactory(param -> new TableCell<>() {
+            private final Button button = new Button();
+
+            {
+                // Set icon for the button
+                ImageView icon = new ImageView(new Image(getClass().getResourceAsStream(iconPath)));
+                icon.setFitHeight(20); // Adjust icon height
+                icon.setFitWidth(20);  // Adjust icon width
+                button.setGraphic(icon);
+
+                // Style button
+                button.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+                Tooltip.install(button, new Tooltip(tooltipText));
+
+                // Attach action
+                button.setOnAction(event -> {
+                    Etudiant etudiant = getTableView().getItems().get(getIndex());
+                    action.accept(etudiant);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(button);
+                }
+            }
+        });
+    }
+
+    //    private void addActionButtonsToTable() {
+//        colActions.setCellFactory(param -> new TableCell<>() {
+//            private final Button viewModulesButton = new Button("View Modules");
+//
+//            {
+//                // Style the button (optional)
+//                viewModulesButton.setStyle("-fx-background-color: #a7b2f9; -fx-text-fill: #11161f; -fx-max-width: 150 ; -fx-max-height: 1;");
+//
+//                // Attach an action listener to the button
+//                viewModulesButton.setOnAction(event -> {
+//                    Etudiant etudiant = getTableView().getItems().get(getIndex());
+//                    handleViewEnrolledModules(etudiant);
+//                });
+//            }
+//
+//            @Override
+//            protected void updateItem(Void item, boolean empty) {
+//                super.updateItem(item, empty);
+//
+//                if (empty) {
+//                    setGraphic(null);
+//                } else {
+//                    setGraphic(viewModulesButton);
+//                }
+//            }
+//        });
+//    }
+    private void handleViewEnrolledModules(Etudiant etudiant) {
+        if (etudiant == null) {
+            showAlert(Alert.AlertType.WARNING, "No Student Selected", "Please select a student to view their enrolled modules.");
+            return;
+        }
+
+        // Fetch enrolled modules for the student
+        List<Module> enrolledModules = new InscriptionDAOImpl().getModulesByStudentId(etudiant.getId());
+
+
+        // Display the enrolled modules
+        if (enrolledModules.isEmpty()) {
+            showAlert(Alert.AlertType.INFORMATION, "No Modules", "This student is not enrolled in any modules.");
+        } else {
+            showModulesPopup(enrolledModules, etudiant);
+        }
+    }
+
+    private void showModulesPopup(List<Module> modules, Etudiant etudiant) {
+        StringBuilder moduleDetails = new StringBuilder();
+        moduleDetails.append("Modules for ")
+                .append(etudiant.getNom())
+                .append(" ")
+                .append(etudiant.getPrenom())
+                .append(":\n\n");
+
+        // Validation des modules
+        if (modules == null || modules.isEmpty()) {
+            moduleDetails.append("No modules are enrolled.\n");
+        } else {
+            for (Module module : modules) {
+                moduleDetails.append("- ")
+                        .append(module.getNomModule() != null ? module.getNomModule() : "Unknown")
+                        .append(" (Code: ")
+                        .append(module.getCodeModule() != null ? module.getCodeModule() : "Unknown")
+                        .append(", Professor: ")
+                        .append(module.getProfessorFullName() != null ? module.getProfessorFullName() : "Unknown")
+                        .append(")\n");
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Enrolled Modules");
+        alert.setHeaderText("Enrolled Modules for " + etudiant.getNom() + " " + etudiant.getPrenom());
+        alert.setContentText(moduleDetails.toString());
+        alert.showAndWait();
+    }
+
+
+    //Pour le bouton de Recherche
+    @FXML
+    private void handleSearch() {
+        String searchText = searchBar.getText().toLowerCase();
+
+
+        // Si la barre de recherche est vide, afficher tous les étudiants
+        if (searchText.isEmpty()) {
+            etudiantTable.setItems(etudiantList);
+            return;
+        }
+
+        // Filtrer la liste des étudiants
+        FilteredList<Etudiant> filteredList = new FilteredList<>(etudiantList, etudiant -> {
+//            if (searchText == null || searchText.isEmpty()) {
+//                return true;
+//            }
+
+            // Vérifier si n'importe quel attribut correspond au texte recherché
+            return (etudiant.getMatricule() != null && etudiant.getMatricule().toLowerCase().contains(searchText)) ||
+                    (etudiant.getNom() != null && etudiant.getNom().toLowerCase().contains(searchText)) ||
+                    (etudiant.getPrenom() != null && etudiant.getPrenom().toLowerCase().contains(searchText)) ||
+                    (etudiant.getDateNaissance() != null && etudiant.getDateNaissance().toLowerCase().contains(searchText)) ||
+                    (etudiant.getEmail() != null && etudiant.getEmail().toLowerCase().contains(searchText)) ||
+                    (etudiant.getPromotion() != null && etudiant.getPromotion().toLowerCase().contains(searchText));
+        });
+
+        // Appliquer la liste filtrée à la TableView
+        etudiantTable.setItems(filteredList);
+    }
+
 
     /**
      * Sets up the table columns with appropriate cell value factories.
@@ -112,8 +297,8 @@ public class EtudiantController {
      * Handles updating an existing student.
      */
     @FXML
-    private void handleUpdateStudent() {
-        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
+    private void handleUpdateStudent(Etudiant selected ) {
+        //Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             openEditStudentPopup(selected);
         } else {
@@ -125,8 +310,8 @@ public class EtudiantController {
      * Handles deleting a selected student.
      */
     @FXML
-    private void handleDeleteStudent() {
-        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
+    private void handleDeleteStudent(Etudiant selected) {
+        //Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             // Confirm deletion
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -154,10 +339,10 @@ public class EtudiantController {
      * Handles viewing the selected student's details.
      */
     @FXML
-    private void handleViewStudent() {
-        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            openViewStudentPopup(selected);
+    private void handleViewStudent(Etudiant etudiant) {
+        //Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
+        if (etudiant != null) {
+            openViewStudentPopup(etudiant);
         } else {
             showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à visualiser.");
         }

@@ -3,6 +3,7 @@ package com.miniproject.DAO;
 import com.miniproject.DATABASE.DatabaseConnection;
 import com.miniproject.ENTITY.Etudiant;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,4 +143,19 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
         e.setPromotion(rs.getString("promotion"));
         return e;
     }
+
+    //Calculer le nombre des étudiants
+    public int countStudents() {
+        String sql = "SELECT COUNT(*) AS count FROM etudiant";
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

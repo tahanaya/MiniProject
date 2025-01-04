@@ -14,6 +14,9 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/LandingPageView.fxml"));
         Scene scene = new Scene(loader.load());
 
+        // Apply the global CSS
+        scene.getStylesheets().add(getClass().getResource("/com/miniproject/css/styles.css").toExternalForm());
+
         // Pass the primary stage to the landing page controller
         LandingPageController controller = loader.getController();
         controller.setPrimaryStage(primaryStage);

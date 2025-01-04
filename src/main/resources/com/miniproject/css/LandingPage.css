@@ -1,13 +1,18 @@
+/* General styling */
+.root {
+    -fx-background-color:  #FFFFFF;
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 /* Header bar at the top with a gradient background */
 .header-bar {
-    -fx-background-color: linear-gradient(to right, #34495e, #2c3e50);
+    -fx-background-color: linear-gradient(to right, #83A8F4, #C9D9FA);
     -fx-padding: 10;
     -fx-alignment: center_left;
 }
 
 /* The title text in the header */
 .app-title {
-    -fx-text-fill: white;
+    -fx-text-fill: #2f3f5e;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-padding: 0 0 0 10; /* a bit of left padding */
@@ -22,12 +27,12 @@
 .landing-headline {
     -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50; /* Dark blue/gray color */
+    -fx-text-fill: #121a2b; /* Dark blue/gray color */
 }
 
 /* Multi-line descriptive text */
 .landing-text {
-    -fx-text-fill: #555;
+    -fx-text-fill: #010103;
     -fx-wrap-text: true;
     -fx-font-size: 16px;
     -fx-alignment: center;
@@ -37,7 +42,7 @@
 
 /* "Go to Login" button */
 .login-btn {
-    -fx-background-color: #3498db;
+    -fx-background-color: #83A8F4;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
@@ -49,16 +54,16 @@
 
 /* Hover effect for the login button */
 .login-btn:hover {
-    -fx-background-color: #2980b9;
+    -fx-background-color: #a7c2f9;
+    -fx-text-fill: #3f527a;
 }
 
 /* Footer label at the bottom */
 .footer-label {
     -fx-alignment: center;
     -fx-font-size: 12px;
-    -fx-text-fill: #999;
+    -fx-text-fill: #818da3;
     -fx-padding: 10;
-    -fx-background-color: #f3f3f3;
-    -fx-pref-width: 100%; /* ensure it spans the bottom width */
+    -fx-background-color: #f2f6ff;
     -fx-text-alignment: center;
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<VBox fx:id="root" spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.TableauDeBord.TableauDeBordController" stylesheets="@../../css/TableauDeBord.css">
+    <HBox spacing="15" alignment="CENTER" styleClass="statistic-cards">
+        <VBox alignment="CENTER" spacing="5" styleClass="stat-card">
+            <Label text="Total Students:" styleClass="stat-title"/>
+            <Label fx:id="totalStudentsLabel" styleClass="stat-value"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" styleClass="stat-card">
+            <Label text="Total Professors:" styleClass="stat-title"/>
+            <Label fx:id="totalProfessorsLabel" styleClass="stat-value"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" styleClass="stat-card">
+            <Label text="Total Modules:" styleClass="stat-title"/>
+            <Label fx:id="totalModulesLabel" styleClass="stat-value"/>
+        </VBox>
+    </HBox>
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+        <BarChart fx:id="mostFollowedModulesChart" title="Most Followed Modules" legendVisible="false">
+            <xAxis><CategoryAxis styleClass="Axis-x" label="Modules"/></xAxis>
+            <yAxis><NumberAxis styleClass="Axis-y"  label="Count"/></yAxis>
+        </BarChart>
+        <PieChart fx:id="professorsChart" title="Professors Teaching Most Modules" />
+    </HBox>
+</VBox>
