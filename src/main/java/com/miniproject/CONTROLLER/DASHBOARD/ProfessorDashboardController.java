@@ -12,6 +12,7 @@ public class ProfessorDashboardController {
     @FXML
     private AnchorPane contentPane; // The content area in the dashboard
 
+
     /**
      * Handles the "Etudiant" button click.
      */
