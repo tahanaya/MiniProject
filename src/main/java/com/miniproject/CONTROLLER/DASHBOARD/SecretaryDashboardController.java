@@ -1,52 +1,100 @@
 package com.miniproject.CONTROLLER.DASHBOARD;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
 public class SecretaryDashboardController {
 
     @FXML
+    private VBox navbarContent;
+    @FXML
     private AnchorPane contentPane;
+    @FXML
+    private AnchorPane navbar;
+
+    @FXML
+    public void initialize() {
+        navbar.setOnMouseEntered(event -> expandNavbar());
+        navbar.setOnMouseExited(event -> collapseNavbar());
+    }
+
+    private void expandNavbar() {
+        navbar.setPrefWidth(200);
+        navbarContent.getChildren().forEach(node -> {
+            if (node instanceof HBox hbox) {
+                hbox.getChildren().stream()
+                        .filter(child -> child instanceof Label)
+                        .forEach(label -> {
+                            label.setVisible(true);
+                            label.setManaged(true);
+                        });
+            }
+        });
+    }
+
+    private void collapseNavbar() {
+        navbar.setPrefWidth(60);
+        navbarContent.getChildren().forEach(node -> {
+            if (node instanceof HBox hbox) {
+                hbox.getChildren().stream()
+                        .filter(child -> child instanceof Label)
+                        .forEach(label -> {
+                            label.setVisible(false);
+                            label.setManaged(false);
+                        });
+            }
+        });
+    }
 
     @FXML
     private void handleEtudiant() {
-        System.out.println("Etudiant button clicked!");
+        loadView("/com/miniproject/view/Etudiant/EtudiantView.fxml");
+    }
 
+    @FXML
+    private void handleModules() {
+        loadView("/com/miniproject/view/Module/ModuleViewSecretaire.fxml");
+    }
+
+    @FXML
+    private void handleTableauDeBord() {
+        loadView("/com/miniproject/view/TableauDeBord/TableauDeBord.fxml");
+    }
+
+    @FXML
+    private void handleLogout() {
+        System.out.println("Logout button clicked!");
         try {
-            // Load EtudiantProfesseurView.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Etudiant/EtudiantView.fxml"));
-            Parent etudiantView = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/LoginView.fxml"));
+            Parent loginView = loader.load();
 
-            // Set the loaded view into the contentPane
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(etudiantView);
-
-            // Optionally, anchor the loaded view to fit the contentPane
-            AnchorPane.setTopAnchor(etudiantView, 0.0);
-            AnchorPane.setBottomAnchor(etudiantView, 0.0);
-            AnchorPane.setLeftAnchor(etudiantView, 0.0);
-            AnchorPane.setRightAnchor(etudiantView, 0.0);
-
+            contentPane.getScene().setRoot(loginView);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void loadView(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent view = loader.load();
 
-    @FXML
-    private void handleScheduleMeetings(ActionEvent event) {
-        System.out.println("Schedule Meetings clicked!");
-        // Add functionality to load the "Schedule Meetings" view here
-    }
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(view);
 
-    @FXML
-    private void handleOption3(ActionEvent event) {
-        System.out.println("Option 3 clicked!");
-        // Add functionality for Option 3
+            AnchorPane.setTopAnchor(view, 0.0);
+            AnchorPane.setBottomAnchor(view, 0.0);
+            AnchorPane.setLeftAnchor(view, 0.0);
+            AnchorPane.setRightAnchor(view, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
