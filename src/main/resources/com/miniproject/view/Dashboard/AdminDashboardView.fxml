@@ -67,6 +67,14 @@
                     </ImageView>
                     <Label managed="false" styleClass="navbar-text" text="Modules" visible="false" />
                 </HBox>
+                <HBox alignment="CENTER_LEFT" onMouseClicked="#handleLogout" spacing="10" styleClass="navbar-item" AnchorPane.leftAnchor="0.0">
+                    <ImageView fitHeight="24" fitWidth="30">
+                        <image>
+                            <Image url="@../../images/logout.png" />
+                        </image>
+                    </ImageView>
+                    <Label managed="false" styleClass="navbar-text" text="Logout" visible="false" />
+                </HBox>
             </VBox>
         </children>
     </AnchorPane>
