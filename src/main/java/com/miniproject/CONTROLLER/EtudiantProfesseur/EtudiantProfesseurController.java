@@ -6,6 +6,7 @@ import com.miniproject.ENTITY.Etudiant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,7 +45,6 @@ public class EtudiantProfesseurController {
 
     @FXML private TextField searchBar;
 
-
     // DAO for Etudiant operations
     private final GenericDAO<Etudiant> etudiantDAO = new EtudiantDAOImpl();
 
@@ -56,13 +56,13 @@ public class EtudiantProfesseurController {
      * after the FXML file has been loaded.
      */
     @FXML
-
     public void initialize() {
-        System.out.println("EtudiantController initialized.");
-        setupTableColumns(); // Configure les colonnes normales
-        loadEtudiants();     // Charge les données
-        setupActionButtons(); // Configure les colonnes avec des boutons
-        etudiantTable.setItems(etudiantList); // Associe les données
+        System.out.println("EtudiantProfesseurController initialized.");
+        setupTableColumns();
+        loadEtudiants();
+        setupActionButtons();
+        setupSearchFunctionality();
+        etudiantTable.setItems(etudiantList);
     }
 
     /**
@@ -81,93 +81,28 @@ public class EtudiantProfesseurController {
     /**
      * Loads all students from the database into the TableView.
      */
-    void loadEtudiants() {
-        etudiantList.clear(); // Clear existing data
-        List<Etudiant> list = etudiantDAO.findAll(); // Fetch data from DAO
-        System.out.println("Number of students fetched: " + list.size()); // Debugging statement
-        etudiantList.addAll(list); // Add data to ObservableList
+    private void loadEtudiants() {
+        etudiantList.clear();
+        List<Etudiant> list = etudiantDAO.findAll();
+        System.out.println("Nombre d'étudiants récupérés : " + list.size());
+        etudiantList.addAll(list);
     }
 
     /**
-     * Handles viewing the selected student's details.
+     * Sets up action buttons in the table columns.
      */
-    @FXML
-    private void handleViewStudent() {
-        Etudiant selected = etudiantTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            handleViewStudent(selected);
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à visualiser.");
-        }
-    }
-
-    /**
-     * Opens the View Student popup window for the selected student.
-     *
-     * @param etudiant The selected Etudiant to view.
-     */
-    private void handleViewStudent(Etudiant etudiant) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml"));
-            Parent root = loader.load();
-
-            // Get the controller of the View Student popup and pass the selected student
-            viewEtudiantProfesseurController viewStudentController = loader.getController();
-            viewStudentController.setEtudiant(etudiant);
-
-            Stage popupStage = new Stage();
-            popupStage.setScene(new Scene(root, 400, 300));
-            popupStage.setTitle("Détails de l'étudiant");
-            popupStage.initOwner(etudiantTable.getScene().getWindow());
-            popupStage.showAndWait();  // Wait for popup to close
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la fenêtre de visualisation.");
-        }
-    }
-
-    private void showAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    @FXML
-    private void handleSearch() {
-        String searchText = searchBar.getText().toLowerCase();
-
-
-        // Si la barre de recherche est vide, afficher tous les étudiants
-        if (searchText.isEmpty()) {
-            etudiantTable.setItems(etudiantList);
-            return;
-        }
-
-        // Filtrer la liste des étudiants
-        FilteredList<Etudiant> filteredList = new FilteredList<>(etudiantList, etudiant -> {
-//            if (searchText == null || searchText.isEmpty()) {
-//                return true;
-//            }
-
-            // Vérifier si n'importe quel attribut correspond au texte recherché
-            return (etudiant.getMatricule() != null && etudiant.getMatricule().toLowerCase().contains(searchText)) ||
-                    (etudiant.getNom() != null && etudiant.getNom().toLowerCase().contains(searchText)) ||
-                    (etudiant.getPrenom() != null && etudiant.getPrenom().toLowerCase().contains(searchText)) ||
-                    (etudiant.getDateNaissance() != null && etudiant.getDateNaissance().toLowerCase().contains(searchText)) ||
-                    (etudiant.getEmail() != null && etudiant.getEmail().toLowerCase().contains(searchText)) ||
-                    (etudiant.getPromotion() != null && etudiant.getPromotion().toLowerCase().contains(searchText));
-        });
-
-        // Appliquer la liste filtrée à la TableView
-        etudiantTable.setItems(filteredList);
-    }
-
     private void setupActionButtons() {
         addButtonToColumn(colVisualiser, "/com/miniproject/images/visualize-icon.png", "Visualiser", this::handleViewStudent);
-      }
+    }
 
+    /**
+     * Adds a button to a table column with an icon, tooltip, and action.
+     *
+     * @param column      The TableColumn to which the button will be added.
+     * @param iconPath    The path to the icon image.
+     * @param tooltipText The tooltip text for the button.
+     * @param action      The action to perform when the button is clicked.
+     */
     private void addButtonToColumn(TableColumn<Etudiant, Void> column, String iconPath, String tooltipText, Consumer<Etudiant> action) {
         column.setCellFactory(param -> new TableCell<>() {
             private final Button button = createIconButton(iconPath, tooltipText);
@@ -185,6 +120,14 @@ public class EtudiantProfesseurController {
             }
         });
     }
+
+    /**
+     * Creates a styled button with an icon and tooltip.
+     *
+     * @param iconPath    The path to the icon image.
+     * @param tooltipText The tooltip text for the button.
+     * @return The configured Button instance.
+     */
     private Button createIconButton(String iconPath, String tooltipText) {
         Button button = new Button();
         try {
@@ -193,12 +136,123 @@ public class EtudiantProfesseurController {
             icon.setFitWidth(20);
             button.setGraphic(icon);
         } catch (Exception e) {
-            System.err.println("Error loading icon: " + iconPath);
+            System.err.println("Erreur lors du chargement de l'icône : " + iconPath);
         }
         button.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
         button.setTooltip(new Tooltip(tooltipText));
         return button;
     }
 
+    /**
+     * Handles viewing the selected student's details.
+     */
+    private void handleViewStudent(Etudiant etudiant) {
+        if (etudiant != null) {
+            openPopup("/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml", "Détails de l'étudiant", controller -> {
+                if (controller instanceof viewEtudiantProfesseurController viewController) {
+                    viewController.setEtudiant(etudiant);
+                }
+            });
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Aucune Sélection", "Veuillez sélectionner un étudiant à visualiser.");
+        }
+    }
 
+    /**
+     * Opens a popup window with the specified FXML, title, and controller setup.
+     *
+     * @param fxmlPath        Le chemin vers le fichier FXML.
+     * @param title           Le titre de la fenêtre popup.
+     * @param controllerSetup Une lambda pour configurer le contrôleur.
+     */
+    private void openPopup(String fxmlPath, String title, Consumer<Object> controllerSetup) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            if (controllerSetup != null) {
+                controllerSetup.accept(loader.getController());
+            }
+
+            Stage popupStage = new Stage();
+            popupStage.setScene(new Scene(root));
+            popupStage.setTitle(title);
+            popupStage.initOwner(etudiantTable.getScene().getWindow());
+            popupStage.setMinWidth(200);
+            popupStage.setMinHeight(300);
+            popupStage.centerOnScreen();
+            popupStage.showAndWait();
+
+            loadEtudiants(); // Rafraîchir les données après fermeture du popup
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la fenêtre de visualisation.");
+        }
+    }
+
+    /**
+     * Affiche une alerte à l'utilisateur.
+     *
+     * @param type    Le type d'alerte.
+     * @param title   Le titre de l'alerte.
+     * @param message Le message de l'alerte.
+     */
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    /**
+     * Met en place la fonctionnalité de recherche pour filtrer les étudiants.
+     */
+    private void setupSearchFunctionality() {
+        FilteredList<Etudiant> filteredList = new FilteredList<>(etudiantList, p -> true);
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            String lowerCaseFilter = (newValue != null) ? newValue.toLowerCase() : "";
+
+            filteredList.setPredicate(etudiant -> {
+                if (lowerCaseFilter.isEmpty()) {
+                    return true;
+                }
+                return matchesFilter(etudiant, lowerCaseFilter);
+            });
+        });
+
+        etudiantTable.setItems(filteredList);
+    }
+
+    /**
+     * Vérifie si un étudiant correspond au filtre de recherche.
+     *
+     * @param etudiant         L'étudiant à vérifier.
+     * @param lowerCaseFilter  Le filtre de recherche en minuscules.
+     * @return Vrai si l'étudiant correspond au filtre ; sinon, faux.
+     */
+    private boolean matchesFilter(Etudiant etudiant, String lowerCaseFilter) {
+        return containsIgnoreCase(etudiant.getMatricule(), lowerCaseFilter) ||
+                containsIgnoreCase(etudiant.getNom(), lowerCaseFilter) ||
+                containsIgnoreCase(etudiant.getPrenom(), lowerCaseFilter) ||
+                containsIgnoreCase(etudiant.getDateNaissance(), lowerCaseFilter) ||
+                containsIgnoreCase(etudiant.getEmail(), lowerCaseFilter) ||
+                containsIgnoreCase(etudiant.getPromotion(), lowerCaseFilter);
+    }
+
+    /**
+     * Vérifie si une chaîne contient le filtre, sans tenir compte de la casse.
+     *
+     * @param field            La chaîne à vérifier.
+     * @param lowerCaseFilter  Le filtre en minuscules.
+     * @return Vrai si la chaîne contient le filtre ; sinon, faux.
+     */
+    private boolean containsIgnoreCase(String field, String lowerCaseFilter) {
+        return field != null && field.toLowerCase().contains(lowerCaseFilter);
+    }
+
+    public void handleSearch(ActionEvent actionEvent) {
+    }
 }
