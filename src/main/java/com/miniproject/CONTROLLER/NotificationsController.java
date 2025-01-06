@@ -2,8 +2,10 @@ package com.miniproject.CONTROLLER;
 
 import com.miniproject.DAO.EtudiantDAOImpl;
 import com.miniproject.DAO.NotificationDAOImpl;
+import com.miniproject.ENTITY.Etudiant;
 import com.miniproject.ENTITY.Notification;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 

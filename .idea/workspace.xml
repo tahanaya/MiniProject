@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/NotificationsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/NotificationDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Notification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/notif-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/NotificationView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-12-29_14_06_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-12-29_14_06__Changes_.xml" beforeDir="false" />
@@ -17,6 +22,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DATABASE/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Module.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
     </list>
@@ -200,7 +206,7 @@
       <workItem from="1735992501706" duration="9638000" />
       <workItem from="1736033148091" duration="3000" />
       <workItem from="1736033271096" duration="38000" />
-      <workItem from="1736128333406" duration="9534000" />
+      <workItem from="1736128333406" duration="10548000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />

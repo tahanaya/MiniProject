@@ -104,9 +104,14 @@ public class NotificationDAOImpl implements GenericDAO<Notification> {
         EtudiantDAOImpl etudiantDAO = new EtudiantDAOImpl();
         List<Etudiant> studentsWithoutModules = etudiantDAO.getStudentsWithoutModules();
 
-        for (Etudiant student : studentsWithoutModules) {
-            String message = "Alert: Student " + student.getNom() + " " + student.getPrenom() +
-                    " (ID: " + student.getId() + ") is not enrolled in any modules.";
+        if (!studentsWithoutModules.isEmpty()) {
+            StringBuilder messageBuilder = new StringBuilder("Alert: The following students are not enrolled in any modules:\n");
+            for (Etudiant student : studentsWithoutModules) {
+                messageBuilder.append("- ").append(student.getNom()).append(" ").append(student.getPrenom())
+                        .append(" (ID: ").append(student.getId()).append(")\n");
+            }
+
+            String message = messageBuilder.toString();
             save(new Notification(message, LocalDateTime.now(), false));
         }
     }

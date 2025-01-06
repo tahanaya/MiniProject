@@ -68,3 +68,18 @@
     -fx-background-radius: 10;
     -fx-padding: 5;
 }
+
+
+/*NOTIFICATIONS STYLES*/
+/* Unseen Notifications */
+.list-view .list-cell:filled {
+    -fx-padding: 5;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: #e8f0ff; /* Highlight on hover */
+}
+
+.list-view .list-cell:filled:unfocused {
+    -fx-background-color: #ffffff; /* Default background for unseen */
+}
