@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<GridPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.miniproject.CONTROLLER.PROFESSEUR.EditProfesseurController"
-          hgap="10" vgap="10">
+<AnchorPane prefHeight="500.0" prefWidth="465.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.PROFESSEUR.EditProfesseurController">
+    <stylesheets>
+        <URL value="@../../css/view.css" /> <!-- Link to your CSS file -->
+    </stylesheets>
 
-    <!-- Correct Padding Definition -->
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+    <children>
+        <!-- Title -->
+        <Text layoutX="103.0" layoutY="40.0" styleClass="title-text" text="Modifier un professeur" />
 
-    <!-- Title -->
-    <Text text="Modifier un professeur" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Text>
+        <!-- VBox Container -->
+        <VBox layoutX="50.0" layoutY="60.0" prefHeight="350.0" prefWidth="365.0" spacing="10.0" styleClass="details-box">
+            <children>
+                <!-- Nom -->
+                <Label styleClass="detail-label" text="Nom:" />
+                <TextField fx:id="nomField" styleClass="input-field" />
 
-    <!-- Nom Field -->
-    <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <TextField fx:id="nomField" promptText="Entrer le nom" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <!-- Prénom -->
+                <Label styleClass="detail-label" text="Prénom:" />
+                <TextField fx:id="prenomField" styleClass="input-field" />
 
-    <!-- Prénom Field -->
-    <Label text="Prénom:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <TextField fx:id="prenomField" promptText="Entrer le prénom" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <!-- Spécialité -->
+                <Label styleClass="detail-label" text="Spécialité:" />
+                <TextField fx:id="specialiteField" styleClass="input-field" />
 
-    <!-- Spécialité Field -->
-    <Label text="Spécialité:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-    <TextField fx:id="specialiteField" promptText="Entrer la spécialité" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <!-- Nom d'utilisateur -->
+                <Label styleClass="detail-label" text="Nom d'utilisateur:" />
+                <TextField fx:id="usernameField" styleClass="input-field" />
 
-    <!-- Username Field -->
-    <Label text="Nom d'utilisateur:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-    <TextField fx:id="usernameField" promptText="Entrer le nom d'utilisateur" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <!-- Mot de passe -->
+                <Label styleClass="detail-label" text="Mot de passe:" />
+                <PasswordField fx:id="passwordField" styleClass="input-field" />
 
-    <!-- Password Field -->
-    <Label text="Mot de passe:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-    <PasswordField fx:id="passwordField" promptText="Entrer le mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-
-    <!-- Buttons -->
-    <Button fx:id="saveButton" text="Sauvegarder" onAction="#handleSave" GridPane.columnIndex="0" GridPane.rowIndex="6" prefWidth="140.0"/>
-    <Button fx:id="cancelButton" text="Annuler" onAction="#handleCancel" GridPane.columnIndex="1" GridPane.rowIndex="6" prefWidth="140.0"/>
-
-</GridPane>
+                <!-- Buttons -->
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button fx:id="saveButton" onAction="#handleSave" styleClass="action-button" text="Sauvegarder" />
+                        <Button fx:id="cancelButton" onAction="#handleCancel" styleClass="action-button" text="Annuler" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

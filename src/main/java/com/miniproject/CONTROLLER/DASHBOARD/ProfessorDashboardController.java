@@ -12,6 +12,7 @@ public class ProfessorDashboardController {
     @FXML
     private AnchorPane contentPane; // The content area in the dashboard
 
+
     /**
      * Handles the "Etudiant" button click.
      */
@@ -61,6 +62,41 @@ public class ProfessorDashboardController {
             AnchorPane.setLeftAnchor(moduleView, 0.0);
             AnchorPane.setRightAnchor(moduleView, 0.0);
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleTableauDeBord() {
+        System.out.println("Tableau de Bord button clicked!");
+        loadView("/com/miniproject/view/TableauDeBord/TableauDeBord.fxml");
+
+    }
+    private void loadView(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent view = loader.load();
+
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(view);
+
+            AnchorPane.setTopAnchor(view, 0.0);
+            AnchorPane.setBottomAnchor(view, 0.0);
+            AnchorPane.setLeftAnchor(view, 0.0);
+            AnchorPane.setRightAnchor(view, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleLogout() {
+        System.out.println("Logout button clicked!");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/LoginView.fxml"));
+            Parent loginView = loader.load();
+
+            contentPane.getScene().setRoot(loginView);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -132,21 +132,18 @@ public class AdminDashboardController {
         loadView("/com/miniproject/view/NotificationView.fxml");
 
     }
-    /**
-     * Handles the "Inscription" button click.
-     */
-    @FXML
-    private void handleInscription() {
-        System.out.println("Inscription button clicked!");
-        // TODO: Implement Inscription view loading
-    }
 
-    /**
-     * Handles the "Associer Prof" button click.
-     */
+
     @FXML
-    private void handleAssocierProf() {
-        System.out.println("Associer Prof button clicked!");
-        // TODO: Implement Associer Prof functionality
+    private void handleLogout() {
+        System.out.println("Logout button clicked!");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/LoginView.fxml"));
+            Parent loginView = loader.load();
+
+            contentPane.getScene().setRoot(loginView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

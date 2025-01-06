@@ -9,6 +9,7 @@ module com.miniproject.miniproject {
     requires kernel;
     requires layout;
     requires io;
+    requires java.desktop;
 
     // General exports and opens
     opens com.miniproject to javafx.fxml;

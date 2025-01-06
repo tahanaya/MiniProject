@@ -5,33 +5,44 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600" prefWidth="788.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.ModuleProfesseur.ModuleProfesseurController">
+<?import javafx.scene.control.TextField?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.ModuleProfesseur.ModuleProfesseurController">
+
     <children>
-        <!-- Header Label -->
-        <Label layoutX="274.0" layoutY="44.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des Modules" />
+        <VBox spacing="20" layoutX="20.0" layoutY="20.0" prefWidth="760.0">
 
-        <!-- Status Label -->
-        <Label fx:id="statusLabel" layoutX="62.0" layoutY="72.0" prefHeight="31.0" prefWidth="576.0" style="-fx-font-size: 14px; -fx-padding: 5px;" text="" />
+            <!-- Title -->
+            <HBox alignment="CENTER">
+                <Label text="Liste des Modules"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold;"  />
+            </HBox>
 
-        <!-- TableView -->
-        <TableView fx:id="moduleTable" layoutX="62.0" layoutY="101.0" prefHeight="358.0" prefWidth="576.0">
-            <columns>
-                <!-- ID Column -->
-                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
 
-                <!-- Module Name Column -->
-                <TableColumn fx:id="colName" prefWidth="150.0" text="Nom du Module" />
+            <!-- TableView for displaying modules -->
+            <TableView fx:id="moduleTable" prefHeight="400.0" prefWidth="760.0">
+                <columns>
+                    <!-- ID Column -->
+                    <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
 
-                <!-- Module Code Column -->
-                <TableColumn fx:id="colCode" prefWidth="100.0" text="Code du Module" />
+                    <!-- Module Name Column -->
+                    <TableColumn fx:id="colName" prefWidth="150.0" text="Nom du Module" />
 
-                <!-- Professor Full Name Column -->
-                <TableColumn fx:id="colProfessorFullName" prefWidth="150.0" text="Nom du Professeur" />
-            </columns>
-        </TableView>
+                    <!-- Module Code Column -->
+                    <TableColumn fx:id="colCode" prefWidth="100.0" text="Code du Module" />
 
-        <!-- Action Buttons -->
-        <Button layoutX="130.0" layoutY="500.0" onAction="#handleViewModule" prefWidth="100" text="Visualiser" />
+                    <!-- Professor Full Name Column -->
+                    <TableColumn fx:id="colProfessorFullName" prefWidth="150.0" text="Nom du Professeur" />
+
+                    <!-- Visualiser Column -->
+                    <TableColumn fx:id="colVisualiser" prefWidth="150.0" text="Visualiser"/>
+
+                </columns>
+            </TableView>
+
+
+        </VBox>
     </children>
 </AnchorPane>
