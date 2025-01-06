@@ -158,4 +158,26 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
         return 0;
     }
 
+    public List<Etudiant> getStudentsWithoutModules() {
+        String sql = """
+        SELECT e.*
+        FROM etudiant e
+        WHERE e.id NOT IN (
+            SELECT etudiant_id FROM inscription
+        )
+    """;
+
+        List<Etudiant> students = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                students.add(mapToEtudiant(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return students;
+    }
+
+
 }

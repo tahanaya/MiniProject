@@ -212,5 +212,29 @@ public class ModuleDAOImpl implements GenericDAO<Module> {
         return result;
     }
 
+    //modules with deadlines approaching
+    public List<Module> getModulesWithUpcomingDeadlines(int days) {
+        String sql = """
+        SELECT * 
+        FROM module
+        WHERE deadline BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL ? DAY
+    """;
+
+        List<Module> modules = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, days);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Module module = mapToModule(rs);
+                    modules.add(module);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return modules;
+    }
+
+
 
 }

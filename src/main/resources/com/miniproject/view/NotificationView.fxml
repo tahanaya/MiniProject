@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.NotificationsController">
+    <children>
+        <VBox spacing="15" alignment="TOP_CENTER" prefHeight="400" prefWidth="400" layoutX="50" layoutY="20">
+            <!-- Title -->
+            <Label text="Notifications" styleClass="title" />
+
+            <!-- Notification List -->
+            <ListView fx:id="notificationListView" prefHeight="200" prefWidth="380" />
+
+            <!-- Notification Details -->
+            <TextArea fx:id="notificationDetails" prefHeight="150" prefWidth="380" editable="false" />
+        </VBox>
+    </children>
+</AnchorPane>

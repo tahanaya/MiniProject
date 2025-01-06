@@ -26,6 +26,7 @@ public class AdminDashboardController {
         // Add hover listener to navbar
         navbar.setOnMouseEntered(event -> expandNavbar());
         navbar.setOnMouseExited(event -> collapseNavbar());
+
     }
     private void expandNavbar() {
         navbar.setPrefWidth(200); // Expand navbar width programmatically
@@ -122,6 +123,13 @@ public class AdminDashboardController {
     private void handleModules() {
         System.out.println("Modules button clicked!");
         loadView("/com/miniproject/view/Module/ModuleView.fxml");
+
+    }
+
+    @FXML
+    private void handleNotifications() {
+        System.out.println("Notifications button clicked!");
+        loadView("/com/miniproject/view/NotificationView.fxml");
 
     }
     /**
