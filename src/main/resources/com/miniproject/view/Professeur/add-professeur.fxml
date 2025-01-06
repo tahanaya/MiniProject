@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.miniproject.CONTROLLER.PROFESSEUR.AddProfesseurController"
-            prefHeight="500.0" prefWidth="465.0">
+<AnchorPane prefHeight="500" prefWidth="465" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.PROFESSEUR.AddProfesseurController">
+    <stylesheets>
+        <URL value="@../../css/view.css" /> <!-- Link to your CSS file -->
+    </stylesheets>
+
     <children>
         <!-- Title -->
-        <Text layoutX="50.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un nouveau professeur">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Text>
+        <Text layoutX="57.0" layoutY="40.0" styleClass="title-text" text="Ajouter un nouveau professeur" />
 
-        <!-- Form Layout -->
-        <VBox layoutX="50.0" layoutY="60.0" prefWidth="300.0" spacing="10.0">
+        <!-- VBox Container -->
+        <VBox layoutX="50.0" layoutY="60.0" prefHeight="350.0" prefWidth="365.0" spacing="10.0" styleClass="details-box">
             <children>
-                <Label text="Nom:" />
-                <TextField fx:id="nomField" promptText="Entrer le nom" />
+                <!-- Nom -->
+                <Label styleClass="detail-label" text="Nom:" />
+                <TextField fx:id="nomField" styleClass="input-field" />
 
-                <Label text="Prénom:" />
-                <TextField fx:id="prenomField" promptText="Entrer le prénom" />
+                <!-- Prénom -->
+                <Label styleClass="detail-label" text="Prénom:" />
+                <TextField fx:id="prenomField" styleClass="input-field" />
 
-                <Label text="Spécialité:" />
-                <TextField fx:id="specialiteField" promptText="Entrer la spécialité" />
+                <!-- Spécialité -->
+                <Label styleClass="detail-label" text="Spécialité:" />
+                <TextField fx:id="specialiteField" styleClass="input-field" />
 
-                <Label text="Nom d'utilisateur:" />
-                <TextField fx:id="usernameField" promptText="Entrer le nom d'utilisateur" />
+                <!-- Nom d'utilisateur -->
+                <Label styleClass="detail-label" text="Nom d'utilisateur:" />
+                <TextField fx:id="usernameField" styleClass="input-field" />
 
-                <Label text="Mot de passe:" />
-                <PasswordField fx:id="passwordField" promptText="Entrer le mot de passe" />
+                <!-- Mot de passe -->
+                <Label styleClass="detail-label" text="Mot de passe:" />
+                <PasswordField fx:id="passwordField" styleClass="input-field" />
+
+                <!-- Buttons -->
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button onAction="#handleAdd" styleClass="action-button" text="Ajouter" />
+                        <Button onAction="#handleCancel" styleClass="action-button" text="Annuler" />
+                    </children>
+                </HBox>
             </children>
-            <!-- Correct Padding Definition for VBox -->
-            <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
-            </padding>
         </VBox>
-
-        <!-- Buttons -->
-        <Button layoutX="15.0" layoutY="450.0" onAction="#handleAdd" prefWidth="140.0" text="Ajouter" />
-        <Button layoutX="288.0" layoutY="449.0" onAction="#handleCancel" prefWidth="140.0" text="Annuler" />
     </children>
 </AnchorPane>
