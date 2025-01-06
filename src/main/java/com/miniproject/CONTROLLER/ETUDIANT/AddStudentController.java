@@ -8,8 +8,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
+/**
+ * Controller class for adding a new Etudiant (Student).
+ * Handles user input, validation, and interaction with the DAO to persist data.
+ */
 public class AddStudentController {
 
+    // FXML-injected UI components
     @FXML private TextField matriculeField;
     @FXML private TextField nomField;
     @FXML private TextField prenomField;
@@ -20,11 +26,11 @@ public class AddStudentController {
     // Reference to EtudiantController to refresh data
     private EtudiantController etudiantController;
 
-    // DAO for Etudiant
+    // Data Access Object for Etudiant operations
     private final GenericDAO<Etudiant> etudiantDAO = new EtudiantDAOImpl();
 
     /**
-     * Sets the EtudiantController reference.
+     * Sets the reference to the main EtudiantController.
      *
      * @param controller The EtudiantController instance.
      */
@@ -34,77 +40,125 @@ public class AddStudentController {
 
     /**
      * Handles the action of adding a new student.
+     * Validates input, persists the new student, and refreshes the main table view.
      */
     @FXML
     private void handleAdd() {
         if (isInputValid()) {
-            Etudiant newEtu = new Etudiant();
-            newEtu.setMatricule(matriculeField.getText());
-            newEtu.setNom(nomField.getText());
-            newEtu.setPrenom(prenomField.getText());
-            newEtu.setDateNaissance(dateNaissanceField.getText());
-            newEtu.setEmail(emailField.getText());
-            newEtu.setPromotion(promotionField.getText());
+            Etudiant newEtudiant = createEtudiantFromInput();
+            etudiantDAO.save(newEtudiant);
+            System.out.println("Added student: " + newEtudiant); // Debugging statement
 
-            // Save to database
-            etudiantDAO.save(newEtu);
-            System.out.println("Added student: " + newEtu); // Debugging
-
-            // Close the popup
-            Stage stage = (Stage) matriculeField.getScene().getWindow();
-            stage.close();
-
-            // Refresh the main table view
-            if (etudiantController != null) {
-                etudiantController.loadEtudiants();
-            }
-
-            // Show success alert
-            showAlert(Alert.AlertType.INFORMATION, "Succès", "Étudiant ajouté avec succès!");
+            closeWindow();
+            refreshMainController();
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Student added successfully!");
         }
     }
 
     /**
      * Handles the action of canceling the add operation.
+     * Closes the current window without saving.
      */
     @FXML
     private void handleCancel() {
-        Stage stage = (Stage) matriculeField.getScene().getWindow();
-        stage.close();
+        closeWindow();
+    }
+
+    /**
+     * Creates an Etudiant object from the user input fields.
+     *
+     * @return A populated Etudiant instance.
+     */
+    private Etudiant createEtudiantFromInput() {
+        Etudiant etudiant = new Etudiant();
+        etudiant.setMatricule(matriculeField.getText().trim());
+        etudiant.setNom(nomField.getText().trim());
+        etudiant.setPrenom(prenomField.getText().trim());
+        etudiant.setDateNaissance(dateNaissanceField.getText().trim());
+        etudiant.setEmail(emailField.getText().trim());
+        etudiant.setPromotion(promotionField.getText().trim());
+        return etudiant;
     }
 
     /**
      * Validates the user input in the form fields.
      *
-     * @return true if the input is valid, false otherwise.
+     * @return true if the input is valid; false otherwise.
      */
     private boolean isInputValid() {
-        String errorMessage = "";
+        StringBuilder errorMessage = new StringBuilder();
 
-        if (matriculeField.getText() == null || matriculeField.getText().trim().isEmpty()) {
-            errorMessage += "Matricule invalide!\n";
+        if (isFieldEmpty(matriculeField)) {
+            errorMessage.append("Invalid Matricule!\n");
         }
-        if (nomField.getText() == null || nomField.getText().trim().isEmpty()) {
-            errorMessage += "Nom invalide!\n";
+        if (isFieldEmpty(nomField)) {
+            errorMessage.append("Invalid Nom!\n");
         }
-        if (prenomField.getText() == null || prenomField.getText().trim().isEmpty()) {
-            errorMessage += "Prénom invalide!\n";
+        if (isFieldEmpty(prenomField)) {
+            errorMessage.append("Invalid Prenom!\n");
         }
-        if (dateNaissanceField.getText() == null || !dateNaissanceField.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
-            errorMessage += "Date de naissance invalide! Utilisez le format YYYY-MM-DD.\n";
+        if (!isValidDate(dateNaissanceField.getText())) {
+            errorMessage.append("Invalid Date of Birth! Use format YYYY-MM-DD.\n");
         }
-        if (emailField.getText() == null || !emailField.getText().matches("^\\S+@\\S+\\.\\S+$")) {
-            errorMessage += "Email invalide!\n";
+        if (!isValidEmail(emailField.getText())) {
+            errorMessage.append("Invalid Email!\n");
         }
-        if (promotionField.getText() == null || promotionField.getText().trim().isEmpty()) {
-            errorMessage += "Promotion invalide!\n";
+        if (isFieldEmpty(promotionField)) {
+            errorMessage.append("Invalid Promotion!\n");
         }
 
         if (errorMessage.isEmpty()) {
             return true;
         } else {
-            showAlert(Alert.AlertType.ERROR, "Entrée invalide", errorMessage);
+            showAlert(Alert.AlertType.ERROR, "Invalid Input", errorMessage.toString());
             return false;
+        }
+    }
+
+    /**
+     * Checks if a TextField is empty or contains only whitespace.
+     *
+     * @param field The TextField to check.
+     * @return true if empty; false otherwise.
+     */
+    private boolean isFieldEmpty(TextField field) {
+        return field.getText() == null || field.getText().trim().isEmpty();
+    }
+
+    /**
+     * Validates the date string against the YYYY-MM-DD format.
+     *
+     * @param date The date string to validate.
+     * @return true if valid; false otherwise.
+     */
+    private boolean isValidDate(String date) {
+        return date != null && date.matches("\\d{4}-\\d{2}-\\d{2}");
+    }
+
+    /**
+     * Validates the email string against a basic email pattern.
+     *
+     * @param email The email string to validate.
+     * @return true if valid; false otherwise.
+     */
+    private boolean isValidEmail(String email) {
+        return email != null && email.matches("^\\S+@\\S+\\.\\S+$");
+    }
+
+    /**
+     * Closes the current window.
+     */
+    private void closeWindow() {
+        Stage stage = (Stage) matriculeField.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * Refreshes the main EtudiantController to reflect the new data.
+     */
+    private void refreshMainController() {
+        if (etudiantController != null) {
+            etudiantController.loadEtudiants();
         }
     }
 

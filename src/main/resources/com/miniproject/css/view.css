@@ -1,0 +1,68 @@
+/* Root AnchorPane Styling */
+.root {
+    -fx-background-color: #f4f4f4; /* Light gray background for the entire pane */
+    -fx-padding: 20; /* Adds padding around the content */
+}
+
+/* Text (Title) Styling */
+.title-text {
+    -fx-fill: #3f527a; /* Dark blue text color */
+    -fx-font-family: "Dancing Script"; /* Consistent font family */
+    -fx-font-size: 24px; /* Larger font size for the title */
+    -fx-font-weight: bold; /* Bold text */
+}
+
+/* VBox Styling */
+.details-box {
+    -fx-background-color: #ffffff; /* White background for the VBox */
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-background-radius: 10px; /* Matches the border radius for consistency */
+    -fx-padding: 20; /* Adds padding inside the VBox */
+    -fx-spacing: 10; /* Adds spacing between children */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); /* Subtle shadow for depth */
+}
+
+/* Label Styling */
+.detail-label {
+    -fx-text-fill: #3f527a; /* Dark blue text color */
+    -fx-font-size: 14px; /* Standard font size */
+    -fx-font-weight: bold; /* Bold text */
+}
+
+/* Dynamic Labels (e.g., matriculeLabel, nomLabel, etc.) */
+.dynamic-label {
+    -fx-text-fill: #121a2b; /* Slightly darker blue for dynamic content */
+    -fx-font-size: 14px; /* Standard font size */
+    -fx-font-weight: normal; /* Normal weight for dynamic content */
+    -fx-padding: 5 0; /* Adds vertical padding for better spacing */
+}
+
+/* Input Fields Styling */
+.input-field {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #83A8F4; /* Light blue border */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-background-radius: 5px; /* Matches the border radius */
+    -fx-padding: 5px; /* Adds padding inside the field */
+    -fx-font-size: 14px; /* Standard font size */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0); /* Subtle shadow */
+}
+
+/* Button Styling */
+.action-button {
+    -fx-background-color: #83A8F4; /* Light blue background */
+    -fx-text-fill: #ffffff; /* White text color */
+    -fx-font-size: 14px; /* Standard font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-background-radius: 10px; /* Matches the border radius for consistency */
+    -fx-padding: 10 20; /* Adds padding inside the button */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0); /* Subtle shadow for depth */
+    -fx-cursor: hand; /* Changes cursor to a hand on hover */
+}
+
+/* Button Hover Effect */
+.action-button:hover {
+    -fx-background-color: #a7c2f9; /* Lighter blue on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0); /* Stronger shadow on hover */
+}

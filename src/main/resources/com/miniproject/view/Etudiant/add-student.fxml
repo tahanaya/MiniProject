@@ -1,34 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600" prefWidth="700" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.ETUDIANT.AddStudentController">
+    <stylesheets>
+        <URL value="@../../css/view.css" /> <!-- Link to your CSS file -->
+    </stylesheets>
+
     <children>
-        <Label layoutX="200" layoutY="30" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Ajouter un Étudiant" />
+        <!-- Title -->
+        <Text layoutX="233.0" layoutY="44.0" styleClass="title-text" text="Add Student" />
 
-        <Label layoutX="150.0" layoutY="76.0" text="Matricule:" />
-        <TextField fx:id="matriculeField" layoutX="150.0" layoutY="94.0" prefWidth="300" promptText="Entrez Matricule" />
+        <!-- VBox Container -->
+        <VBox layoutX="141.0" layoutY="55.0" prefHeight="512.0" prefWidth="355.0" spacing="10.0" styleClass="details-box">
+            <children>
+                <!-- Matricule -->
+                <Label styleClass="detail-label" text="Matricule:" />
+                <TextField fx:id="matriculeField" styleClass="input-field" />
 
-        <Label layoutX="150.0" layoutY="132.0" text="Nom:" />
-        <TextField fx:id="nomField" layoutX="150.0" layoutY="150.0" prefWidth="300" promptText="Entrez Nom" />
+                <!-- Nom -->
+                <Label styleClass="detail-label" text="Nom:" />
+                <TextField fx:id="nomField" styleClass="input-field" />
 
-        <Label layoutX="150.0" layoutY="182.0" text="Prénom:" />
-        <TextField fx:id="prenomField" layoutX="150.0" layoutY="200.0" prefWidth="300" promptText="Entrez Prénom" />
+                <!-- Prénom -->
+                <Label styleClass="detail-label" text="Prénom:" />
+                <TextField fx:id="prenomField" styleClass="input-field" />
 
-        <Label layoutX="150.0" layoutY="232.0" text="Date de Naissance (YYYY-MM-DD):" />
-        <TextField fx:id="dateNaissanceField" layoutX="150.0" layoutY="250.0" prefWidth="300" promptText="ex: 1990-01-01" />
+                <!-- Date de Naissance -->
+                <Label styleClass="detail-label" text="Date de Naissance (YYYY-MM-DD):" />
+                <TextField fx:id="dateNaissanceField" styleClass="input-field" />
 
-        <Label layoutX="150.0" layoutY="282.0" text="Email:" />
-        <TextField fx:id="emailField" layoutX="150.0" layoutY="300.0" prefWidth="300" promptText="Entrez Email" />
+                <!-- Email -->
+                <Label styleClass="detail-label" text="Email:" />
+                <TextField fx:id="emailField" styleClass="input-field" />
 
-        <Label layoutX="150.0" layoutY="332.0" text="Promotion:" />
-        <TextField fx:id="promotionField" layoutX="150.0" layoutY="350.0" prefWidth="300" promptText="Entrez Promotion" />
+                <!-- Promotion -->
+                <Label styleClass="detail-label" text="Promotion:" />
+                <TextField fx:id="promotionField" styleClass="input-field" />
 
-        <Button layoutX="171.0" layoutY="400.0" onAction="#handleAdd" prefWidth="100" text="Enregistrer" />
-        <Button layoutX="300.0" layoutY="400.0" onAction="#handleCancel" prefWidth="100" text="Annuler" />
+                <!-- Buttons -->
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button onAction="#handleAdd" styleClass="action-button" text="Enregistrer" />
+                        <Button onAction="#handleCancel" styleClass="action-button" text="Annuler" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>
