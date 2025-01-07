@@ -2,10 +2,12 @@ package com.miniproject.CONTROLLER;
 
 
 import com.miniproject.DAO.EtudiantDAOImpl;
+import com.miniproject.DAO.ModuleDAOImpl;
 import com.miniproject.DAO.NotificationDAOImpl;
 import com.miniproject.ENTITY.Notification;
 import com.miniproject.ENTITY.Utilisateur;
 import com.miniproject.ENTITY.Etudiant;
+import com.miniproject.ENTITY.Module;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
+
 
 
 public class NotificationsController {
@@ -166,27 +169,53 @@ public class NotificationsController {
 
         if (notification.getType().equals("DEADLINE")) {
             // Handle deadline notifications
-            Label messageLabel = new Label(notification.getMessage());
-            messageLabel.getStyleClass().add("dialog-label");
+            ModuleDAOImpl moduleDAO = new ModuleDAOImpl();
+            // Extract module name from the notification message
+            String moduleName = extractModuleNameFromMessage(notification.getMessage());
+            // Fetch module details by name
+            Module module = moduleDAO.findModuleByName(moduleName);
+            if (module != null) {
+                // Create TableView to display module details
+                ObservableList<Module> moduleData = FXCollections.observableArrayList(module);
+                TableView<Module> table = new TableView<>(moduleData);
+                TableColumn<Module, String> moduleNameColumn = new TableColumn<>("Module Name");
+                moduleNameColumn.setCellValueFactory(new PropertyValueFactory<>("nomModule"));
+                TableColumn<Module, String> moduleCodeColumn = new TableColumn<>("Module Code");
+                moduleCodeColumn.setCellValueFactory(new PropertyValueFactory<>("codeModule"));
+                TableColumn<Module, String> professorColumn = new TableColumn<>("Professor");
+                professorColumn.setCellValueFactory(cellData ->
+                        new SimpleStringProperty(cellData.getValue().getProfessorFullName()));
+                TableColumn<Module, String> deadlineColumn = new TableColumn<>("Deadline");
+                deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+                table.getColumns().addAll(moduleNameColumn, moduleCodeColumn, professorColumn, deadlineColumn);
+                table.getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+                table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-            Label timestampLabel = new Label("Timestamp: " + notification.getTimestamp());
-            timestampLabel.getStyleClass().add("dialog-label");
+                // Style and Layout
+                Label messageLabel = new Label(notification.getMessage());
+                messageLabel.getStyleClass().add("dialog-label");
 
-            // Layout for deadline notification
-            VBox content = new VBox(
-                    new Label("Notification Details") {{ getStyleClass().add("dialog-title"); }},
-                    messageLabel,
-                    timestampLabel
-            );
-            content.getStyleClass().add("dialog-content");
+                Label timestampLabel = new Label("Timestamp: " + notification.getTimestamp());
+                timestampLabel.getStyleClass().add("dialog-label");
 
-            // Dialog for deadline notification
-            Dialog<Void> dialog = new Dialog<>();
-            dialog.setTitle("Notification Details");
-            dialog.getDialogPane().setContent(content);
-            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
-            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-            dialog.showAndWait();
+                VBox content = new VBox(
+                        new Label("Notification Details") {{ getStyleClass().add("dialog-title"); }},
+                        messageLabel,
+                        table,
+                        timestampLabel
+                );
+                content.getStyleClass().add("dialog-content");
+
+                // Dialog for deadline notification
+                Dialog<Void> dialog = new Dialog<>();
+                dialog.setTitle("Notification Details");
+                dialog.getDialogPane().setContent(content);
+                dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+                dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                dialog.showAndWait();
+            } else {
+                showErrorDialog("Module not found", "The module related to this notification could not be found.");
+            }
         } else if (notification.getType().equals("UNENROLLED")) {
             // Handle unenrolled students notifications
             EtudiantDAOImpl etudiantDAO = new EtudiantDAOImpl();
@@ -257,6 +286,21 @@ public class NotificationsController {
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.showAndWait();
         }
+    }
+
+    // Helper method to extract module name from the notification message
+    private String extractModuleNameFromMessage(String message) {
+        // Assuming the module name appears after "Reminder: The deadline for module" and ends before "is on"
+        return message.replace("Reminder: The deadline for module ", "")
+                .replaceAll(" is on .*", "").trim();
+    }
+    // Helper method to show an error dialog
+    private void showErrorDialog(String title, String content) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        dialog.setContentText(content);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.showAndWait();
     }
 
 

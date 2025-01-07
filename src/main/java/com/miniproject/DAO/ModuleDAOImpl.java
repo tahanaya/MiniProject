@@ -140,6 +140,8 @@ public class ModuleDAOImpl implements GenericDAO<Module> {
         module.setId(rs.getInt("module_id"));
         module.setNomModule(rs.getString("nomModule"));
         module.setCodeModule(rs.getString("codeModule"));
+        module.setDeadline(rs.getDate("deadline").toLocalDate()); // Map the deadline correctly
+
 
         Professeur professeur = new Professeur();
         professeur.setId(rs.getInt("professeur_id"));
@@ -211,6 +213,30 @@ public class ModuleDAOImpl implements GenericDAO<Module> {
         }
         return result;
     }
+
+    public Module findModuleByName(String moduleName) {
+        String sql = """
+        SELECT m.id AS module_id, m.nomModule, m.codeModule, p.id AS professeur_id, 
+               u.id AS utilisateur_id, u.nom, u.prenom, u.username, u.password, u.role, p.specialite, m.deadline
+        FROM module m
+        JOIN professeur p ON m.professeur_id = p.id
+        JOIN utilisateur u ON p.utilisateur_id = u.id
+        WHERE m.nomModule = ?
+    """;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, moduleName);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapToModule(rs);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error finding module by name: " + e.getMessage());
+        }
+        return null;
+    }
+
 
     //modules with deadlines approaching
     public List<Module> getModulesWithUpcomingDeadlines(int days) {
