@@ -261,7 +261,10 @@ public class NotificationDAOImpl implements NotificationDAO {
             stmt.setInt(1, userId); // Set the user ID parameter
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    notifications.add(mapToNotification(rs)); // Map each result to a Notification object
+                    Notification notification = mapToNotification(rs);
+                    // Map each result to a Notification object
+                    notifications.add(notification);
+                    System.out.println("Fetched Notification: " + notification.getMessage()); // Debugging
                 }
             }
         } catch (SQLException e) {

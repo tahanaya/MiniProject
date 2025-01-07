@@ -62,32 +62,39 @@ public class NotificationsController {
     }
 
     private AnchorPane createNotificationCard(Notification notification) {
+        //create notification card
         AnchorPane card = new AnchorPane();
+        //if the notification is marked as "seen," it applies the notification-card style. If it's "unread," it applies the notification-card unread style.
         card.setStyle(notification.isSeen() ? "notification-card" : "notification-card unread");
 
         // Notification content
         Label messageLabel = new Label(notification.getMessage());
         messageLabel.setWrapText(true);
-        messageLabel.setStyle("-fx-font-size: 14px;");
+        messageLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #121a2b;"); // Dark text color for visibility
 
+        //add timestamp
         Label timestampLabel = new Label("Timestamp: " + notification.getTimestamp().toString());
-        timestampLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: gray;");
+        timestampLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #34495e;"); // Slightly lighter for contrast
 
+        //add the view buttom next to the notif
         Button viewButton = new Button("View");
-        viewButton.setOnAction(e -> showNotificationDetails(notification));
+        viewButton.setOnAction(e -> showNotificationDetails(notification)); //Links the button to an action that opens the details of the notification in a dialog
         viewButton.getStyleClass().add("action-button");
 
-        // Layout
+        // Position the Notification message
         AnchorPane.setTopAnchor(messageLabel, 10.0);
         AnchorPane.setLeftAnchor(messageLabel, 10.0);
         AnchorPane.setRightAnchor(messageLabel, 10.0);
 
-        AnchorPane.setTopAnchor(timestampLabel, 40.0);
+        //position of the timestamp
+        AnchorPane.setTopAnchor(timestampLabel, 50.0);
         AnchorPane.setLeftAnchor(timestampLabel, 10.0);
 
-        AnchorPane.setTopAnchor(viewButton, 40.0);
+        //position of the view buttom
+        AnchorPane.setTopAnchor(viewButton, 50.0);
         AnchorPane.setRightAnchor(viewButton, 10.0);
 
+        //ADD COMPONENT TO THE CARD
         card.getChildren().addAll(messageLabel, timestampLabel, viewButton);
 
         return card;
