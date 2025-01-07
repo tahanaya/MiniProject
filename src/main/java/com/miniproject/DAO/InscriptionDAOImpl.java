@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InscriptionDAOImpl implements GenericDAO<Inscription> {
+public class InscriptionDAOImpl implements InscriptionDAO {
     private final Connection conn = DatabaseConnection.getInstance().getConnection();
     @Override
     public Inscription findById(int id) {

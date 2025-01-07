@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
+public class  EtudiantDAOImpl implements EtudiantDAO{
 
     private Connection conn;
 
@@ -130,7 +130,7 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
     /**
      * Helper method to map a ResultSet row to an Etudiant object
      */
-    private Etudiant mapToEtudiant(ResultSet rs) throws SQLException {
+    public Etudiant mapToEtudiant(ResultSet rs) throws SQLException {
         Etudiant e = new Etudiant();
         e.setId(rs.getInt("id"));
         e.setMatricule(rs.getString("matricule"));
