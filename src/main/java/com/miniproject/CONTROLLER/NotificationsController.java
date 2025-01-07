@@ -48,6 +48,9 @@ public class NotificationsController {
             return; // No user logged in, nothing to load
         }
 
+        // Clear existing notifications (A LAISSER SVP)
+        //notificationContainer.getChildren().clear();
+
         // Retrieve notifications for the logged-in user
         List<Notification> notifications = notificationDAO.getNotificationsForUser(currentUser.getId());
 
@@ -99,62 +102,161 @@ public class NotificationsController {
 
         return card;
     }
+//    private void showNotificationDetails(Notification notification) {
+//        // Log the notification message
+//        System.out.println("Notification Message: " + notification.getMessage());
+//
+//        // Create an instance of EtudiantDAOImpl to fetch data
+//        EtudiantDAOImpl etudiantDAO = new EtudiantDAOImpl();
+//
+//        // Fetch students without modules
+//        List<Etudiant> students = etudiantDAO.getStudentsWithoutModules();
+//        ObservableList<Etudiant> observableStudents = FXCollections.observableArrayList(students);
+//
+//        // Create TableView
+//        TableView<Etudiant> table = new TableView<>(observableStudents);
+//
+//        TableColumn<Etudiant, Integer> idColumn = new TableColumn<>("ID");
+//        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+//
+//        TableColumn<Etudiant, String> matriculeColumn = new TableColumn<>("Matricule");
+//        matriculeColumn.setCellValueFactory(new PropertyValueFactory<>("matricule"));
+//
+//        TableColumn<Etudiant, String> nameColumn = new TableColumn<>("Name");
+//        nameColumn.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(cellData.getValue().getNom() + " " + cellData.getValue().getPrenom()));
+//
+//        TableColumn<Etudiant, String> emailColumn = new TableColumn<>("Email");
+//        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+//
+//        TableColumn<Etudiant, String> promotionColumn = new TableColumn<>("Promotion");
+//        promotionColumn.setCellValueFactory(new PropertyValueFactory<>("promotion"));
+//
+//        table.getColumns().addAll(idColumn, matriculeColumn, nameColumn, emailColumn, promotionColumn);
+//        table.getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+//        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+//
+//        // Style and Layout
+//        Label messageLabel = new Label(notification.getMessage());
+//        messageLabel.getStyleClass().add("dialog-label");
+//
+//        Label timestampLabel = new Label("Timestamp: " + notification.getTimestamp());
+//        timestampLabel.getStyleClass().add("dialog-label");
+//
+//        VBox content = new VBox(
+//                new Label("Notification Details") {{ getStyleClass().add("dialog-title"); }},
+//                messageLabel,
+//                table,
+//                timestampLabel
+//        );
+//        content.getStyleClass().add("dialog-content");
+//
+//        // Dialog
+//        Dialog<Void> dialog = new Dialog<>();
+//        dialog.setTitle("Notification Details");
+//        dialog.getDialogPane().setContent(content);
+//        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+//        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+//        dialog.showAndWait();
+//    }
+
     private void showNotificationDetails(Notification notification) {
         // Log the notification message
         System.out.println("Notification Message: " + notification.getMessage());
 
-        // Create an instance of EtudiantDAOImpl to fetch data
-        EtudiantDAOImpl etudiantDAO = new EtudiantDAOImpl();
+        if (notification.getType().equals("DEADLINE")) {
+            // Handle deadline notifications
+            Label messageLabel = new Label(notification.getMessage());
+            messageLabel.getStyleClass().add("dialog-label");
 
-        // Fetch students without modules
-        List<Etudiant> students = etudiantDAO.getStudentsWithoutModules();
-        ObservableList<Etudiant> observableStudents = FXCollections.observableArrayList(students);
+            Label timestampLabel = new Label("Timestamp: " + notification.getTimestamp());
+            timestampLabel.getStyleClass().add("dialog-label");
 
-        // Create TableView
-        TableView<Etudiant> table = new TableView<>(observableStudents);
+            // Layout for deadline notification
+            VBox content = new VBox(
+                    new Label("Notification Details") {{ getStyleClass().add("dialog-title"); }},
+                    messageLabel,
+                    timestampLabel
+            );
+            content.getStyleClass().add("dialog-content");
 
-        TableColumn<Etudiant, Integer> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            // Dialog for deadline notification
+            Dialog<Void> dialog = new Dialog<>();
+            dialog.setTitle("Notification Details");
+            dialog.getDialogPane().setContent(content);
+            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+        } else if (notification.getType().equals("UNENROLLED")) {
+            // Handle unenrolled students notifications
+            EtudiantDAOImpl etudiantDAO = new EtudiantDAOImpl();
+            List<Etudiant> students = etudiantDAO.getStudentsWithoutModules();
+            ObservableList<Etudiant> observableStudents = FXCollections.observableArrayList(students);
 
-        TableColumn<Etudiant, String> matriculeColumn = new TableColumn<>("Matricule");
-        matriculeColumn.setCellValueFactory(new PropertyValueFactory<>("matricule"));
+            // Create TableView for students
+            TableView<Etudiant> table = new TableView<>(observableStudents);
 
-        TableColumn<Etudiant, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getNom() + " " + cellData.getValue().getPrenom()));
+            TableColumn<Etudiant, Integer> idColumn = new TableColumn<>("ID");
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Etudiant, String> emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+            TableColumn<Etudiant, String> matriculeColumn = new TableColumn<>("Matricule");
+            matriculeColumn.setCellValueFactory(new PropertyValueFactory<>("matricule"));
 
-        TableColumn<Etudiant, String> promotionColumn = new TableColumn<>("Promotion");
-        promotionColumn.setCellValueFactory(new PropertyValueFactory<>("promotion"));
+            TableColumn<Etudiant, String> nameColumn = new TableColumn<>("Name");
+            nameColumn.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getNom() + " " + cellData.getValue().getPrenom()));
 
-        table.getColumns().addAll(idColumn, matriculeColumn, nameColumn, emailColumn, promotionColumn);
-        table.getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            TableColumn<Etudiant, String> emailColumn = new TableColumn<>("Email");
+            emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        // Style and Layout
-        Label messageLabel = new Label(notification.getMessage());
-        messageLabel.getStyleClass().add("dialog-label");
+            TableColumn<Etudiant, String> promotionColumn = new TableColumn<>("Promotion");
+            promotionColumn.setCellValueFactory(new PropertyValueFactory<>("promotion"));
 
-        Label timestampLabel = new Label("Timestamp: " + notification.getTimestamp());
-        timestampLabel.getStyleClass().add("dialog-label");
+            table.getColumns().addAll(idColumn, matriculeColumn, nameColumn, emailColumn, promotionColumn);
+            table.getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+            table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        VBox content = new VBox(
-                new Label("Notification Details") {{ getStyleClass().add("dialog-title"); }},
-                messageLabel,
-                table,
-                timestampLabel
-        );
-        content.getStyleClass().add("dialog-content");
+            // Style and Layout for unenrolled students notification
+            Label messageLabel = new Label(notification.getMessage());
+            messageLabel.getStyleClass().add("dialog-label");
 
-        // Dialog
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("Notification Details");
-        dialog.getDialogPane().setContent(content);
-        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.showAndWait();
+            Label timestampLabel = new Label("Timestamp: " + notification.getTimestamp());
+            timestampLabel.getStyleClass().add("dialog-label");
+
+            VBox content = new VBox(
+                    new Label("Notification Details") {{ getStyleClass().add("dialog-title"); }},
+                    messageLabel,
+                    table,
+                    timestampLabel
+            );
+            content.getStyleClass().add("dialog-content");
+
+            // Dialog for unenrolled students notification
+            Dialog<Void> dialog = new Dialog<>();
+            dialog.setTitle("Notification Details");
+            dialog.getDialogPane().setContent(content);
+            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+        } else {
+            // Handle any other notification types if needed
+            Label messageLabel = new Label("Unknown notification type.");
+            messageLabel.getStyleClass().add("dialog-label");
+
+            VBox content = new VBox(
+                    new Label("Notification Details") {{ getStyleClass().add("dialog-title"); }},
+                    messageLabel
+            );
+            content.getStyleClass().add("dialog-content");
+
+            // Dialog for unknown notification types
+            Dialog<Void> dialog = new Dialog<>();
+            dialog.setTitle("Notification Details");
+            dialog.getDialogPane().setContent(content);
+            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/miniproject/css/notification-details.css").toExternalForm());
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+        }
     }
 
 
