@@ -1,0 +1,65 @@
+/*notifications.css*/
+.main-title {
+    -fx-font-size: 32px; /* Font size kbir */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: #121a2b; /* Dark Blue text */
+    -fx-alignment: center; /* Center-align text */
+}
+.main-container {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-background-color: #f8f9fc; /* Light background */
+    -fx-alignment: center;
+}
+
+.notification-scroll {
+    -fx-border-color: transparent; /* Hide border */
+    -fx-background: transparent; /* Transparent background */
+}
+
+.notification-card {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgb(63, 82, 122), 5, 0, 0, 3);
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-text-fill: #121a2b; /* Dark text color */
+}
+
+.notification-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a7c2f9;
+}
+
+.notification-timestamp {
+    -fx-font-size: 12px;
+    -fx-text-fill: #3f527a;
+}
+
+.notification-button {
+    -fx-background-color: #83A8F4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px 10px;
+}
+
+.notification-button:hover {
+    -fx-background-color: #a7c2f9;
+    -fx-text-fill: #3f527a;
+}
+
+.action-button {
+    -fx-background-color: #83A8F4;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.action-button:hover {
+    -fx-background-color: #a7c2f9;
+    -fx-text-fill: #3f527a;}
+

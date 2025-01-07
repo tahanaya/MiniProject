@@ -5,34 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/view.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/logout.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/ModuleViewSecretaire.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/AdminDashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/ProfessorDashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/DASHBOARD/SecretaryDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/AddStudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/AddStudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EditStudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EditStudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/EtudiantProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/EtudiantProfesseur/EtudiantProfesseurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ModuleProfesseur/ModuleProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ModuleProfesseur/ModuleProfesseurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ProfesseurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/PROFESSEUR/ProfesseurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/AdminDashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/NotificationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/NotificationsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/EtudiantDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/NotificationDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/NotificationDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/ENTITY/Utilisateur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/dashboard-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/dashboard-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/logout.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/logout.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/modules-enrolled.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/modules-enrolled.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/modules-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/modules-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/notif-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/notif-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/students-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/students-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/visualize-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/images/visualize-icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/ProfessorDashboardView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Dashboard/SecretaryDashboardView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/EtudiantProfesseurView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/EtudiantProfesseurView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant-Professeur/viewEtudiantProfesseur.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/add-student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/add-student.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/edit-student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/edit-student.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/view-student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Etudiant/view-student.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/LandingPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/LandingPageView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module-Professeur/ModuleProfesseurView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module-Professeur/ModuleProfesseurView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module-Professeur/viewModuleProfesseur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module-Professeur/viewModuleProfesseur.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/ProfesseurView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/ProfesseurView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/add-professeur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/add-professeur.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/edit-professeur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/edit-professeur.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/view-professeur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Professeur/view-professeur.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/NotificationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/NotificationView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,10 +35,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="CSS File" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -101,7 +94,7 @@
     "Application.loginMain.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Merging ayatouune",
+    "git-widget-placeholder": "ayatouune",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/user/OneDrive/Desktop/GINF2/MI-S1/JAVA/Projet/MiniProject/src/main/resources/com/miniproject/images",
     "list.type.of.created.stylesheet": "CSS",
@@ -289,17 +282,6 @@
     <MESSAGE value="crud etud and prof" />
     <MESSAGE value="FORCED TO COMMIT" />
     <option name="LAST_COMMIT_MESSAGE" value="FORCED TO COMMIT" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/ETUDIANT/EtudiantController.java</url>
-          <line>202</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

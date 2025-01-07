@@ -172,11 +172,15 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 students.add(mapToEtudiant(rs));
+                System.out.println("Students without modules: " + students.size());
+                students.forEach(student -> System.out.println(student));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return students;
+
     }
 
 

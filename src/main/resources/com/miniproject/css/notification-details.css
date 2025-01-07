@@ -1,0 +1,37 @@
+/* notification-details.css */
+
+.dialog-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50; /* Dark Blue */
+    -fx-padding: 5;
+}
+
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d6d6d6;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+.table-header {
+    -fx-background-color: #a7b2f9; /* Blue header */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.dialog-content {
+    -fx-spacing: 15;
+    -fx-padding: 20;
+    -fx-background-color: #f4f4f4; /* Light Gray */
+    -fx-border-color: #d6d6d6;
+    -fx-border-radius: 10;
+}
+
+.dialog-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e; /* Navy Blue */
+}

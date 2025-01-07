@@ -1,5 +1,7 @@
 package com.miniproject.CONTROLLER.DASHBOARD;
 
+import com.miniproject.CONTROLLER.NotificationsController;
+import com.miniproject.ENTITY.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,6 +22,11 @@ public class AdminDashboardController {
 
     @FXML
     private VBox navbarContent;
+    private Utilisateur currentUser;
+
+    public void setCurrentUser(Utilisateur user) {
+        this.currentUser = user;
+    }
 
     @FXML
     public void initialize() {
@@ -126,12 +133,7 @@ public class AdminDashboardController {
 
     }
 
-    @FXML
-    private void handleNotifications() {
-        System.out.println("Notifications button clicked!");
-        loadView("/com/miniproject/view/NotificationView.fxml");
 
-    }
 
 
     @FXML
@@ -142,6 +144,29 @@ public class AdminDashboardController {
             Parent loginView = loader.load();
 
             contentPane.getScene().setRoot(loginView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleNotifications() {
+        System.out.println("Notifications button clicked!");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/NotificationView.fxml"));
+            Parent view = loader.load();
+
+            // Pass the logged-in user to the NotificationsController
+            NotificationsController controller = loader.getController();
+            controller.setCurrentUser(currentUser); // Make sure 'currentUser' is stored in the dashboard controller
+
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(view);
+
+            AnchorPane.setTopAnchor(view, 0.0);
+            AnchorPane.setBottomAnchor(view, 0.0);
+            AnchorPane.setLeftAnchor(view, 0.0);
+            AnchorPane.setRightAnchor(view, 0.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
