@@ -18,6 +18,7 @@ public class Notification {
     private LocalDateTime timestamp;
     private boolean seen; // To track if the notification has been read
     private List<Utilisateur> users;     //  list of users associated with the notification
+    private String type; // New field to store notification type
 
     // Custom constructor without ID (useful for creating new notifications)
     public Notification(String message, LocalDateTime timestamp, boolean seen) {
