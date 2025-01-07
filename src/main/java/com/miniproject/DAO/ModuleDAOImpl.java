@@ -20,7 +20,7 @@ public class ModuleDAOImpl implements GenericDAO<Module> {
     @Override
     public Module findById(int id) {
         String sql = """
-                SELECT m.id AS module_id, m.nomModule, m.codeModule, p.id AS professeur_id, 
+                SELECT m.id AS module_id, m.nomModule, m.codeModule, m.deadline p.id AS professeur_id, 
                        u.id AS utilisateur_id, u.nom, u.prenom, u.username, u.password, u.role, p.specialite
                 FROM module m
                 JOIN professeur p ON m.professeur_id = p.id
@@ -44,7 +44,7 @@ public class ModuleDAOImpl implements GenericDAO<Module> {
     public List<Module> findAll() {
         List<Module> modules = new ArrayList<>();
         String sql = """
-                SELECT m.id AS module_id, m.nomModule, m.codeModule, p.id AS professeur_id, 
+                SELECT m.id AS module_id, m.nomModule, m.codeModule, m.deadline, p.id AS professeur_id, 
                        u.id AS utilisateur_id, u.nom, u.prenom, u.username, u.password, u.role, p.specialite
                 FROM module m
                 JOIN professeur p ON m.professeur_id = p.id
