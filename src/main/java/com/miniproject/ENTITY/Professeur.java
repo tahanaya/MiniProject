@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class Professeur {
-    private int id; // Professeur's primary key
-    private Utilisateur utilisateur; // Associated Utilisateur (1:1 relationship)
-    private String specialite; // Specialization
+    private int id;
+    private Utilisateur utilisateur;
+    private String specialite;
 
     public String getNom() {
         return utilisateur != null ? utilisateur.getNom() : "";

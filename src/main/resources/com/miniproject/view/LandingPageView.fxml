@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@../css/LandingPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.LandingPageController">
+<BorderPane stylesheets="@../css/LandingPage.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miniproject.CONTROLLER.LandingPageController">
     <top>
         <HBox styleClass="header-bar">
             <Label styleClass="app-title" text="MiniProject" />
@@ -15,9 +16,13 @@
     <center>
         <VBox alignment="CENTER" spacing="20" styleClass="landing-container">
             <Label styleClass="landing-headline" text="Welcome to Our MiniProject" />
-            <Label styleClass="landing-text" text="Manage students, professors, and modules with ease.&#10; Role-based security for Administrators, Secretaries, and Professors.&#10; Track enrollments and modules.&#10; Generate insightful statistics for your institution." />
+            <Label styleClass="landing-text" text="Manage students, professors, and modules with ease.&#10;
+            Role-based security for Administrators, Secretaries, and Professors.&#10;
+            Track enrollments and modules.&#10;
+            Generate insightful statistics for your institution." />
             <Button onAction="#goToLogin" styleClass="login-btn" text="Go to Login" />
-           <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="539.0" styleClass="footer-label" text="© 2024 My Company, All rights reserved." textAlignment="CENTER" />
+           <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="539.0" styleClass="footer-label"
+                  text="© 2024 My Company, All rights reserved." textAlignment="CENTER" />
         </VBox>
     </center>
 </BorderPane>

@@ -64,18 +64,16 @@ public class LoginController {
                 alert.showAndWait();
                 return;
         }
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Scene scene = new Scene(loader.load());
 
             // Use the current window from the username field
-            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Stage stage = (Stage
+                    ) usernameField.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Dashboard");
             stage.show();
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

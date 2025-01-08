@@ -13,5 +13,5 @@ public class Etudiant {
     private String prenom;
     private String dateNaissance;
     private String email;
-    private String promotion; // Promotion year or group
+    private String promotion;
 }

@@ -8,7 +8,7 @@ public class Utilisateur {
     private int id;
     private String username;
     private String password;
-    private String role; // Possible roles: "ADMINISTRATEUR", "SECRETAIRE", "PROFESSEUR"
+    private String role;
     private String nom;
     private String prenom;
 }

@@ -16,10 +16,7 @@ public class Module {
     private int id;
     private String nomModule;
     private String codeModule;
-    private Professeur professeur; // Foreign key to Professeur (1:1 relationship)
-
-
-
+    private Professeur professeur;
 
     // Méthode pour obtenir le nom complet du professeur
     public String getProfessorFullName() {
@@ -28,6 +25,4 @@ public class Module {
         }
         return "N/A";
     }
-
-
 }
