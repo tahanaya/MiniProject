@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="213767c5-69df-4639-b16d-8d32049d223c" name="Changes" comment="FORCED TO COMMIT">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ModuleDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/DAO/ModuleDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ModuleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/miniproject/CONTROLLER/MODULE/ModuleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/view.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/css/view.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Add-module.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Add-module.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/AssocierEtudiant.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/AssocierEtudiant.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Edit-module.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/Edit-module.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/EtudiantsAssocies.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/EtudiantsAssocies.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/ModuleView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/ModuleView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/ModuleViewSecretaire.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/miniproject/view/Module/ModuleViewSecretaire.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,30 +71,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DashboardTest.executor": "Run",
-    "Application.HelloApplication.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.ResourceTest.executor": "Run",
-    "Application.TestConnection.executor": "Run",
-    "Application.TestLogin.executor": "Run",
-    "Application.loginMain.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "ayatoune5",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/user/OneDrive/Desktop/GINF2/MI-S1/JAVA/Projet/MiniProject/src/main/resources/com/miniproject/images",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "build.tools",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DashboardTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ResourceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestLogin.executor&quot;: &quot;Run&quot;,
+    &quot;Application.loginMain.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ayatoune4&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/OneDrive/Desktop/GINF2/MI-S1/JAVA/Projet/MiniProject/src/main/resources/com/miniproject/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;build.tools&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\user\OneDrive\Desktop\GINF2\MI-S1\JAVA\Projet\MiniProject\src\main\resources\com\miniproject\images" />
@@ -191,6 +198,8 @@
       <workItem from="1736033148091" duration="3000" />
       <workItem from="1736033271096" duration="38000" />
       <workItem from="1736128333406" duration="10548000" />
+      <workItem from="1736280389446" duration="594000" />
+      <workItem from="1736287647334" duration="7121000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />

@@ -1,0 +1,36 @@
+/* styles.css */
+
+.root {
+    -fx-background-color: #f0f0f0;
+}
+
+.label {
+    -fx-font-family: "Arial";
+    -fx-text-fill: #3f527a;
+}
+
+.text-field {
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+    -fx-background-color: #fff;
+    -fx-padding: 5;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #fff;
+    -fx-text-fill:  #121a2b;
+}
+
+.button {
+    -fx-background-color: #83A8F4;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5 10;
+}
+
+.button:hover {
+    -fx-background-color: #a7c2f9;
+    -fx-text-fill: #3f527a;}

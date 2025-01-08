@@ -12,6 +12,48 @@
     -fx-font-weight: bold; /* Bold text */
 }
 
+/* Title Text Styling */
+.module-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3f527a;
+}
+
+/* Detail Label Styling */
+.detail-label {
+    -fx-text-fill: #3f527a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Input Field Styling */
+.input-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #83A8F4;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+.action-button {
+    -fx-background-color: #83A8F4;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-cursor: hand;
+}
+.action-button:hover {
+    -fx-background-color: #a7c2f9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+
+
 /* VBox Styling */
 .details-box {
     -fx-background-color: #ffffff; /* White background for the VBox */

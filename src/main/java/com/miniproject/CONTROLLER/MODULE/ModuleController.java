@@ -9,12 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class ModuleController {
 
@@ -26,6 +29,8 @@ public class ModuleController {
     @FXML private Label statusLabel;
     @FXML private TableColumn<Module, Void> associerEtudiantColumn;
     @FXML private TableColumn<Module, Void> etudiantsAssociesColumn;
+    @FXML private TableColumn<Module, Void> modifierColumn;
+
 
     private final ModuleDAOImpl moduleDAO = new ModuleDAOImpl();
     private final ObservableList<Module> modulesList = FXCollections.observableArrayList();
@@ -39,53 +44,46 @@ public class ModuleController {
         professorColumn.setCellValueFactory(new PropertyValueFactory<>("professorFullName"));
 
         // Ajouter les boutons dans les colonnes
-        associerEtudiantColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button button = new Button("Associer");
+        // Set up action columns with icons
+        addButtonToColumn(associerEtudiantColumn, "/com/miniproject/images/modules-enrolled.png", "Associer à un étudiant", this::handleAssocierEtudiant);
+        addButtonToColumn(etudiantsAssociesColumn, "/com/miniproject/images/visualize-icon.png", "Voir étudiants associés", this::handleVoirEtudiants);
+        //addButtonToColumn(modifierColumn, "/com/miniproject/images/modify-icon.png", "Voir étudiants associés", this::handleVoirEtudiants);
+        addButtonToColumn(modifierColumn, "/com/miniproject/images/modify-icon.png", "Modifier",this::handleEdit); // Changed action to handleEdit
+        // Load the modules from the database
+        loadModules();
+    }
 
-            {
-                button.setMaxWidth(Double.MAX_VALUE); // Allow button to grow with the column
-                button.setOnAction(event -> {
-                    Module module = getTableView().getItems().get(getIndex());
-                    handleAssocierEtudiant(module);
-                });
-            }
+    private void addButtonToColumn(TableColumn<Module, Void> column, String iconPath, String tooltipText, Consumer<Module> action) {
+        column.setCellFactory(param -> new TableCell<>() {
+            private final Button button = createIconButton(iconPath, tooltipText);
+
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    // Use a StackPane or HBox to ensure the button fills the cell
-                    StackPane pane = new StackPane(button);
-                    pane.setPrefWidth(getTableColumn().getWidth()); // Match the column width
-                    setGraphic(pane);
+                    Module module = getTableView().getItems().get(getIndex());
+                    button.setOnAction(event -> action.accept(module));
+                    setGraphic(button);
                 }
             }
         });
-        etudiantsAssociesColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button button = new Button("Afficher");
+    }
 
-            {
-                button.setMaxWidth(Double.MAX_VALUE); // Allow button to grow with the column
-                button.setOnAction(event -> {
-                    Module module = getTableView().getItems().get(getIndex());
-                    handleVoirEtudiants(module);
-                });
-            }
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    // Use a StackPane or HBox to ensure the button fills the cell
-                    StackPane pane = new StackPane(button);
-                    pane.setPrefWidth(getTableColumn().getWidth()); // Match the column width
-                    setGraphic(pane);                }
-            }
-        });
-        // Load the modules from the database
-        loadModules();
+    private Button createIconButton(String iconPath, String tooltipText) {
+        Button button = new Button();
+        try {
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream(iconPath)));
+            icon.setFitHeight(20);
+            icon.setFitWidth(20);
+            button.setGraphic(icon);
+        } catch (Exception e) {
+            System.err.println("Error loading icon: " + iconPath);
+        }
+        button.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+        button.setTooltip(new Tooltip(tooltipText));
+        return button;
     }
 
     private void loadModules() {
@@ -119,25 +117,21 @@ public class ModuleController {
 
 
     @FXML
-    private void handleEdit() {
-        Module selectedModule = modulesTable.getSelectionModel().getSelectedItem();
-        if (selectedModule != null) {
+    private void handleEdit(Module module) {
+        if (module != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Module/Edit-module.fxml"));
                 AnchorPane editModulePane = loader.load();
 
-                // Pass the selected module to the controller
                 EditModuleController controller = loader.getController();
-                controller.setModule(selectedModule);
+                controller.setModule(module);
 
-                // Open a new modal dialog
                 Stage editStage = new Stage();
                 editStage.setTitle("Modifier un Module");
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.setScene(new Scene(editModulePane));
                 editStage.showAndWait();
 
-                // Refresh the table after editing the module
                 loadModules();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -146,6 +140,33 @@ public class ModuleController {
             showAlert("Aucun module sélectionné", "Veuillez sélectionner un module à modifier.");
         }
     }
+//    private void handleEdit() {
+//        Module selectedModule = modulesTable.getSelectionModel().getSelectedItem();
+//        if (selectedModule != null) {
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/miniproject/view/Module/Edit-module.fxml"));
+//                AnchorPane editModulePane = loader.load();
+//
+//                // Pass the selected module to the controller
+//                EditModuleController controller = loader.getController();
+//                controller.setModule(selectedModule);
+//
+//                // Open a new modal dialog
+//                Stage editStage = new Stage();
+//                editStage.setTitle("Modifier un Module");
+//                editStage.initModality(Modality.APPLICATION_MODAL);
+//                editStage.setScene(new Scene(editModulePane));
+//                editStage.showAndWait();
+//
+//                // Refresh the table after editing the module
+//                loadModules();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            showAlert("Aucun module sélectionné", "Veuillez sélectionner un module à modifier.");
+//        }
+//    }
 
     @FXML
     private void handleDelete() {
