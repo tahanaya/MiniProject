@@ -44,6 +44,9 @@ module com.miniproject.miniproject {
     exports com.miniproject.CONTROLLER.TableauDeBord;
     opens com.miniproject.CONTROLLER.TableauDeBord to javafx.fxml;
 
+    //
+
+
     // Add these lines for the Module package
     exports com.miniproject.CONTROLLER.MODULE;
     opens com.miniproject.CONTROLLER.MODULE to javafx.fxml;

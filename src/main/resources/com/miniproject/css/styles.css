@@ -1,4 +1,6 @@
+/*styles.css*/
 /* Global Styles */
+
 .root {
     -fx-font-family: "Ubuntu";
     -fx-background-color: #f4f4f4; /* Light background for the entire app */
@@ -67,4 +69,19 @@
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-padding: 5;
+}
+
+
+/*NOTIFICATIONS STYLES*/
+/* Unseen Notifications */
+.list-view .list-cell:filled {
+    -fx-padding: 5;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: #e8f0ff; /* Highlight on hover */
+}
+
+.list-view .list-cell:filled:unfocused {
+    -fx-background-color: #ffffff; /* Default background for unseen */
 }

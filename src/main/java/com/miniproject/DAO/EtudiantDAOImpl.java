@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
+public class  EtudiantDAOImpl implements EtudiantDAO{
 
     private Connection conn;
 
@@ -130,7 +130,7 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
     /**
      * Helper method to map a ResultSet row to an Etudiant object
      */
-    private Etudiant mapToEtudiant(ResultSet rs) throws SQLException {
+    public Etudiant mapToEtudiant(ResultSet rs) throws SQLException {
         Etudiant e = new Etudiant();
         e.setId(rs.getInt("id"));
         e.setMatricule(rs.getString("matricule"));
@@ -157,5 +157,31 @@ public class EtudiantDAOImpl implements GenericDAO<Etudiant> {
         }
         return 0;
     }
+
+    public List<Etudiant> getStudentsWithoutModules() {
+        String sql = """
+        SELECT e.*
+        FROM etudiant e
+        WHERE e.id NOT IN (
+            SELECT etudiant_id FROM inscription
+        )
+    """;
+
+        List<Etudiant> students = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                students.add(mapToEtudiant(rs));
+                System.out.println("Students without modules: " + students.size());
+                students.forEach(student -> System.out.println(student));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return students;
+
+    }
+
 
 }

@@ -1,5 +1,8 @@
 package com.miniproject.CONTROLLER;
 
+import com.miniproject.CONTROLLER.DASHBOARD.AdminDashboardController;
+import com.miniproject.CONTROLLER.DASHBOARD.ProfessorDashboardController;
+import com.miniproject.CONTROLLER.DASHBOARD.SecretaryDashboardController;
 import com.miniproject.DAO.UserDAO;
 import com.miniproject.DAO.UserDAOImpl;
 import com.miniproject.ENTITY.Utilisateur;
@@ -67,6 +70,16 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Scene scene = new Scene(loader.load());
+
+            // Pass the logged-in user to the dashboard controller
+            Object controller = loader.getController();
+            if (controller instanceof AdminDashboardController adminController) {
+                adminController.setCurrentUser(user);
+            } else if (controller instanceof ProfessorDashboardController professorController) {
+                professorController.setCurrentUser(user);
+            } else if (controller instanceof SecretaryDashboardController secretaryController) {
+                secretaryController.setCurrentUser(user);
+            }
 
             // Use the current window from the username field
             Stage stage = (Stage
